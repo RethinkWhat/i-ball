@@ -3,7 +3,6 @@ package client.fan.view;
 import shared.Stylesheet;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -48,7 +47,7 @@ public class LoginView extends JFrame {
      * Constructs a LoginView frame.
      */
     public LoginView() {
-        super("I-Ball");
+        super("Sign In");
 
         Container contentArea = new JPanel(new BorderLayout());
 
@@ -80,7 +79,7 @@ public class LoginView extends JFrame {
             this.setBorder(style.padding);
 
             gbc = new GridBagConstraints();
-            gbc.insets = new Insets(2,10,2,10);
+            gbc.insets = new Insets(2,0,2,0);
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.fill = GridBagConstraints.BOTH;
             gbc.gridwidth = 1;
@@ -125,10 +124,12 @@ public class LoginView extends JFrame {
             chkShowPassword.setBackground(style.white);
             add(chkShowPassword, gbc);
 
+            gbc.ipady = 10;
             gbc.gridy = 7;
-            btnLogin = style.createBtnRounded("Log In", style.black, style.white,10);
+            btnLogin = style.createBtnRounded("Log In", style.white, style.purple,10);
             add(btnLogin, gbc);
 
+            gbc.ipady = 5;
             gbc.gridy = 8;
             JLabel lblNoAccount = style.createLblP("Don't have an account?", style.black);
             lblNoAccount.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,9 +229,5 @@ public class LoginView extends JFrame {
      */
     public void setSignupListener(ActionListener actionListener) {
         btnSignup.addActionListener(actionListener);
-    }
-
-    public static void main(String[] args) {
-        new LoginView();
     }
 }
