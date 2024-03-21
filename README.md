@@ -1,6 +1,6 @@
 # Welcome to I-Ball!
 
-**I-Ball** is a social networking platform to connect the celebrities to their fans.
+**I-Ball** is a social networking platform to connect idols to their fans. From streamers, influencers, to celebrities, they are brought closer together with their fanbase.
 
 ## Authors
 * Jasmin, Ramon Emmiel
