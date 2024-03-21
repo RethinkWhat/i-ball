@@ -2,6 +2,7 @@ package shared;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -37,6 +38,14 @@ public class Stylesheet {
      * Success color.
      */
     public final Color celadon = new Color(128, 207, 168);
+    /**
+     * Logo of i-Ball.
+     */
+    public final ImageIcon iBallLogo = new ImageIcon("res/drawables/iball-logo.png");
+    /**
+     * Default padding for panels.
+     */
+    public final EmptyBorder padding = new EmptyBorder(10,20,10,20);
 
     /**
      * Creates a new JLabel with a specified text and color.
