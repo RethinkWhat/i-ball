@@ -1,15 +1,22 @@
 package client.fan.view;
 
-import client.fan.view.application_pages.AccountSettingsView;
 import client.fan.view.application_pages.BookingView;
+import client.fan.view.application_pages.IdolsView;
 import client.fan.view.application_pages.VirtualMeetupView;
+import shared.Stylesheet;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  * The main application for fan users that contain the different subpages.
  */
 public class FanApplicationView extends JFrame {
+    /**
+     * Panel of idolsView.
+     */
+    private IdolsView idolsView;
     /**
      * Panel of booking view.
      */
@@ -19,7 +26,176 @@ public class FanApplicationView extends JFrame {
      */
     private VirtualMeetupView virtualMeetupView;
     /**
-     * Panel of account settings view.
+     * Stylesheet of UI components.
      */
-    private AccountSettingsView accountSettingsView;
+    private Stylesheet style = new Stylesheet();
+    /**
+     * The header panel.
+     */
+    private HeaderPanel pnlHeader;
+    /**
+     * The sidebar panel.
+     */
+    private SidebarPanel pnlSidebar;
+    /**
+     * JPanel that holds multiple components.
+     */
+    private JPanel pnlCards;
+    /**
+     * The card layout that controls different components.
+     */
+    private CardLayout cardLayout;
+    /**
+     * The idol searchbar.
+     */
+    private JTextField txtSearchbar;
+    /**
+     * The button to initiate search.
+     */
+    private JButton btnSearch;
+    /**
+     * The Home button.
+     */
+    private JButton btnNavHome;
+    /**
+     * The MyIdols button.
+     */
+    private JButton btnNavMyIdols;
+    /**
+     * The Logout button.
+     */
+    private JButton btnNavLogout;
+    /**
+     * Full name of the user
+     */
+    private JLabel lblUser;
+    /**
+     * The type of user (fan or verified idol).
+     */
+    private JLabel lblUserType;
+    /**
+     * The profile picture of the user.
+     */
+    private JLabel lblUserPfp;
+
+    /**
+     * Constructs a frame of FanApplicationView.
+     */
+    public FanApplicationView() {
+        Container contentArea = new JPanel(new BorderLayout());
+        contentArea.setBackground(style.white);
+
+        pnlSidebar = new SidebarPanel();
+        contentArea.add(pnlSidebar, BorderLayout.WEST);
+
+        pnlHeader = new HeaderPanel();
+        contentArea.add(pnlHeader, BorderLayout.EAST);
+
+        cardLayout = new CardLayout(0,0);
+
+        pnlCards = new JPanel(cardLayout);
+        pnlCards.setBackground(style.white);
+        pnlCards.setPreferredSize(new Dimension(1100,755));
+        contentArea.add(pnlCards, BorderLayout.EAST);
+
+        bookingView = new BookingView();
+        pnlCards.add(bookingView, "booking");
+
+        virtualMeetupView = new VirtualMeetupView();
+        pnlCards.add(virtualMeetupView, "meetup");
+
+        this.setContentPane(contentArea);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setSize(1300,800);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    /**
+     * The HeaderPanel contains the search bar and the navigation.
+     */
+    class HeaderPanel extends JPanel {
+        /**
+         * Constructs a panel of HeaderPanel.
+         */
+        public HeaderPanel() {
+            this.setBackground(style.purple);
+            this.setLayout(new FlowLayout());
+            this.setBorder(new EmptyBorder(0,0,0,60));
+
+            txtSearchbar = style.createTxtRounded("Search idol",style.lightGray, style.gray, 20);
+            add(txtSearchbar);
+
+            btnSearch = style.createBtnIconOnly(style.iconSearch, 25,25);
+            add(btnSearch);
+
+            this.setPreferredSize(new Dimension(1100,45));
+        }
+    }
+
+    /**
+     * The SidebarPanel contains the navigation buttons and user details.
+     */
+    class SidebarPanel extends JPanel {
+        /**
+         * Constructs a panel of SidebarPanel.
+         */
+        public SidebarPanel() {
+            this.setBackground(style.black);
+            this.setLayout(new GridBagLayout());
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(2,0,2,0);
+            gbc.anchor = GridBagConstraints.CENTER;
+            gbc.fill = GridBagConstraints.BOTH;
+
+            gbc.ipady = 10;
+            gbc.gridy = 1;
+            lblUserPfp = new JLabel();
+            lblUserPfp.setIcon(style.iconPfpPlaceholder);
+            lblUserPfp.setHorizontalAlignment(SwingConstants.CENTER);
+            add(lblUserPfp, gbc);
+
+            gbc.ipady = 4;
+            gbc.gridy = 2;
+            lblUser = style.createLblH3("John Doe", style.white);
+            lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+            add(lblUser, gbc);
+
+            gbc.ipady = 5;
+            gbc.gridy = 3;
+            lblUserType = style.createLblP("Fan", style.white);
+            lblUserType.setHorizontalAlignment(SwingConstants.CENTER);
+            add(lblUserType, gbc);
+
+            gbc.ipady = 80;
+            gbc.gridy = 4;
+            JLabel lblBreaker = new JLabel("");
+            add(lblBreaker, gbc);
+
+            gbc.ipady = 30;
+            gbc.gridy = 5;
+            btnNavHome = style.createBtnTxtOnly("HOME", style.white);
+            btnNavHome.setHorizontalAlignment(SwingConstants.LEFT);
+            add(btnNavHome, gbc);
+
+            gbc.gridy = 6;
+            btnNavMyIdols = style.createBtnTxtOnly("MY IDOLS", style.white);
+            btnNavMyIdols.setHorizontalAlignment(SwingConstants.LEFT);
+            add(btnNavMyIdols, gbc);
+
+            gbc.gridy = 7;
+            btnNavLogout = style.createBtnTxtOnly("LOGOUT", style.white);
+            btnNavLogout.setHorizontalAlignment(SwingConstants.LEFT);
+            add(btnNavLogout, gbc);
+
+            this.setPreferredSize(new Dimension(200,800));
+        }
+    }
+
+    public static void main(String[] args) {
+        new FanApplicationView();
+    }
 }

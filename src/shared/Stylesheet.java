@@ -43,6 +43,14 @@ public class Stylesheet {
      */
     public final ImageIcon iBallLogo = new ImageIcon("res/drawables/iball-logo.png");
     /**
+     * Icon of search.
+     */
+    public final ImageIcon iconSearch = new ImageIcon("res/drawables/search-white-outline.png");
+    /**
+     * Icon of profile picture placeholder.
+     */
+    public final ImageIcon iconPfpPlaceholder = new ImageIcon("res/drawables/user-white-solid.png");
+    /**
      * Default padding for panels.
      */
     public final EmptyBorder padding = new EmptyBorder(10,20,10,20);
