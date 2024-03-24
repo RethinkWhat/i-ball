@@ -1,9 +1,12 @@
 package client.fan.controller;
 
+import client.fan.model.FanApplicationModel;
 import client.fan.model.LoginModel;
 import client.fan.model.RegisterModel;
+import client.fan.view.FanApplicationView;
 import client.fan.view.LoginView;
 import client.fan.view.RegisterView;
+import shared.Resources;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,10 +38,19 @@ public class LoginController {
             view.dispose();
             new RegisterController(new RegisterView(), new RegisterModel());
         });
+        view.getChkShowPassword().addActionListener(new Resources.ShowPasswordListener(view.getChkShowPassword(), view.getTxtPassword()));
 
         // mouse listeners
+        view.getBtnLogin().addMouseListener(new Resources.CursorChanger(view.getBtnLogin()));
+        view.getBtnSignup().addMouseListener(new Resources.CursorChanger(view.getBtnSignup()));
 
         // focus listeners
+        view.getTxtUsername().addFocusListener(new Resources.TextFieldFocus(view.getTxtUsername(), "Username"));
+        view.getTxtPassword().addFocusListener(
+                new Resources.PasswordFocusWithCheckbox(view.getTxtPassword(), view.getChkShowPassword(), "Password"));
+
+        view.repaint();
+        view.revalidate();
     }
 
     /**
@@ -52,7 +64,7 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             // todo: implementation
-            new FanApplicationController();
+            new FanApplicationController(new FanApplicationView(), new FanApplicationModel());
             view.dispose();
         }
     }
