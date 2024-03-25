@@ -2,10 +2,7 @@ package shared;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * The resources provide implementation for the different UI elements:
@@ -69,6 +66,110 @@ public class Resources {
             }
         }
     }
+
+    /**
+     * Clears the text in a specified JPasswordField when it is focused, and inserts a specified placeholder
+     * text when unfocused.
+     */
+    public static class PasswordFocusWithCheckbox implements FocusListener {
+        /**
+         * The specified password field.
+         */
+        private JPasswordField passwordField;
+        /**
+         * The specified show password checkbox.
+         */
+        private JCheckBox chkShowPassword;
+        /**
+         * The specified placeholder text.
+         */
+        private String placeholder;
+
+        /**
+         * Constructs an object of PasswordFocus with a specified password field, show password text box and
+         * placeholder text.
+         * @param passwordField The specified password field.
+         * @param chkShowPassword The specified show password checkbox.
+         * @param placeholder The specified placeholder text.
+         */
+        public PasswordFocusWithCheckbox(JPasswordField passwordField, JCheckBox chkShowPassword, String placeholder) {
+            this.passwordField = passwordField;
+            this.placeholder = placeholder;
+            this.passwordField.setText(placeholder);
+            this.chkShowPassword = chkShowPassword;
+        }
+
+        /**
+         * Processes the event when focused. The checkbox is overridden and hides the password input, and clears
+         * the password field of its placeholder text.
+         * @param e the event to be processed
+         */
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (!chkShowPassword.isSelected()) {
+                passwordField.setEchoChar('●');
+            }
+            if (String.valueOf(passwordField.getPassword()).equals(placeholder)) {
+                passwordField.setText("");
+            }
+        }
+
+        /**
+         * Processes the event when focused. The checkbox is overridden and displays the password in plain text, and
+         * adds a placeholder text.
+         * @param e the event to be processed
+         */
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (!chkShowPassword.isSelected()) {
+                passwordField.setEchoChar('●');
+            }
+            if (String.valueOf(passwordField.getPassword()).isEmpty()) {
+                passwordField.setText(placeholder);
+                passwordField.setEchoChar((char) 0);
+            }
+        }
+    }
+
+    /**
+     * Shows the password of a specified JPasswordField.
+     */
+    public static class ShowPasswordListener implements ActionListener {
+        /**
+         * The specified checkbox of show password.
+         */
+        private JCheckBox checkBox;
+        /**
+         * The specified password field.
+         */
+        private JPasswordField passwordField;
+
+        /**
+         * Constructs an object of ShowPasswordField listener with a specified JCheckBox and JPasswordField.
+         * @param checkBox The specified "show password" checkbox.
+         * @param passwordField The specified password field.
+         */
+        public ShowPasswordListener(JCheckBox checkBox, JPasswordField passwordField) {
+            this.checkBox = checkBox;
+            this.passwordField = passwordField;
+        }
+
+        /**
+         * Processes the user request.
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (checkBox.isSelected()) {
+                passwordField.setEchoChar((char) 0); // shows password in characters
+            } else if (!checkBox.isSelected()) {
+                passwordField.setEchoChar('●');
+            }
+        }
+    }
+
+
+
 
     /**
      * Clears the text in a specified JTextField when it is focused, and inserts a specified placeholder
