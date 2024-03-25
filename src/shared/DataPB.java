@@ -6,6 +6,11 @@ import java.sql.SQLException;
 
 /**
  * This class will be used to access and manipulate the database
+ *
+ * IMPORTANT:
+ * Before coding, the developer should add the mysql-connector-j-8.3.0.jar file in the project structure.
+ *
+ * The jar file can be found in the shared package.
  */
 public class DataPB {
 
@@ -17,9 +22,8 @@ public class DataPB {
      *  Sets the connection to the database
      *
      *  READ THE LINE COMMENTS BEFORE RUNNING THE PROGRAM
-     * @param con
      */
-    public static void setCon(Connection con) {
+    public static void setCon() {
        try {
             // Developer should add the Schema name right after the 3306/
             String url = "jdbc:mysql://localhost:3306/<schema-name>";
@@ -30,6 +34,7 @@ public class DataPB {
 
             con = DriverManager.getConnection(url, user, password);
        }catch (Exception e){
+           System.out.println("Database connection failed");
            e.printStackTrace();
        }
     }
@@ -59,6 +64,6 @@ public class DataPB {
      * @param args
      */
     public static void main(String[] args) {
-        setCon(con);
+        setCon();
     }
 }
