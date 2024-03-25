@@ -13,11 +13,16 @@ public class DataPB {
 
     private DataPB(){};
 
-
+    /**
+     *  Sets the connection to the database
+     *
+     *  READ THE LINE COMMENTS BEFORE RUNNING THE PROGRAM
+     * @param con
+     */
     public static void setCon(Connection con) {
        try {
-            //Add the Schema name right after the 3306/<schema-name>
-            String url = "jdbc:mysql://localhost:3306/contacts";
+            // Developer should add the Schema name right after the 3306/
+            String url = "jdbc:mysql://localhost:3306/<schema-name>";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
