@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * IMPORTANT:
  * Before coding, the developer should add the mysql-connector-j-8.3.0.jar file in the project structure.
  *
- * The jar file can be found in the shared package.
+ * The jar file can be found in the res folder.
  */
 public class DataPB {
 
