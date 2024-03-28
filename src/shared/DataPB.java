@@ -51,6 +51,15 @@ public class DataPB {
 
     //INSERT DATA ACCESS METHODS HERE//
 
+    /**
+     * Method to handle validating user login authentication
+     * @return userExists
+     */
+    public static boolean validateUser(String username, String password) {
+        //TODO : Access schema and check whether user exists
+        boolean userExists = false;
+        return userExists;
+    }
 
 
 

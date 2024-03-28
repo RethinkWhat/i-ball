@@ -184,11 +184,26 @@ public class LoginView extends JFrame {
     }
 
     /**
+     * Retrieves the String that populates the txtUsername
+     */
+    public String getUsername() {
+        return txtUsername.getText();
+    }
+
+
+    /**
      * Retrieves the current JPasswordField of txtPassword.
      * @return The current txtPassword.
      */
     public JPasswordField getTxtPassword() {
         return txtPassword;
+    }
+
+    /**
+     * Retrieves the String that populates the txtPassword
+     */
+    public String getPassword() {
+        return String.valueOf(txtPassword.getPassword());
     }
 
     /**
