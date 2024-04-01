@@ -63,9 +63,13 @@ public class LoginController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            // todo: implementation
-            new FanApplicationController(new FanApplicationView(), new FanApplicationModel());
-            view.dispose();
+            // todo: validate implementation
+            if (model.validateUser(view.getUsername(), view.getPassword())) {
+                new FanApplicationController(new FanApplicationView(), new FanApplicationModel());
+                view.dispose();
+            } else {
+                // todo: introduce error message
+            }
         }
     }
 }
