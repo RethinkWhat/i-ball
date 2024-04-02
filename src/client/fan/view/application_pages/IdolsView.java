@@ -7,4 +7,5 @@ import javax.swing.*;
  * 1. All idols
  */
 public class IdolsView extends JPanel {
+
 }
