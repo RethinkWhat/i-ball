@@ -1,14 +1,13 @@
 package shared;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * This class will be used to access and manipulate the database
  *
  * IMPORTANT:
  * Before coding, the developer should add the mysql-connector-j-8.3.0.jar file in the project structure.
+ * (If the jar file is already in the External Libraries, no need to do this step)
  *
  * The jar file can be found in the res folder.
  */
@@ -26,7 +25,7 @@ public class DataPB {
     public static void setCon() {
        try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/<schema-name>";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -61,6 +60,18 @@ public class DataPB {
         return userExists;
     }
 
+    /**
+     * Returns a ResultSet containing all the names of idols present in the system
+     * @throws SQLException
+     */
+    public static ResultSet getAllIdols() throws SQLException {
+        String query = "SELECT idolName FROM idol";
+        Statement stmt = con.createStatement(ResultSet.CONCUR_UPDATABLE, ResultSet.TYPE_SCROLL_INSENSITIVE);
+        ResultSet idolSet = stmt.executeQuery(query);
+
+        return idolSet;
+    }
+
 
 
 
@@ -72,7 +83,9 @@ public class DataPB {
      * For testing purposes only
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         setCon();
+
+
     }
 }
