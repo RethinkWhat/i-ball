@@ -1,8 +1,5 @@
 package client.idol.view;
 
-import client.fan.view.FanApplicationView;
-import client.fan.view.application_pages.BookingView;
-import client.fan.view.application_pages.IdolsView;
 import client.fan.view.application_pages.VirtualMeetupView;
 import client.idol.view.application_pages.AccountSettingsView;
 import client.idol.view.application_pages.CalendarView;
@@ -13,6 +10,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * The main application for idol users that contain the different subpages.
+ */
 public class IdolApplicationView extends JFrame {
     /**
      * Panel of idolsView.
@@ -215,7 +215,91 @@ public class IdolApplicationView extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new IdolApplicationView();
+    /**
+     * Retrieves the current JPanel of pnlCards.
+     * @return The current pnlCards.
+     */
+    public JPanel getPnlCards() {
+        return pnlCards;
+    }
+
+    /**
+     * Retrieves the current CardLayout of cardLayout.
+     * @return The current cardLayout.
+     */
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    /**
+     * Retrieves the current JTextField of txtSearchbar.
+     * @return The current txtSearchbar.
+     */
+    public JTextField getTxtSearchbar() {
+        return txtSearchbar;
+    }
+
+    /**
+     * Retrieves the current JButton of btnSearch.
+     * @return The current btnSearch.
+     */
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavHome.
+     * @return The current btnNavHome.
+     */
+    public JButton getBtnNavHome() {
+        return btnNavHome;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavAccount.
+     * @return The current btnNavAccount.
+     */
+    public JButton getBtnNavAccount() {
+        return btnNavAccount;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavCalendar.
+     * @return The current btnNavCalendar.
+     */
+    public JButton getBtnNavCalendar() {
+        return btnNavCalendar;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavLogout.
+     * @return The current btnNavLogout.
+     */
+    public JButton getBtnNavLogout() {
+        return btnNavLogout;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUser.
+     * @return The current lblUser.
+     */
+    public JLabel getLblUser() {
+        return lblUser;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUserType.
+     * @return The current lblUserType.
+     */
+    public JLabel getLblUserType() {
+        return lblUserType;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUserPfp.
+     * @return The current lblUserPfp.
+     */
+    public JLabel getLblUserPfp() {
+        return lblUserPfp;
     }
 }

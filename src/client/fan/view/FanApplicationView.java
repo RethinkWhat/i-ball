@@ -197,6 +197,86 @@ public class FanApplicationView extends JFrame {
         }
     }
 
+    /**
+     * Retrieves the current JPanel of pnlCards.
+     * @return The current pnlCards.
+     */
+    public JPanel getPnlCards() {
+        return pnlCards;
+    }
+
+    /**
+     * Retrieves the current CardLayout of cardLayout.
+     * @return The current cardLayout.
+     */
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+    /**
+     * Retrieves the current JTextField of txtSearchBar.
+     * @return The current txtSearchbar.
+     */
+    public JTextField getTxtSearchbar() {
+        return txtSearchbar;
+    }
+
+    /**
+     * Retrieves the current JButton of btnSearch.
+     * @return The current btnSearch.
+     */
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavHome.
+     * @return The current btnNavHome.
+     */
+    public JButton getBtnNavHome() {
+        return btnNavHome;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavMyIdols.
+     * @return The current btnNavMyIdols.
+     */
+    public JButton getBtnNavMyIdols() {
+        return btnNavMyIdols;
+    }
+
+    /**
+     * Retrieves the current JButton of btnNavLogout.
+     * @return The current btnNavLogout.
+     */
+    public JButton getBtnNavLogout() {
+        return btnNavLogout;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUser.
+     * @return The current lblUser.
+     */
+    public JLabel getLblUser() {
+        return lblUser;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUserType.
+     * @return The current lblUserType.
+     */
+    public JLabel getLblUserType() {
+        return lblUserType;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblUserPfp.
+     * @return The current lblUserPfp.
+     */
+    public JLabel getLblUserPfp() {
+        return lblUserPfp;
+    }
+
     public static void main(String[] args) {
         new FanApplicationView();
     }
