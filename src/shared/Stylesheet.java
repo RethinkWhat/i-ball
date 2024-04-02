@@ -31,6 +31,14 @@ public class Stylesheet {
      */
     public final Color lightGray = new Color(239,239,239);
     /**
+     * Background of miscellaneous UI elements.
+     */
+    public final Color darkGray = new Color(63,63,63);
+    /**
+     * Background of icons.
+     */
+    public final Color iconGray = new Color(15,14,14,30);
+    /**
      * Error color.
      */
     public final Color red = new Color(230, 92, 92);
@@ -50,6 +58,18 @@ public class Stylesheet {
      * Icon of profile picture placeholder.
      */
     public final ImageIcon iconPfpPlaceholder = new ImageIcon("res/drawables/user-white-solid.png");
+    /**
+     * Icon of end call.
+     */
+    public final ImageIcon iconEndCall = new ImageIcon("res/drawables/endcall-red-solid.png");
+    /**
+     * Icon of call sound.
+     */
+    public final ImageIcon iconSound = new ImageIcon("res/drawables/sound-white-outline.png");
+    /**
+     * Icon of call timer.
+     */
+    public final ImageIcon iconTimer = new ImageIcon("res/drawables/timer-white-outline.png");
     /**
      * Default padding for panels.
      */
@@ -130,6 +150,22 @@ public class Stylesheet {
     }
 
     /**
+     * Creates a new JLabel with a specified icon and size.
+     * @param icon The specified icon URL.
+     * @param width The specified width.
+     * @param height The specified height.
+     * @return The JLabel with the specified icon.
+     */
+    public JLabel createLblIconOnly(ImageIcon icon, int width, int height) {
+        Image img = icon.getImage();
+        Image scaledImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(scaledImg));
+        return label;
+    }
+
+    /**
      * Creates a new JButton with a specified text and color.
      * The JButton will only contain text with no background color and no icon.
      *
@@ -168,6 +204,7 @@ public class Stylesheet {
         button.setFocusable(false);
         return button;
     }
+
     /**
      * Creates a new JButton with a specified text, background color, foreground color, and radius.
      *

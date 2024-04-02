@@ -4,6 +4,7 @@ import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.VirtualMeetupModel;
 import client.fan.view.application_pages.BookingView;
 import client.fan.view.application_pages.VirtualMeetupView;
+import shared.Resources;
 
 /**
  * The VirtualMeetupController processes the user requests. Based on the user request, the VirtualMeetupController
@@ -26,6 +27,7 @@ public class VirtualMeetupController {
         // action listeners
 
         // mouse listeners
+        view.getBtnEndCall().addMouseListener(new Resources.CursorChanger(view.getBtnEndCall()));
 
         // focus listeners
     }
