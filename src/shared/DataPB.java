@@ -2,6 +2,7 @@ package shared;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -9,6 +10,7 @@ import java.sql.SQLException;
  *
  * IMPORTANT:
  * Before coding, the developer should add the mysql-connector-j-8.3.0.jar file in the project structure.
+ * (If the jar file is already in the External Libraries, no need to do this step)
  *
  * The jar file can be found in the res folder.
  */
@@ -59,6 +61,13 @@ public class DataPB {
         //TODO : Access schema and check whether user exists
         boolean userExists = false;
         return userExists;
+    }
+
+    /**
+     * Returns a ResultSet containing all idols in the system
+     */
+    public static ResultSet getAllIdols(){
+
     }
 
 
