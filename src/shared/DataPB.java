@@ -1,9 +1,6 @@
 package shared;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * This class will be used to access and manipulate the database
@@ -28,7 +25,7 @@ public class DataPB {
     public static void setCon() {
        try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/<schema-name>";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -64,10 +61,15 @@ public class DataPB {
     }
 
     /**
-     * Returns a ResultSet containing all idols in the system
+     * Returns a ResultSet containing all the names of idols present in the system
+     * @throws SQLException
      */
-    public static ResultSet getAllIdols(){
+    public static ResultSet getAllIdols() throws SQLException {
+        String query = "SELECT idolName FROM idol";
+        Statement stmt = con.createStatement(ResultSet.CONCUR_UPDATABLE, ResultSet.TYPE_SCROLL_INSENSITIVE);
+        ResultSet idolSet = stmt.executeQuery(query);
 
+        return idolSet;
     }
 
 
@@ -81,7 +83,9 @@ public class DataPB {
      * For testing purposes only
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         setCon();
+
+
     }
 }
