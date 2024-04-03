@@ -1,7 +1,7 @@
 package client.fan.model;
 
-import shared.DataPB;
-import shared.Idol;
+import shared.res.DataPB;
+import shared.res.Idol;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

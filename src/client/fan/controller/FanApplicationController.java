@@ -2,6 +2,7 @@ package client.fan.controller;
 
 import client.fan.model.FanApplicationModel;
 import client.fan.view.FanApplicationView;
+import shared.res.Resources;
 import shared.res.User;
 
 /**

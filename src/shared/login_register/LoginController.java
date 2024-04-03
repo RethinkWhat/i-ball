@@ -69,18 +69,16 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             // todo: validate implementation
-            Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword()).getClass();
-            if (loginAttempt == null) {
-                // todo: introduce error message
-            } else {
-                if (loginAttempt.equals(User.class)) {
-                    new FanApplicationController(new FanApplicationView(), new FanApplicationModel(), (User) loginAttempt);
-                    view.dispose();
-                } else if (loginAttempt.equals(Idol.class)) {
-                    new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel(), (Idol) loginAttempt);
-                }
+            Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword());
+            if (loginAttempt instanceof User) {
+                new FanApplicationController(new FanApplicationView(), new FanApplicationModel(), (User) loginAttempt);
+                view.dispose();
+            } else if (loginAttempt instanceof Idol) {
+                new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel(), (Idol) loginAttempt);
+                view.dispose();
             }
         }
     }
+
 }
 
