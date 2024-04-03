@@ -148,6 +148,19 @@ public class Stylesheet {
         label.setForeground(color);
         return label;
     }
+    /**
+     * Creates a new JLabel with a specified text and color.
+     * The JLabel is label for the calendar days.
+     * @param text The specified text.
+     * @param color The specified foreground color.
+     * @return JLabel with the specified text and color.
+     */
+    public JLabel createLblCalendar(String text, Color color) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 36));
+        label.setForeground(color);
+        return label;
+    }
 
     /**
      * Creates a new JLabel with a specified icon and size.
