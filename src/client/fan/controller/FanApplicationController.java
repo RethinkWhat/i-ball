@@ -29,8 +29,21 @@ public class FanApplicationController {
         this.user = user;
 
         // action listeners
+        view.getBtnNavHome().addActionListener(e -> {
+            view.getCardLayout().show(view.getPnlCards(), "home");
+        });
+        view.getBtnNavMyIdols().addActionListener(e -> {
+            view.getCardLayout().show(view.getPnlCards(), "idols");
+        });
+        view.getBtnNavLogout().addActionListener(e -> {
+            view.dispose();
+            System.exit(0);
+        });
 
         // mouse listeners
+        view.getBtnNavHome().addMouseListener(new Resources.CursorChanger(view.getBtnNavHome()));
+        view.getBtnNavMyIdols().addMouseListener(new Resources.CursorChanger(view.getBtnNavMyIdols()));
+        view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
 
         // focus listeners
     }

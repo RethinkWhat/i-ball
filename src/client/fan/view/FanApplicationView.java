@@ -2,6 +2,7 @@ package client.fan.view;
 
 import client.fan.view.application_pages.BookingView;
 import client.fan.view.application_pages.IdolsView;
+import client.fan.view.application_pages.MyIdolsView;
 import client.fan.view.application_pages.VirtualMeetupView;
 import shared.res.Stylesheet;
 
@@ -22,6 +23,10 @@ public class FanApplicationView extends JFrame {
      */
     private BookingView bookingView;
     /**
+     * Panel of my idols view.
+     */
+    private MyIdolsView myIdolsView;
+    /**
      * Panel of virtual meetup view.
      */
     private VirtualMeetupView virtualMeetupView;
@@ -29,10 +34,6 @@ public class FanApplicationView extends JFrame {
      * Stylesheet of UI components.
      */
     private Stylesheet style = new Stylesheet();
-    /**
-     * The header panel.
-     */
-    private HeaderPanel pnlHeader;
     /**
      * The sidebar panel.
      */
@@ -88,9 +89,6 @@ public class FanApplicationView extends JFrame {
         pnlSidebar = new SidebarPanel();
         contentArea.add(pnlSidebar, BorderLayout.WEST);
 
-        pnlHeader = new HeaderPanel();
-        contentArea.add(pnlHeader, BorderLayout.EAST);
-
         cardLayout = new CardLayout(0,0);
 
         pnlCards = new JPanel(cardLayout);
@@ -100,6 +98,9 @@ public class FanApplicationView extends JFrame {
 
         idolsView = new IdolsView();
         pnlCards.add(idolsView, "home");
+
+        myIdolsView = new MyIdolsView();
+        pnlCards.add(myIdolsView, "idols");
 
         bookingView = new BookingView();
         pnlCards.add(bookingView, "booking");
@@ -123,28 +124,6 @@ public class FanApplicationView extends JFrame {
     }
 
 
-
-    /**
-     * The HeaderPanel contains the search bar and the navigation.
-     */
-    class HeaderPanel extends JPanel {
-        /**
-         * Constructs a panel of HeaderPanel.
-         */
-        public HeaderPanel() {
-            this.setBackground(style.purple);
-            this.setLayout(new FlowLayout());
-            this.setBorder(new EmptyBorder(0,0,0,60));
-
-            txtSearchbar = style.createTxtRounded("Search idol",style.lightGray, style.gray, 20);
-            add(txtSearchbar);
-
-            btnSearch = style.createBtnIconOnly(style.iconSearch, 25,25);
-            add(btnSearch);
-
-            this.setPreferredSize(new Dimension(1100,45));
-        }
-    }
 
     /**
      * The SidebarPanel contains the navigation buttons and user details.
