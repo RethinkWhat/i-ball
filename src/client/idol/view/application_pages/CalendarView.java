@@ -10,7 +10,7 @@ import java.time.LocalDate;
 /**
  * The CalendarView contains an overview of the bookings of the idol in a given calendar format.
  */
-public class CalendarView extends JFrame {
+public class CalendarView extends JPanel {
     /**
      * The next month button.
      */
@@ -27,7 +27,7 @@ public class CalendarView extends JFrame {
     private Stylesheet style = new Stylesheet();
 
     /**
-     * Constructs a CalendarView frame.
+     * Constructs a panel of CalendarView.
      */
     public CalendarView() {
         this.setBackground(style.lightGray);
@@ -36,16 +36,11 @@ public class CalendarView extends JFrame {
         add(new HeaderPanel(), BorderLayout.NORTH);
         add(new CalendarPanel(), BorderLayout.CENTER);
 
-        this.pack();
-        this.setLocationRelativeTo(null);
         this.setSize(1100, 755);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
     }
 
     /**
-     * The HeaderPanel contains the navigation buttons.
+     * The HeaderPanel.
      */
     class HeaderPanel extends JPanel {
         /**
@@ -180,11 +175,4 @@ public class CalendarView extends JFrame {
         }
     }
 
-    /**
-     * The main method to instantiate and display the CalendarView.
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new CalendarView();
-    }
 }
