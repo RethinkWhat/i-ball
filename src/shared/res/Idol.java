@@ -41,6 +41,9 @@ public class Idol {
     // idol's bio
     private String bio;
 
+    // idol's quote
+    private String quote;
+
     // The location of idol's resume
     private String documentAddress;
 
@@ -133,7 +136,7 @@ public class Idol {
 
     /**
      * method to get the name of the idol
-      */
+     */
     public String getIdolName() {
         return idolName;
     }
@@ -320,5 +323,37 @@ public class Idol {
      */
     public void setProfilePictureAddress(String profilePictureAddress) {
         this.profilePictureAddress = profilePictureAddress;
+    }
+
+    /**
+     * Method to get gcash number
+     * @return gcashNumber
+     */
+    public String getgCashNumber() {
+        return gCashNumber;
+    }
+
+    /**
+     * Method to set gcash number
+     * @param gCashNumber
+     */
+    public void setgCashNumber(String gCashNumber) {
+        this.gCashNumber = gCashNumber;
+    }
+
+    /**
+     * method to get quote
+     * @return quote
+     */
+    public String getQuote() {
+        return quote;
+    }
+
+    /**
+     * method to set quote
+     * @param quote
+     */
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 }
