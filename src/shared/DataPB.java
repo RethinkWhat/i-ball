@@ -65,7 +65,7 @@ public class DataPB {
      * @throws SQLException
      */
     public static ResultSet getAllIdols() throws SQLException {
-        String query = "SELECT idolName FROM idol";
+        String query = "SELECT * FROM idol";
         Statement stmt = con.createStatement(ResultSet.CONCUR_UPDATABLE, ResultSet.TYPE_SCROLL_INSENSITIVE);
         ResultSet idolSet = stmt.executeQuery(query);
 
