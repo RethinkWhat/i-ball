@@ -1,8 +1,8 @@
-package client.fan;
+package shared;
 
-import client.fan.controller.LoginController;
-import client.fan.model.LoginModel;
-import client.fan.view.LoginView;
+import shared.login_register.LoginController;
+import shared.login_register.LoginModel;
+import shared.login_register.LoginView;
 
 /**
  * Main entry point of the fan application.

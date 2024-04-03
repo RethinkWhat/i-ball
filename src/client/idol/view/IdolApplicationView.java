@@ -4,7 +4,7 @@ import client.fan.view.application_pages.VirtualMeetupView;
 import client.idol.view.application_pages.AccountSettingsView;
 import client.idol.view.application_pages.CalendarView;
 import client.idol.view.application_pages.FanbaseView;
-import shared.Stylesheet;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

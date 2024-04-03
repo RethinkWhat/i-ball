@@ -4,7 +4,7 @@ import client.fan.view.application_pages.BookingView;
 import client.fan.view.application_pages.IdolsView;
 import client.fan.view.application_pages.MyIdolsView;
 import client.fan.view.application_pages.VirtualMeetupView;
-import shared.Stylesheet;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -119,13 +119,20 @@ public class FanApplicationView extends JFrame {
         this.setVisible(true);
     }
 
+    public SidebarPanel getPnlSidebar() {
+        return pnlSidebar;
+    }
+
+
+
     /**
      * The SidebarPanel contains the navigation buttons and user details.
      */
-    class SidebarPanel extends JPanel {
+    public class SidebarPanel extends JPanel {
         /**
          * Constructs a panel of SidebarPanel.
          */
+
         public SidebarPanel() {
             this.setBackground(style.black);
             this.setLayout(new GridBagLayout());
@@ -176,6 +183,10 @@ public class FanApplicationView extends JFrame {
             add(btnNavLogout, gbc);
 
             this.setPreferredSize(new Dimension(200,800));
+        }
+
+        public void setSideBarName(String name) {
+            lblUser.setText(name);
         }
     }
 

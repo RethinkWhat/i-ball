@@ -1,4 +1,4 @@
-package shared;
+package shared.res;
 
 import java.sql.*;
 
@@ -54,10 +54,11 @@ public class DataPB {
      * Method to handle validating user login authentication
      * @return userExists
      */
-    public static boolean validateUser(String username, String password) {
+    public static Object validateUser(String username, String password) {
         //TODO : Access schema and check whether user exists
-        boolean userExists = false;
-        return userExists;
+
+        User temp = new User(1,"Rithik", "2233293@slu.edu.ph", "rithik", "09177900153", "1");
+        return temp;
     }
 
     /**

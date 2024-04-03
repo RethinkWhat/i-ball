@@ -1,6 +1,6 @@
 package client.fan.view;
 
-import shared.Stylesheet;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;

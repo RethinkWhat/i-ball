@@ -1,9 +1,6 @@
-package client.fan.controller;
+package shared.login_register;
 
-import client.fan.Main;
-import client.fan.model.LoginModel;
 import client.fan.model.RegisterModel;
-import client.fan.view.LoginView;
 import client.fan.view.RegisterView;
 
 import java.awt.event.ActionEvent;
@@ -56,7 +53,7 @@ public class RegisterController {
         public void actionPerformed(ActionEvent e) {
             view.dispose();
             // todo: confirmation message and implementation
-            new Main();
+            //new Main();
         }
     }
 }
