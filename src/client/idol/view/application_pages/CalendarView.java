@@ -117,7 +117,7 @@ public class CalendarView extends JFrame {
             }
 
             // Create and add clickable date buttons
-            Font dateFont = style.createLblH1(null, null).getFont();
+            Font dateFont = style.createLblCalendar(null, null).getFont();
             for (int i = 1; i <= current.lengthOfMonth(); i++) {
                 JButton btnDate = new JButton(Integer.toString(i));
                 btnDate.setFont(dateFont);
@@ -135,7 +135,7 @@ public class CalendarView extends JFrame {
          */
         private void updateMonthYearLabel(JLabel lblMY) {
             lblMY.setText(MONTH_NAMES[currentMonthIndex] + " " + currentYear);
-            lblMY.setFont(style.createLblH1(null, null).getFont());
+            lblMY.setFont(style.createLblCalendar(null, null).getFont());
             lblMY.setForeground(style.black);
         }
 
