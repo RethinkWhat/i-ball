@@ -2,6 +2,8 @@ package shared.login_register;
 
 import shared.res.DataPB;
 
+import java.sql.SQLException;
+
 /**
  * The LoginModel provides methods for validating user credentials, encrypting passwords,
  * and handling user account login.
@@ -14,7 +16,11 @@ public class LoginModel {
      * @param password : String
      * @return userExists
      */
-    public Object validateUser(String username, String password) {
-        return DataPB.validateUser(username, password);
+    public Object validateUser(String username, String password){
+        try {
+            return DataPB.validateUser(username, password);
+        }catch (SQLException e) {
+            return null;
+        }
     }
 }
