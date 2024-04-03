@@ -98,13 +98,16 @@ public class FanApplicationView extends JFrame {
         pnlCards.setPreferredSize(new Dimension(1100,755));
         contentArea.add(pnlCards, BorderLayout.EAST);
 
+        idolsView = new IdolsView();
+        pnlCards.add(idolsView, "home");
+
         bookingView = new BookingView();
         pnlCards.add(bookingView, "booking");
 
         virtualMeetupView = new VirtualMeetupView();
         pnlCards.add(virtualMeetupView, "meetup");
 
-        cardLayout.show(pnlCards, "meetup");
+        cardLayout.show(pnlCards, "home");
 
         this.setContentPane(contentArea);
         this.pack();
