@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The FanbaseView contains the bookings of the idol in a given day. It contains:
@@ -182,5 +183,37 @@ public class FanbaseView extends JPanel {
      */
     public JLabel getLblDate() {
         return lblDate;
+    }
+
+    /**
+     * Retrieves the current JButton of btnJoin.
+     * @return The current btnJoin.
+     */
+    public JButton getBtnJoin() {
+        return btnJoin;
+    }
+
+    /**
+     * Retrieves the current JButton of btnReturn.
+     * @return The current btnReturn.
+     */
+    public JButton getBtnReturn() {
+        return btnReturn;
+    }
+
+    /**
+     * Sets a specified action listener for btnJoin.
+     * @param actionListener The specified action listener.
+     */
+    public void setJoinListener(ActionListener actionListener) {
+        btnJoin.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a specified action listener for btnReturn.
+     * @param actionListener The specified action li
+     */
+    public void setReturnListener(ActionListener actionListener) {
+        btnReturn.addActionListener(actionListener);
     }
 }
