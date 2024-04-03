@@ -1,4 +1,4 @@
-package shared;
+package shared.res;
 
 import java.sql.Date;
 import java.sql.Time;

@@ -1,12 +1,16 @@
-package client.fan.controller;
+package shared.login_register;
 
+import client.fan.controller.FanApplicationController;
 import client.fan.model.FanApplicationModel;
-import client.fan.model.LoginModel;
 import client.fan.model.RegisterModel;
 import client.fan.view.FanApplicationView;
-import client.fan.view.LoginView;
 import client.fan.view.RegisterView;
-import shared.Resources;
+import client.idol.controller.IdolApplicationController;
+import client.idol.model.IdolApplicationModel;
+import client.idol.view.IdolApplicationView;
+import shared.res.Idol;
+import shared.res.Resources;
+import shared.res.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,17 +63,24 @@ public class LoginController {
     class LoginListener implements ActionListener {
         /**
          * Validates user input and opens the main fan application.
+         *
          * @param e the event to be processed
          */
         @Override
         public void actionPerformed(ActionEvent e) {
             // todo: validate implementation
-            if (model.validateUser(view.getUsername(), view.getPassword())) {
-                new FanApplicationController(new FanApplicationView(), new FanApplicationModel());
-                view.dispose();
-            } else {
+            Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword()).getClass();
+            if (loginAttempt == null) {
                 // todo: introduce error message
+            } else {
+                if (loginAttempt.equals(User.class)) {
+                    new FanApplicationController(new FanApplicationView(), new FanApplicationModel(), (User) loginAttempt);
+                    view.dispose();
+                } else if (loginAttempt.equals(Idol.class)) {
+                    new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel(), (Idol) loginAttempt);
+                }
             }
         }
     }
 }
+

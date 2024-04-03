@@ -1,6 +1,6 @@
-package client.fan.model;
+package shared.login_register;
 
-import shared.DataPB;
+import shared.res.DataPB;
 
 /**
  * The LoginModel provides methods for validating user credentials, encrypting passwords,
@@ -14,7 +14,7 @@ public class LoginModel {
      * @param password : String
      * @return userExists
      */
-    public boolean validateUser(String username, String password) {
+    public Object validateUser(String username, String password) {
         return DataPB.validateUser(username, password);
     }
 }

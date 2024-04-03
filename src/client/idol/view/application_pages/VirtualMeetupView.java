@@ -1,6 +1,6 @@
 package client.idol.view.application_pages;
 
-import shared.Stylesheet;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

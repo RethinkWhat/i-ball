@@ -1,6 +1,6 @@
 package client.fan.model;
 
-import shared.Idol;
+import shared.res.Idol;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

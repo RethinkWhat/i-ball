@@ -2,7 +2,7 @@ package client.idol.controller.application_pages;
 
 import client.idol.model.application_pages.FanbaseModel;
 import client.idol.view.application_pages.FanbaseView;
-import shared.Resources;
+import shared.res.Resources;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

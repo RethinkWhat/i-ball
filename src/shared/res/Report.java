@@ -1,4 +1,4 @@
-package shared;
+package shared.res;
 
 public class Report {
     private int reportID;

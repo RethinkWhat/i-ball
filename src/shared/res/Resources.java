@@ -1,4 +1,4 @@
-package shared;
+package shared.res;
 
 import javax.swing.*;
 import java.awt.*;

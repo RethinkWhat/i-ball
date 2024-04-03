@@ -1,10 +1,8 @@
 package client.fan.controller.application_pages;
 
-import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.VirtualMeetupModel;
-import client.fan.view.application_pages.BookingView;
 import client.fan.view.application_pages.VirtualMeetupView;
-import shared.Resources;
+import shared.res.Resources;
 
 /**
  * The VirtualMeetupController processes the user requests. Based on the user request, the VirtualMeetupController

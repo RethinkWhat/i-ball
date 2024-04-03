@@ -2,7 +2,7 @@ package client.idol.controller.application_pages;
 
 import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.application_pages.VirtualMeetupView;
-import shared.Resources;
+import shared.res.Resources;
 
 public class VirtualMeetupController {
     /**
