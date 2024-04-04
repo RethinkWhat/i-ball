@@ -334,4 +334,60 @@ public class IdolsView extends JPanel {
             btnPfp.addActionListener(actionListener);
         }
     }
+
+    /**
+     * Retrieves the current JTextField of txtSearchbar.
+     * @return The current txtSearchbar.
+     */
+    public JTextField getTxtSearchbar() {
+        return txtSearchbar;
+    }
+
+    /**
+     * Retrieves the current JButton of btnSearch.
+     * @return The current btnSearch.
+     */
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+
+    /**
+     * Retrieves the current JButton of btnFilterAll.
+     * @return The current btnFilterAll.
+     */
+    public JButton getBtnFilterAll() {
+        return btnFilterAll;
+    }
+
+    /**
+     * Retrieves the current JButton of btnFilterGamers.
+     * @return The current btnFilterGamers.
+     */
+    public JButton getBtnFilterGamers() {
+        return btnFilterGamers;
+    }
+
+    /**
+     * Retrieves the current JButton of btnFilterInfls.
+     * @return The current btnFilterInfls.
+     */
+    public JButton getBtnFilterInfls() {
+        return btnFilterInfls;
+    }
+
+    /**
+     * Retrieves the current JButton of btnFilterCelebs
+     * @return The current btnFilterCelebs.
+     */
+    public JButton getBtnFilterCelebs() {
+        return btnFilterCelebs;
+    }
+
+    /**
+     * Retrieves the current JPanel of btnPnlIdolsContainer
+     * @return The current pnlIdolsContainer.
+     */
+    public JPanel getPnlIdolsContainer() {
+        return pnlIdolsContainer;
+    }
 }
