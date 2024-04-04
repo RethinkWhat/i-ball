@@ -159,6 +159,12 @@ public class FanbaseView extends JPanel {
             this.revalidate();
         }
 
+        public void populateTable(String[][] sessions) {
+            for (String[] row : sessions) {
+                tblFanbaseModel.addRow(row);
+            }
+        }
+
         /**
          * Retrieves the current JTable of tblFanbase.
          * @return The current tblFanbase.

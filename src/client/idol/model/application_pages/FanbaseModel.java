@@ -16,10 +16,8 @@ public class FanbaseModel {
 
     private Idol idol;
 
-    private ArrayList<Session> sessions;
     public FanbaseModel(Idol idol) {
         this.idol = idol;
-        sessions = DataPB.getIdolSessions(getIdol().getIdolID());
     }
 
     public Idol getIdol() {
@@ -30,18 +28,27 @@ public class FanbaseModel {
         this.idol = idol;
     }
 
-    public ArrayList<Session> getSessions() {
-        return sessions;
-    }
 
     public String getDateToday() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Calendar cal = Calendar.getInstance();
         return sdf.format(cal.getTime());
     }
 
-    public void setSessions(ArrayList<Session> sessions) {
-        this.sessions = sessions;
+    public String[][] getSessionsOnDate(String date) {
+        ArrayList<Session> sessions = DataPB.getIdolSessions(getIdol().getIdolID(), date);
+        System.out.println(sessions);
+        String[][] toReturn = new String[sessions.size()][3];
+
+        for (int x =0 ; x < sessions.size(); x ++) {
+            sessions.get(x);
+            toReturn[x] = new String[]{
+                    String.valueOf(sessions.get(x).getStartTime()),
+                    sessions.get(x).getFanName(),
+                    sessions.get(x).getSessionType()
+            };
+        }
+        return toReturn;
     }
 
 

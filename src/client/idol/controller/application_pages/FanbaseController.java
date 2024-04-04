@@ -39,14 +39,15 @@ public class FanbaseController {
         view.getBtnJoin().addMouseListener(new Resources.CursorChanger(view.getBtnJoin()));
         view.getBtnReturn().addMouseListener(new Resources.CursorChanger(view.getBtnReturn()));
 
+        //Set default date
         view.getTablePanel().setDate(model.getDateToday());
-        Container container = view.getTablePanel().getParent();
-        container.revalidate();
-        container.repaint();
+        String[][] sessions = model.getSessionsOnDate(model.getDateToday());
+        view.getTablePanel().populateTable(sessions);
+
 
 
         // focus listeners
-        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YY)"));
+        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YYYY)"));
     }
 
     /**
