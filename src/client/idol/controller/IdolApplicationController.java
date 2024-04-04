@@ -1,7 +1,16 @@
 package client.idol.controller;
 
+import client.idol.controller.application_pages.AccountSettingsController;
+import client.idol.controller.application_pages.CalendarController;
+import client.idol.controller.application_pages.FanbaseController;
+import client.idol.controller.application_pages.VirtualMeetupController;
 import client.idol.model.IdolApplicationModel;
+import client.idol.model.application_pages.AccountSettingsModel;
+import client.idol.model.application_pages.CalendarModel;
+import client.idol.model.application_pages.FanbaseModel;
+import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.IdolApplicationView;
+import client.idol.view.application_pages.FanbaseView;
 import shared.res.DataPB;
 import shared.res.Idol;
 import shared.res.Resources;
@@ -32,8 +41,15 @@ public class IdolApplicationController {
         this.view = idolView;
         this.model = model;
 
+
         // constants / variables
         view.getLblUser().setText(model.getIdol().getIdolName());
+
+        new FanbaseController(view.getFanbaseView(), new FanbaseModel(model.getIdol()));
+        new AccountSettingsController(view.getAccountSettingsView(), new AccountSettingsModel(model.getIdol()));
+        new CalendarController(view.getCalendarView(), new CalendarModel(model.getIdol()));
+        new VirtualMeetupController(view.getVirtualMeetupView(), new VirtualMeetupModel(model.getIdol()));
+
 
 
         // action listeners
@@ -41,21 +57,5 @@ public class IdolApplicationController {
             view.getCardLayout().show(view.getPnlCards(), "home");
         });
 
-        view.getBtnNavLogout().addActionListener(e -> {
-            view.dispose();
-            System.exit(0);
-        });
-
-        // mouse listeners
-        view.getBtnNavHome().addMouseListener(new Resources.CursorChanger(view.getBtnNavHome()));
-        view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
-
-        // mouse listeners
-        view.getBtnNavHome().addMouseListener(new Resources.CursorChanger(view.getBtnNavHome()));
-        view.getBtnNavAccount().addMouseListener(new Resources.CursorChanger(view.getBtnNavAccount()));
-        view.getBtnNavCalendar().addMouseListener(new Resources.CursorChanger(view.getBtnNavCalendar()));
-        view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
-
-        // focus listeners
     }
 }

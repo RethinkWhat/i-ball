@@ -1,6 +1,6 @@
 package client.idol.view;
 
-import client.fan.view.application_pages.VirtualMeetupView;
+import client.idol.view.application_pages.VirtualMeetupView;
 import client.idol.view.application_pages.AccountSettingsView;
 import client.idol.view.application_pages.CalendarView;
 import client.idol.view.application_pages.FanbaseView;
@@ -301,5 +301,37 @@ public class IdolApplicationView extends JFrame {
      */
     public JLabel getLblUserPfp() {
         return lblUserPfp;
+    }
+
+    public FanbaseView getFanbaseView() {
+        return fanbaseView;
+    }
+
+    public void setFanbaseView(FanbaseView fanbaseView) {
+        this.fanbaseView = fanbaseView;
+    }
+
+    public AccountSettingsView getAccountSettingsView() {
+        return accountSettingsView;
+    }
+
+    public void setAccountSettingsView(AccountSettingsView accountSettingsView) {
+        this.accountSettingsView = accountSettingsView;
+    }
+
+    public CalendarView getCalendarView() {
+        return calendarView;
+    }
+
+    public void setCalendarView(CalendarView calendarView) {
+        this.calendarView = calendarView;
+    }
+
+    public VirtualMeetupView getVirtualMeetupView() {
+        return virtualMeetupView;
+    }
+
+    public void setVirtualMeetupView(VirtualMeetupView virtualMeetupView) {
+        this.virtualMeetupView = virtualMeetupView;
     }
 }

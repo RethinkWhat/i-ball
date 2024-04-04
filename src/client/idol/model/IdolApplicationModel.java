@@ -1,5 +1,6 @@
 package client.idol.model;
 
+import client.idol.model.application_pages.FanbaseModel;
 import shared.res.DataPB;
 import shared.res.Idol;
 import shared.res.Session;
@@ -13,11 +14,12 @@ import java.util.ArrayList;
 public class IdolApplicationModel {
 
     private Idol idol;
-    private ArrayList<Session> sessions;
+
+    FanbaseModel fanbaseModel;
 
     public IdolApplicationModel(Idol idol) {
         this.idol = idol;
-        sessions = DataPB.getIdolSessions(getIdol().getIdolID());
+        fanbaseModel = new FanbaseModel(getIdol());
     }
 
     public Idol getIdol() {
@@ -28,11 +30,11 @@ public class IdolApplicationModel {
         this.idol = idol;
     }
 
-    public ArrayList<Session> getSessions() {
-        return sessions;
+    public FanbaseModel getFanbaseModel() {
+        return fanbaseModel;
     }
 
-    public void setSessions(ArrayList<Session> sessions) {
-        this.sessions = sessions;
+    public void setFanbaseModel(FanbaseModel fanbaseModel) {
+        this.fanbaseModel = fanbaseModel;
     }
 }

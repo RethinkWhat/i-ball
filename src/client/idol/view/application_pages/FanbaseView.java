@@ -14,14 +14,7 @@ import java.awt.event.ActionListener;
  * 2. Buttons to join the respective bookings.
  */
 public class FanbaseView extends JPanel {
-    /**
-     * The table of the fanbase.
-     */
-    private JTable tblFanbase;
-    /**
-     * The model of the fanbaseTable.
-     */
-    private DefaultTableModel tblFanbaseModel;
+
     /**
      * The searchbar to search date.
      */
@@ -41,11 +34,12 @@ public class FanbaseView extends JPanel {
     /**
      * The current or searched date.
      */
-    private JLabel lblDate;
     /**
      * The stylesheet.
      */
     private Stylesheet style = new Stylesheet();
+
+    private TablePanel tablePanel;
 
     /**
      * Constructs a panel of FanbaseView.
@@ -55,7 +49,10 @@ public class FanbaseView extends JPanel {
         this.setLayout(new BorderLayout());
 
         add(new HeaderPanel(), BorderLayout.NORTH);
-        add(new TablePanel(), BorderLayout.CENTER);
+
+        tablePanel = new TablePanel();
+
+        add(tablePanel, BorderLayout.CENTER);
 
         JPanel pnlButtons = new JPanel(new FlowLayout());
         pnlButtons.setPreferredSize(new Dimension(1100,70));
@@ -97,23 +94,37 @@ public class FanbaseView extends JPanel {
     /**
      * The TablePanel contains the tabular format of the user's bookings.
      */
-    class TablePanel extends JPanel {
+    public class TablePanel extends JPanel {
         /**
          * Constructs a panel of TablePanel.
          */
+
+        JLabel lblDate;
+
+        JPanel container;
+        JPanel pnlTable;
+
+        /**
+         * The table of the fanbase.
+         */
+        private JTable tblFanbase;
+        /**
+         * The model of the fanbaseTable.
+         */
+        private DefaultTableModel tblFanbaseModel;
         public TablePanel() {
             this.setLayout(new BorderLayout());
             this.setBorder(style.padding);
 
-            JPanel container = style.createPnlRounded(1000, 700, style.white, style.lightGray);
+            container = style.createPnlRounded(1000, 700, style.white, style.lightGray);
             container.setLayout(new BorderLayout());
             container.setBorder(style.padding);
             add(container, BorderLayout.CENTER);
 
-            lblDate = style.createLblH1("Date Info", style.black);
+            lblDate = style.createLblH1("Date", style.black);
             container.add(lblDate, BorderLayout.NORTH);
 
-            JPanel pnlTable = style.createPnlRounded(990,690,style.iconGray, style.white);
+            pnlTable = style.createPnlRounded(990,690,style.iconGray, style.white);
             pnlTable.setBorder(style.padding);
             pnlTable.setLayout(new BorderLayout());
             container.add(pnlTable, BorderLayout.CENTER);
@@ -141,24 +152,30 @@ public class FanbaseView extends JPanel {
             JScrollPane scrollPane = new JScrollPane(tblFanbase);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             container.add(scrollPane, BorderLayout.CENTER);
-
         }
-    }
 
-    /**
-     * Retrieves the current JTable of tblFanbase.
-     * @return The current tblFanbase.
-     */
-    public JTable getTblFanbase() {
-        return tblFanbase;
-    }
+        public void setDate(String date) {
+            lblDate.setText(date);
+            this.revalidate();
+        }
 
-    /**
-     * Retrieves the current DefaultTableModel of tblFanbaseModel.
-     * @return The current tblFanbaseModel.
-     */
-    public DefaultTableModel getTblFanbaseModel() {
-        return tblFanbaseModel;
+        /**
+         * Retrieves the current JTable of tblFanbase.
+         * @return The current tblFanbase.
+         */
+        public JTable getTblFanbase() {
+            return tblFanbase;
+        }
+
+
+        /**
+         * Retrieves the current DefaultTableModel of tblFanbaseModel.
+         * @return The current tblFanbaseModel.
+         */
+        public DefaultTableModel getTblFanbaseModel() {
+            return tblFanbaseModel;
+        }
+
     }
 
     /**
@@ -175,14 +192,6 @@ public class FanbaseView extends JPanel {
      */
     public JButton getBtnSearch() {
         return btnSearch;
-    }
-
-    /**
-     * Retrieves the current JLabel of lblDate.
-     * @return The current lblDate.
-     */
-    public JLabel getLblDate() {
-        return lblDate;
     }
 
     /**
@@ -215,5 +224,13 @@ public class FanbaseView extends JPanel {
      */
     public void setReturnListener(ActionListener actionListener) {
         btnReturn.addActionListener(actionListener);
+    }
+
+    public TablePanel getTablePanel() {
+        return tablePanel;
+    }
+
+    public void setTablePanel(TablePanel tablePanel) {
+        this.tablePanel = tablePanel;
     }
 }
