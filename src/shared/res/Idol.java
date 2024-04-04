@@ -8,9 +8,6 @@ public class Idol {
     //Idol username
     private String username;
 
-    // Idol password
-    private String password;
-
     // Name of idol
     private String idolName;
 
@@ -41,34 +38,18 @@ public class Idol {
     // idol's bio
     private String bio;
 
-    // The location of idol's resume
-    private String documentAddress;
+    // idol's quote
+    private String quote;
 
     // The location of idol's profile picture
     private String profilePictureAddress;
 
-    /**
-     * Default constructor
-     * @param idolID
-     * @param username
-     * @param password
-     * @param idolName
-     * @param gCashNumber
-     * @param idolType
-     * @param idolStatus
-     * @param voiceCallRate
-     * @param videoCallRate
-     * @param fbAccount
-     * @param xAccount
-     * @param igAccount
-     * @param bio
-     * @param documentAddress
-     * @param profilePictureAddress
-     */
-    public Idol(int idolID, String username, String password, String idolName, String gCashNumber, String idolType, boolean idolStatus, double voiceCallRate, double videoCallRate, String fbAccount, String xAccount, String igAccount, String bio, String documentAddress, String profilePictureAddress) {
+    // Idol password
+    private String password;
+
+    public Idol(int idolID, String username, String idolName, String gCashNumber, String idolType, boolean idolStatus, double voiceCallRate, double videoCallRate, String fbAccount, String xAccount, String igAccount, String bio, String quote, String profilePictureAddress, String password) {
         this.idolID = idolID;
         this.username = username;
-        this.password = password;
         this.idolName = idolName;
         this.gCashNumber = gCashNumber;
         this.idolType = idolType;
@@ -79,8 +60,9 @@ public class Idol {
         this.xAccount = xAccount;
         this.igAccount = igAccount;
         this.bio = bio;
-        this.documentAddress = documentAddress;
+        this.quote = quote;
         this.profilePictureAddress = profilePictureAddress;
+        this.password = password;
     }
 
     /**
@@ -133,7 +115,7 @@ public class Idol {
 
     /**
      * method to get the name of the idol
-      */
+     */
     public String getIdolName() {
         return idolName;
     }
@@ -291,22 +273,6 @@ public class Idol {
     }
 
     /**
-     * Method to get the document address
-     * @return documentAddress
-     */
-    public String getDocumentAddress() {
-        return documentAddress;
-    }
-
-    /**
-     * Method to set the document address
-     * @param documentAddress
-     */
-    public void setDocumentAddress(String documentAddress) {
-        this.documentAddress = documentAddress;
-    }
-
-    /**
      * Method to get the profile picture address
      * @return
      */
@@ -320,5 +286,37 @@ public class Idol {
      */
     public void setProfilePictureAddress(String profilePictureAddress) {
         this.profilePictureAddress = profilePictureAddress;
+    }
+
+    /**
+     * Method to get gcash number
+     * @return gcashNumber
+     */
+    public String getgCashNumber() {
+        return gCashNumber;
+    }
+
+    /**
+     * Method to set gcash number
+     * @param gCashNumber
+     */
+    public void setgCashNumber(String gCashNumber) {
+        this.gCashNumber = gCashNumber;
+    }
+
+    /**
+     * method to get quote
+     * @return quote
+     */
+    public String getQuote() {
+        return quote;
+    }
+
+    /**
+     * method to set quote
+     * @param quote
+     */
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 }

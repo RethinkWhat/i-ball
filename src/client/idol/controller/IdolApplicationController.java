@@ -1,9 +1,22 @@
 package client.idol.controller;
 
+import client.idol.controller.application_pages.AccountSettingsController;
+import client.idol.controller.application_pages.CalendarController;
+import client.idol.controller.application_pages.FanbaseController;
+import client.idol.controller.application_pages.VirtualMeetupController;
 import client.idol.model.IdolApplicationModel;
+import client.idol.model.application_pages.AccountSettingsModel;
+import client.idol.model.application_pages.CalendarModel;
+import client.idol.model.application_pages.FanbaseModel;
+import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.IdolApplicationView;
+import client.idol.view.application_pages.FanbaseView;
+import shared.res.DataPB;
 import shared.res.Idol;
 import shared.res.Resources;
+import shared.res.Session;
+
+import java.util.ArrayList;
 
 /**
  * The IdolApplicationController provides the logic to navigate between different pages.
@@ -18,28 +31,31 @@ public class IdolApplicationController {
      */
     private IdolApplicationModel model;
 
-    private Idol idol;
 
     /**
      * Constructs an IdolApplicationController with a specified view and model.
-     * @param view The specified view.
+     * @param idolView The specified view.
      * @param model The specified model.
      */
-    public IdolApplicationController(IdolApplicationView idolView, IdolApplicationModel model, Idol idol) {
+    public IdolApplicationController(IdolApplicationView idolView, IdolApplicationModel model) {
         this.view = idolView;
         this.model = model;
-        this.idol = idol;
+
+
         // constants / variables
+        view.getLblUser().setText(model.getIdol().getIdolName());
+
+        new FanbaseController(view.getFanbaseView(), new FanbaseModel(model.getIdol()));
+        new AccountSettingsController(view.getAccountSettingsView(), new AccountSettingsModel(model.getIdol()));
+        new CalendarController(view.getCalendarView(), new CalendarModel(model.getIdol()));
+        new VirtualMeetupController(view.getVirtualMeetupView(), new VirtualMeetupModel(model.getIdol()));
+
+
 
         // action listeners
+        view.getBtnNavHome().addActionListener(e -> {
+            view.getCardLayout().show(view.getPnlCards(), "home");
+        });
 
-
-        // mouse listeners
-        view.getBtnNavHome().addMouseListener(new Resources.CursorChanger(view.getBtnNavHome()));
-        view.getBtnNavAccount().addMouseListener(new Resources.CursorChanger(view.getBtnNavAccount()));
-        view.getBtnNavCalendar().addMouseListener(new Resources.CursorChanger(view.getBtnNavCalendar()));
-        view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
-
-        // focus listeners
     }
 }

@@ -20,6 +20,7 @@ public class LoginModel {
         try {
             return DataPB.validateUser(username, password);
         }catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
