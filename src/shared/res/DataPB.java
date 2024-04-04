@@ -1,6 +1,7 @@
 package shared.res;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * This class will be used to access and manipulate the database
@@ -101,6 +102,60 @@ public class DataPB {
             }
             return null;
         }
+    }
+
+    public static ArrayList<Session> getIdolSessions(int idolID) {
+        DataPB.setCon();
+        ArrayList<Session> sessionsList = new ArrayList<>();
+        try {
+            String query = "SELECT " +
+                    "sessionID, date, startTime, duration, sessionType, amount, userID " +
+                    "FROM Session WHERE idolID=?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, idolID);
+            ResultSet sessions = stmt.executeQuery();
+            while (sessions.next()) {
+                int sessionID = sessions.getInt(1);
+                Date date = sessions.getDate(2);
+                Time startTime = sessions.getTime(3);
+                Time duration = sessions.getTime(4);
+                String sessionType = sessions.getString(5);
+                Double amount = sessions.getDouble(6);
+                int userID = sessions.getInt(7);
+                String username = getUser(userID).getUsername();
+                Session session = new Session(sessionID,idolID,date,startTime,duration,sessionType,amount, username);
+                sessionsList.add(session);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Session session = new Session(3,2,new Date(2024324234),new Time(24334),new Time(45354534),"Video Call",4343.3, "AlexP");
+        sessionsList.add(session);
+        return sessionsList;
+    }
+
+    public static User getUser(int userID) {
+        DataPB.setCon();
+        User userObj = null;
+        try {
+            String query = "SELECT username, email, password, GCashNumber, profilePictureAddress " +
+                    "FROM User WHERE userID=?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1,userID);
+            ResultSet user = stmt.executeQuery();
+
+            if (user.next()) {
+                String username = user.getString("username");
+                String email = user.getString("email");
+                String password = user.getString("password");
+                String gCash = user.getString("GCashNumber");
+                String pp = user.getString("profilePictureAddress");
+                userObj = new User(userID,username,email,password,gCash,pp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userObj;
     }
 
     /**

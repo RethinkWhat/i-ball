@@ -2,6 +2,7 @@ package client.fan.model;
 
 import shared.res.DataPB;
 import shared.res.Idol;
+import shared.res.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,12 @@ import java.util.List;
  */
 public class FanApplicationModel {
 
+    private User user;
+
+    public FanApplicationModel(User user) {
+        this.user = user;
+    }
+
     public List<Idol> getAllIdols(ResultSet idols) throws SQLException {
         List<Idol> idolList = new ArrayList<>();
 
@@ -25,14 +32,19 @@ public class FanApplicationModel {
         return idolList;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     /**
      * FOR TESTING PURPOSES ONLY
      * @param args
      */
     public static void main(String[] args) throws SQLException {
-        FanApplicationModel model = new FanApplicationModel();
-        DataPB.setCon();
 
-        System.out.println(model.getAllIdols(DataPB.getAllIdols()));
     }
 }

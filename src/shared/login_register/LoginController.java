@@ -71,10 +71,10 @@ public class LoginController {
             // todo: validate implementation
             Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword());
             if (loginAttempt instanceof User) {
-                new FanApplicationController(new FanApplicationView(), new FanApplicationModel(), (User) loginAttempt);
+                new FanApplicationController(new FanApplicationView(), new FanApplicationModel((User) loginAttempt));
                 view.dispose();
             } else if (loginAttempt instanceof Idol) {
-                new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel(), (Idol) loginAttempt);
+                new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel((Idol) loginAttempt));
                 view.dispose();
             }
         }

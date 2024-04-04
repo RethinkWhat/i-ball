@@ -14,8 +14,9 @@ public class Session {
     // Foreign key to idol object
     private int idolID;
 
-    // Foreign key to user object
-    private int userID;
+    // holds the name of the fan
+    /** In database this is userID, however for ease of use it will just hold the username of fan */
+    private String fanName;
 
     // Holds the date of booking
     private Date date;
@@ -24,29 +25,32 @@ public class Session {
     private Time startTime;
 
     // Holds the total duration of the session
-    private int duration;
+    private Time duration;
 
     // Holds the type of session scheduled
     private String sessionType;
+
+    private double amount;
 
     /**
      * Default constructor
      * @param sessionID
      * @param idolID
-     * @param userID
+     * @param fanName
      * @param date
      * @param startTime
      * @param duration
      * @param sessionType
      */
-    public Session(int sessionID, int idolID, int userID, Date date, Time startTime, int duration, String sessionType) {
+    public Session(int sessionID, int idolID,Date date, Time startTime, Time duration, String sessionType, double amount, String fanName) {
         this.sessionID = sessionID;
         this.idolID = idolID;
-        this.userID = userID;
+        this.fanName = fanName;
         this.date = date;
         this.startTime = startTime;
         this.duration = duration;
         this.sessionType = sessionType;
+        this.amount = amount;
     }
 
     /**
@@ -85,16 +89,16 @@ public class Session {
      * Getter for userID
      * @return userID
      */
-    public int getUserID() {
-        return userID;
+    public String getFanName() {
+        return fanName;
     }
 
     /**
-     * Setter for userID
-     * @param userID
+     * Setter for fanName
+     * @param fanName
      */
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setFanName(String fanName) {
+        this.fanName = fanName;
     }
 
     /**
@@ -133,7 +137,7 @@ public class Session {
      * Getter for the duration
      * @return
      */
-    public int getDuration() {
+    public Time getDuration() {
         return duration;
     }
 
@@ -141,7 +145,7 @@ public class Session {
      * Setter for the duration
      * @param duration
      */
-    public void setDuration(int duration) {
+    public void setDuration(Time duration) {
         this.duration = duration;
     }
 
@@ -159,5 +163,19 @@ public class Session {
      */
     public void setSessionType(String sessionType) {
         this.sessionType = sessionType;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "sessionID=" + sessionID +
+                ", idolID=" + idolID +
+                ", fanName='" + fanName + '\'' +
+                ", date=" + date +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", sessionType='" + sessionType + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }
