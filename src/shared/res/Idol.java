@@ -8,9 +8,6 @@ public class Idol {
     //Idol username
     private String username;
 
-    // Idol password
-    private String password;
-
     // Name of idol
     private String idolName;
 
@@ -44,34 +41,15 @@ public class Idol {
     // idol's quote
     private String quote;
 
-    // The location of idol's resume
-    private String documentAddress;
-
     // The location of idol's profile picture
     private String profilePictureAddress;
 
-    /**
-     * Default constructor
-     * @param idolID
-     * @param username
-     * @param password
-     * @param idolName
-     * @param gCashNumber
-     * @param idolType
-     * @param idolStatus
-     * @param voiceCallRate
-     * @param videoCallRate
-     * @param fbAccount
-     * @param xAccount
-     * @param igAccount
-     * @param bio
-     * @param documentAddress
-     * @param profilePictureAddress
-     */
-    public Idol(int idolID, String username, String password, String idolName, String gCashNumber, String idolType, boolean idolStatus, double voiceCallRate, double videoCallRate, String fbAccount, String xAccount, String igAccount, String bio, String documentAddress, String profilePictureAddress) {
+    // Idol password
+    private String password;
+
+    public Idol(int idolID, String username, String idolName, String gCashNumber, String idolType, boolean idolStatus, double voiceCallRate, double videoCallRate, String fbAccount, String xAccount, String igAccount, String bio, String quote, String profilePictureAddress, String password) {
         this.idolID = idolID;
         this.username = username;
-        this.password = password;
         this.idolName = idolName;
         this.gCashNumber = gCashNumber;
         this.idolType = idolType;
@@ -82,8 +60,9 @@ public class Idol {
         this.xAccount = xAccount;
         this.igAccount = igAccount;
         this.bio = bio;
-        this.documentAddress = documentAddress;
+        this.quote = quote;
         this.profilePictureAddress = profilePictureAddress;
+        this.password = password;
     }
 
     /**
@@ -291,22 +270,6 @@ public class Idol {
      */
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    /**
-     * Method to get the document address
-     * @return documentAddress
-     */
-    public String getDocumentAddress() {
-        return documentAddress;
-    }
-
-    /**
-     * Method to set the document address
-     * @param documentAddress
-     */
-    public void setDocumentAddress(String documentAddress) {
-        this.documentAddress = documentAddress;
     }
 
     /**

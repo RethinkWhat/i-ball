@@ -4,6 +4,7 @@ import client.idol.model.application_pages.FanbaseModel;
 import client.idol.view.application_pages.FanbaseView;
 import shared.res.Resources;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,8 +39,15 @@ public class FanbaseController {
         view.getBtnJoin().addMouseListener(new Resources.CursorChanger(view.getBtnJoin()));
         view.getBtnReturn().addMouseListener(new Resources.CursorChanger(view.getBtnReturn()));
 
+        //Set default date
+        view.getTablePanel().setDate(model.getDateToday());
+        String[][] sessions = model.getSessionsOnDate(model.getDateToday());
+        view.getTablePanel().populateTable(sessions);
+
+
+
         // focus listeners
-        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YY)"));
+        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YYYY)"));
     }
 
     /**
