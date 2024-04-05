@@ -8,13 +8,14 @@ import java.sql.SQLException;
 
 public class IdolsController {
 
-    IdolsView view;
-    IdolsModel model;
+    private IdolsView view;
+    private IdolsModel model;
 
     public IdolsController(IdolsView view, IdolsModel model) throws SQLException {
         this.view = view;
         this.model = model;
 
+        /*
         for (Idol idol : model.getAllIdols()){
             view.getPnlIdolsContainer().add(new IdolsView.IdolDetailsPanel(idol.getProfilePictureAddress(),
                     idol.getIdolName(),
@@ -23,6 +24,21 @@ public class IdolsController {
                     Double.toString(idol.getVoiceCallRate())
                     ));
         }
+         */
+
+        /*
+        for (int i = 0; i < model.getAllIdols().size(); i++){
+
+            Idol currIdol = model.getAllIdols().get(i);
+            view.getPnlIdolsContainer().add(new IdolsView.IdolDetailsPanel(
+                   currIdol.getProfilePictureAddress(),
+                   currIdol.getIdolName(),
+                   currIdol.getIdolType(),
+                    Double.toString(currIdol.getVideoCallRate()),
+                    Double.toString(currIdol.getVoiceCallRate())
+            ));
+        }
+         */
     }
 
 }
