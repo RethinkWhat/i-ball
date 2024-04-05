@@ -108,7 +108,7 @@ public class FanApplicationView extends JFrame {
         virtualMeetupView = new VirtualMeetupView();
         pnlCards.add(virtualMeetupView, "meetup");
 
-        cardLayout.show(pnlCards, "home");
+        cardLayout.show(pnlCards, "booking");
 
         this.setContentPane(contentArea);
         this.pack();
