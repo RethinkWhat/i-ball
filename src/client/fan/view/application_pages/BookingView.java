@@ -52,6 +52,22 @@ public class BookingView extends JPanel {
      */
     private String idolBio;
     /**
+     * The available days of the idol.
+     */
+    private String availDays;
+    /**
+     * Text area containing availDays
+     */
+    private JTextArea txaAvailDays;
+    /**
+     * The available time of the idol.
+     */
+    private String availTime;
+    /**
+     * Text area containing availTime.
+     */
+    private JTextArea txaAvailTime;
+    /**
      * The video call rate.
      */
     private JLabel lblVidRate;
@@ -213,10 +229,95 @@ public class BookingView extends JPanel {
         public RightPanel() {
             this.setBackground(style.white);
             this.setBorder(style.padding);
+            this.setLayout(new GridBagLayout());
 
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5,10,5,10);
+            gbc.fill = GridBagConstraints.BOTH;
 
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.WEST;
+            gbc.ipady = 30;
+            JLabel lblAvailability = new JLabel("Availability");
+            add(lblAvailability, gbc);
+
+            gbc.gridy = 1;
+            gbc.anchor = GridBagConstraints.CENTER;
+            gbc.ipady = 10;
+            JPanel pnlAvailDetails = new JPanel(new GridLayout(1,2));
+            pnlAvailDetails.setBackground(style.white);
+            pnlAvailDetails.setPreferredSize(new Dimension(550,100));
+            add(pnlAvailDetails, gbc);
+
+            pnlAvailDetails.add(new AvailableDaysPanel());
+            pnlAvailDetails.add(new AvailableTimePanel());
 
             this.setPreferredSize(new Dimension(550,755));
+        }
+
+        /**
+         * Panel containing the available days details.
+         */
+        class AvailableDaysPanel extends JPanel {
+            /**
+             * Constructs a panel of AvailableDaysPanel
+             */
+            public AvailableDaysPanel() {
+                this.setBackground(style.white);
+                this.setBorder(style.padding);
+                this.setLayout(new BorderLayout());
+
+                JLabel lblAvailDays = style.createLblH4("Days Available:",style.black);
+                add(lblAvailDays, BorderLayout.NORTH);
+
+                availDays = "Info";
+
+                txaAvailDays = new JTextArea(availDays);
+                txaAvailDays.setFont(new Font("Arial", Font.PLAIN, 14));
+                txaAvailDays.setText(idolBio);
+                txaAvailDays.setPreferredSize(new Dimension(500, 260));
+                txaAvailDays.setWrapStyleWord(true);
+                txaAvailDays.setLineWrap(true);
+                txaAvailDays.setOpaque(false);
+                txaAvailDays.setEditable(false);
+                txaAvailDays.setFocusable(false);
+                txaAvailDays.setForeground(style.black);
+                add(txaAvailDays, BorderLayout.CENTER);
+
+                this.setPreferredSize(new Dimension(550,100));
+            }
+        }
+
+        /**
+         * Panel containing the available time details.
+         */
+        class AvailableTimePanel extends JPanel {
+            /**
+             * Constructs a panel of AvailableTimePanel.
+             */
+            public AvailableTimePanel() {
+                this.setBackground(style.white);
+                this.setBorder(style.padding);
+                this.setLayout(new BorderLayout());
+
+                JLabel lblAvailTime = style.createLblH4("Time Available:",style.black);
+                add(lblAvailTime, BorderLayout.NORTH);
+
+                availTime = "Info";
+
+                txaAvailTime = new JTextArea(availTime);
+                txaAvailTime.setFont(new Font("Arial", Font.PLAIN, 14));
+                txaAvailTime.setText(idolBio);
+                txaAvailTime.setPreferredSize(new Dimension(500, 260));
+                txaAvailTime.setWrapStyleWord(true);
+                txaAvailTime.setLineWrap(true);
+                txaAvailTime.setOpaque(false);
+                txaAvailTime.setEditable(false);
+                txaAvailTime.setFocusable(false);
+                txaAvailTime.setForeground(style.black);
+                add(txaAvailTime, BorderLayout.CENTER);
+            }
         }
     }
 }
