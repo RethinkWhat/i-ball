@@ -390,4 +390,16 @@ public class IdolsView extends JPanel {
     public JPanel getPnlIdolsContainer() {
         return pnlIdolsContainer;
     }
+
+    /**
+     *
+     * @param idolPfp
+     * @param idolName
+     * @param idolType
+     * @param idolVidRate
+     * @param idolVoiceRate
+     */
+    public void addIdolPanel(String idolPfp, String idolName, String idolType, String idolVidRate, String idolVoiceRate) {
+        pnlIdolsContainer.add(new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate));
+    }
 }

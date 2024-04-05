@@ -71,6 +71,22 @@ public class Stylesheet {
      */
     public final ImageIcon iconTimer = new ImageIcon("res/drawables/timer-white-outline.png");
     /**
+     * Icon for back arrow.
+     */
+    public final ImageIcon iconBack = new ImageIcon("res/drawables/arrow-left-black-solid.png");
+    /**
+     * Icon for Facebook.
+     */
+    public final ImageIcon iconFb = new ImageIcon("res/drawables/fb-logo-solid.png");
+    /**
+     * Icon for Instagram.
+     */
+    public final ImageIcon iconIg = new ImageIcon("res/drawables/ig-logo-solid.png");
+    /**
+     * Icon for X.
+     */
+    public final ImageIcon iconX = new ImageIcon("res/drawables/x-logo-solid.png");
+    /**
      * Default padding for panels.
      */
     public final EmptyBorder padding = new EmptyBorder(10,20,10,20);
