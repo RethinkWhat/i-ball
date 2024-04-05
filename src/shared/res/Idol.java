@@ -319,4 +319,23 @@ public class Idol {
     public void setQuote(String quote) {
         this.quote = quote;
     }
+
+    @Override
+    public String toString() {
+        return idolID + "," +
+                username + "," +
+                idolName + "," +
+                gCashNumber + "," +
+                idolType + "," +
+                (idolStatus ? "Verified" : "Unverified") + "," +
+                voiceCallRate + "," +
+                videoCallRate + "," +
+                fbAccount + "," +
+                xAccount + "," +
+                igAccount + "," +
+                bio + "," +
+                quote + "," +
+                profilePictureAddress + "," +
+                password;
+    }
 }

@@ -21,12 +21,29 @@ public class FanApplicationModel {
         this.user = user;
     }
 
-    public List<Idol> getAllIdols(ResultSet idols) throws SQLException {
+    public List<Idol> getAllIdols() throws Exception {
+        ResultSet idolSet = DataPB.getAllIdols();
+
         List<Idol> idolList = new ArrayList<>();
 
-        //WILL CONTINUE AFTER USERNAME IS ADDED IN THE SCHEMA
-        while (idols.next()){
-            //idolList.add(new Idol());
+        while (idolSet.next()){
+            idolList.add(new Idol(
+                    idolSet.getInt("idolID"),
+                    idolSet.getString("username"),
+                    idolSet.getString("idolName"),
+                    idolSet.getString("gCashNumber"),
+                    idolSet.getString("idolType"),
+                    idolSet.getString("idolStatus").equalsIgnoreCase("Verified") ? true : false,
+                    idolSet.getDouble("voiceCallRate"),
+                    idolSet.getDouble("videoCallRate"),
+                    idolSet.getString("fbAccount"),
+                    idolSet.getString("xAccount"),
+                    idolSet.getString("igAccount"),
+                    idolSet.getString("bio"),
+                    idolSet.getString("quote"),
+                    idolSet.getString("profilePictureAddress"),
+                    idolSet.getString("password")
+            ));
         }
 
         return idolList;
@@ -44,7 +61,13 @@ public class FanApplicationModel {
      * FOR TESTING PURPOSES ONLY
      * @param args
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
+        FanApplicationModel model = new FanApplicationModel(new User(1,"a","b","c","d","e"));
 
+        List<Idol> allIdols = model.getAllIdols();
+
+        for (Idol idol : allIdols){
+            System.out.println(idol.toString());
+        }
     }
 }

@@ -30,7 +30,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -178,6 +178,8 @@ public class DataPB {
      * @throws SQLException
      */
     public static ResultSet getAllIdols() throws SQLException {
+        DataPB.setCon();
+
         String query = "SELECT * FROM idol";
         Statement stmt = con.createStatement(ResultSet.CONCUR_UPDATABLE, ResultSet.TYPE_SCROLL_INSENSITIVE);
         ResultSet idolSet = stmt.executeQuery(query);
@@ -197,7 +199,6 @@ public class DataPB {
      * @param args
      */
     public static void main(String[] args) throws SQLException {
-        setCon();
 
 
     }
