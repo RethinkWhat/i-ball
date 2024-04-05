@@ -14,6 +14,7 @@ import shared.res.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * The LoginController processes the user requests. Based on the user request, the LoginController
@@ -71,7 +72,11 @@ public class LoginController {
             // todo: validate implementation
             Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword());
             if (loginAttempt instanceof User) {
-                new FanApplicationController(new FanApplicationView(), new FanApplicationModel((User) loginAttempt));
+                try {
+                    new FanApplicationController(new FanApplicationView(), new FanApplicationModel((User) loginAttempt));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 view.dispose();
             } else if (loginAttempt instanceof Idol) {
                 new IdolApplicationController(new IdolApplicationView(), new IdolApplicationModel((Idol) loginAttempt));
