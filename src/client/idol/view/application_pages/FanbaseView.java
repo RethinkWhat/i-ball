@@ -160,6 +160,9 @@ public class FanbaseView extends JPanel {
         }
 
         public void populateTable(String[][] sessions) {
+            for (int x =0; x <tblFanbaseModel.getRowCount(); x ++) {
+                tblFanbaseModel.removeRow(x);
+            }
             for (String[] row : sessions) {
                 tblFanbaseModel.addRow(row);
             }

@@ -16,6 +16,11 @@ import shared.res.Idol;
 import shared.res.Resources;
 import shared.res.Session;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +49,11 @@ public class IdolApplicationController {
 
         // constants / variables
         view.getLblUser().setText(model.getIdol().getIdolName());
+
+        ImageIcon pfp = new ImageIcon(model.getIdol().getProfilePictureAddress());
+        Image pfpImage = pfp.getImage();
+        Image resized = pfpImage.getScaledInstance(113,64,Image.SCALE_SMOOTH);
+        view.getLblUserPfp().setIcon(new ImageIcon(resized));
 
         new FanbaseController(view.getFanbaseView(), new FanbaseModel(model.getIdol()));
         new AccountSettingsController(view.getAccountSettingsView(), new AccountSettingsModel(model.getIdol()));
