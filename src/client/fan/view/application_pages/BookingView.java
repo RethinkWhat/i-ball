@@ -238,20 +238,44 @@ public class BookingView extends JPanel {
             gbc.gridx = 0;
             gbc.gridy = 0;
             gbc.anchor = GridBagConstraints.WEST;
+            gbc.weightx = 300;
             gbc.ipady = 30;
-            JLabel lblAvailability = new JLabel("Availability");
+            JLabel lblAvailability = style.createLblH2("Availability",style.black);
             add(lblAvailability, gbc);
 
             gbc.gridy = 1;
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.ipady = 10;
-            JPanel pnlAvailDetails = new JPanel(new GridLayout(1,2));
+            GridLayout gridLayout = new GridLayout(1,2);
+            gridLayout.setVgap(10);
+            gridLayout.setHgap(15);
+            JPanel pnlAvailDetails = new JPanel(gridLayout);
             pnlAvailDetails.setBackground(style.white);
             pnlAvailDetails.setPreferredSize(new Dimension(550,100));
             add(pnlAvailDetails, gbc);
 
             pnlAvailDetails.add(new AvailableDaysPanel());
             pnlAvailDetails.add(new AvailableTimePanel());
+
+            gbc.gridy = 2;
+            JLabel lblRates = style.createLblH2("Rates",style.black);
+            add(lblRates, gbc);
+
+            gbc.gridy = 3;
+            JPanel pnlRateDetails = new JPanel(gridLayout);
+            pnlRateDetails.setBackground(style.white);
+            pnlRateDetails.setPreferredSize(new Dimension(550,50));
+            add(pnlRateDetails, gbc);
+
+            pnlRateDetails.add(new VideoRatePanel());
+            pnlRateDetails.add(new VoiceRatePanel());
+
+            gbc.gridy = 4;
+            JLabel lblReservation = style.createLblH2("Reservation:",style.black);
+            add(lblReservation, gbc);
+
+            gbc.gridy = 5;
+            add(new ReservePanel(), gbc);
 
             this.setPreferredSize(new Dimension(550,755));
         }
@@ -265,7 +289,6 @@ public class BookingView extends JPanel {
              */
             public AvailableDaysPanel() {
                 this.setBackground(style.white);
-                this.setBorder(style.padding);
                 this.setLayout(new BorderLayout());
 
                 JLabel lblAvailDays = style.createLblH4("Days Available:",style.black);
@@ -275,7 +298,6 @@ public class BookingView extends JPanel {
 
                 txaAvailDays = new JTextArea(availDays);
                 txaAvailDays.setFont(new Font("Arial", Font.PLAIN, 14));
-                txaAvailDays.setText(idolBio);
                 txaAvailDays.setPreferredSize(new Dimension(500, 260));
                 txaAvailDays.setWrapStyleWord(true);
                 txaAvailDays.setLineWrap(true);
@@ -298,7 +320,6 @@ public class BookingView extends JPanel {
              */
             public AvailableTimePanel() {
                 this.setBackground(style.white);
-                this.setBorder(style.padding);
                 this.setLayout(new BorderLayout());
 
                 JLabel lblAvailTime = style.createLblH4("Time Available:",style.black);
@@ -308,7 +329,6 @@ public class BookingView extends JPanel {
 
                 txaAvailTime = new JTextArea(availTime);
                 txaAvailTime.setFont(new Font("Arial", Font.PLAIN, 14));
-                txaAvailTime.setText(idolBio);
                 txaAvailTime.setPreferredSize(new Dimension(500, 260));
                 txaAvailTime.setWrapStyleWord(true);
                 txaAvailTime.setLineWrap(true);
@@ -317,6 +337,139 @@ public class BookingView extends JPanel {
                 txaAvailTime.setFocusable(false);
                 txaAvailTime.setForeground(style.black);
                 add(txaAvailTime, BorderLayout.CENTER);
+            }
+        }
+
+        /**
+         * Contains the video call rate details.
+         */
+         class VideoRatePanel extends JPanel {
+            /**
+             * Constructs a panel of VideoRatePanel.
+             */
+            public VideoRatePanel() {
+                this.setBackground(style.white);
+                this.setLayout(new BorderLayout());
+
+                JLabel lblVidRateLabel = style.createLblH4("Video Call Rate:",style.black);
+                add(lblVidRateLabel, BorderLayout.NORTH);
+
+                lblVidRate = style.createLblP("Info",style.black);
+                add(lblVidRate, BorderLayout.CENTER);
+
+                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
+                add(lblPerDuration, BorderLayout.SOUTH);
+            }
+         }
+
+        /**
+         * Contains the voice call rate details.
+         */
+         class VoiceRatePanel extends JPanel {
+            /**
+             * Constructs a panel of VoiceRatePanel.
+             */
+            public VoiceRatePanel() {
+                this.setBackground(style.white);
+                this.setLayout(new BorderLayout());
+
+                JLabel lblVoiceRateLabel = style.createLblH4("Voice Call Rate:",style.black);
+                add(lblVoiceRateLabel, BorderLayout.NORTH);
+
+                lblVoiceRate = style.createLblP("Info",style.black);
+                add(lblVoiceRate, BorderLayout.CENTER);
+
+                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
+                add(lblPerDuration, BorderLayout.SOUTH);
+            }
+         }
+
+        /**
+         * Contains the I/O components to book a reservation/
+         */
+        class ReservePanel extends JPanel {
+            /**
+             * Constructs a panel of ReservePanel.
+             */
+            public ReservePanel() {
+                this.setBackground(style.white);
+                this.setLayout(new GridBagLayout());
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.insets = new Insets(5,20,5,20);
+                gbc.fill = GridBagConstraints.BOTH;
+
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.anchor = GridBagConstraints.CENTER;
+                gbc.weightx = 300;
+                gbc.gridwidth = 3;
+                JPanel pnlRadioButtons = new JPanel(new FlowLayout());
+                pnlRadioButtons.setBackground(style.white);
+                pnlRadioButtons.setPreferredSize(new Dimension(550,60));
+                add(pnlRadioButtons, gbc);
+
+                ButtonGroup buttonGroup = new ButtonGroup();
+
+                radVidCall = style.createRad("Video Call", style.black);
+                radVidCall.setSelected(true);
+                buttonGroup.add(radVidCall);
+                pnlRadioButtons.add(radVidCall);
+
+                radVoiceCall = style.createRad("Voice Call", style.black);
+                buttonGroup.add(radVoiceCall);
+                pnlRadioButtons.add(radVoiceCall);
+
+                gbc.gridy = 1;
+                JLabel lblDate = style.createLblH4("Date",style.black);
+                add(lblDate, gbc);
+
+                gbc.gridy = 2;
+                cmbDate = style.createCmbRounded(style.lightGray, style.black, 20);
+                cmbDate.setSelectedItem("Select Date");
+                add(cmbDate, gbc);
+
+                gbc.gridy = 3;
+                gbc.gridx = 0;
+                gbc.gridwidth = 1;
+                JLabel lblTime = style.createLblH4("Time",style.black);
+                add(lblTime, gbc);
+
+                gbc.gridy = 4;
+                cmbTime = style.createCmbRounded(style.lightGray, style.black, 20);
+                cmbTime.setSelectedItem("Select Time");
+                add(cmbTime, gbc);
+
+                gbc.gridy = 3;
+                gbc.gridx = 1;
+                gbc.gridwidth = 1;
+                JLabel lblDuration = style.createLblH4("Duration",style.black);
+                add(lblDuration, gbc);
+
+                gbc.gridy = 4;
+                cmbDuration = style.createCmbRounded(style.lightGray, style.black, 20);
+                cmbDuration.setSelectedItem("Select Duration");
+                add(cmbDuration, gbc);
+
+                gbc.gridx = 0;
+                gbc.gridy = 5;
+                gbc.gridwidth = 3;
+                JLabel lblAmount = style.createLblH4("Amount",style.black);
+                add(lblAmount, gbc);
+
+                gbc.gridy = 6;
+                txtAmount = style.createTxtRounded("Info",style.lightGray,style.black, 20);
+                add(txtAmount, gbc);
+
+                gbc.gridy = 7;
+                JLabel lblBr = new JLabel("");
+                add(lblBr, gbc);
+
+                gbc.gridy = 8;
+                btnBook = style.createBtnRounded("Book",style.purple, style.black, 20);
+                add(btnBook, gbc);
+
+                this.setPreferredSize(new Dimension(550, 200));
             }
         }
     }
