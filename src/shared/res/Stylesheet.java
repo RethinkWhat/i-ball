@@ -54,6 +54,8 @@ public class Stylesheet {
      * Icon of search.
      */
     public final ImageIcon iconSearch = new ImageIcon("res/drawables/search-white-outline.png");
+    public final ImageIcon iconSuccess = new ImageIcon("res/drawables/success.png");
+    public final ImageIcon iconFailed = new ImageIcon("res/drawables/failed.png");
     /**
      * Icon of profile picture placeholder.
      */
