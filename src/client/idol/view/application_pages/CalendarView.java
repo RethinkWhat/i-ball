@@ -3,6 +3,7 @@ package client.idol.view.application_pages;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 /**
  * The CalendarView contains an overview of the bookings of the idol in a given calendar format.
  */
-public class CalendarView extends JPanel {
+public class CalendarView extends JFrame {
     /**
      * The next month button.
      */
@@ -26,6 +27,9 @@ public class CalendarView extends JPanel {
 
     private Stylesheet style = new Stylesheet();
 
+    private CalendarPanel calendarPanel;
+    private TablePanel tablePanel;
+
     /**
      * Constructs a panel of CalendarView.
      */
@@ -33,10 +37,19 @@ public class CalendarView extends JPanel {
         this.setBackground(style.lightGray);
         this.setLayout(new BorderLayout());
 
+        calendarPanel = new CalendarPanel();
+        tablePanel = new TablePanel();
+
         add(new HeaderPanel(), BorderLayout.NORTH);
         add(new CalendarPanel(), BorderLayout.CENTER);
+//        add(new TablePanel(), BorderLayout.CENTER);
 
         this.setSize(1100, 755);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
     /**
@@ -56,7 +69,7 @@ public class CalendarView extends JPanel {
     /**
      * The CalendarPanel contains the calendar grid and navigation buttons.
      */
-    class CalendarPanel extends JPanel {
+    public class CalendarPanel extends JPanel {
 
         private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         private final String[] MONTH_NAMES = {"January", "February", "March", "April", "May", "June", "July",
@@ -135,6 +148,14 @@ public class CalendarView extends JPanel {
         }
 
         /**
+         * Retrieves the current panel of CalendarPanel.
+         * @return The current calendarPanel.
+         */
+        public CalendarPanel getCalendarPanel() {
+            return calendarPanel;
+        }
+
+        /**
          * Retrieves the next month button.
          * @return The next month button.
          */
@@ -175,4 +196,108 @@ public class CalendarView extends JPanel {
         }
     }
 
+    /**
+     * The TablePanel contains the tabular format of the user's bookings.
+     */
+    public class TablePanel extends JPanel {
+        /**
+         * Constructs a panel of TablePanel.
+         */
+
+        JLabel lblDate;
+
+        JPanel container;
+        JPanel pnlTable;
+
+        /**
+         * The table of the fanbase.
+         */
+        private JTable tblFanbase;
+        /**
+         * The model of the fanbaseTable.
+         */
+        private DefaultTableModel tblFanbaseModel;
+        public TablePanel() {
+            this.setLayout(new BorderLayout());
+            this.setBorder(style.padding);
+
+            container = style.createPnlRounded(1000, 700, style.white, style.lightGray);
+            container.setLayout(new BorderLayout());
+            container.setBorder(style.padding);
+            add(container, BorderLayout.CENTER);
+
+            lblDate = style.createLblH1("Date", style.black);
+            container.add(lblDate, BorderLayout.NORTH);
+
+            pnlTable = style.createPnlRounded(1000,700,style.iconGray, style.white);
+            pnlTable.setBorder(style.padding);
+            pnlTable.setLayout(new BorderLayout());
+            container.add(pnlTable, BorderLayout.CENTER);
+
+            tblFanbaseModel = new DefaultTableModel();
+            tblFanbaseModel.addColumn("Time");
+            tblFanbaseModel.addColumn("Fan");
+            tblFanbaseModel.addColumn("Type");
+
+            tblFanbase = new JTable(tblFanbaseModel);
+            tblFanbase.getTableHeader().setResizingAllowed(false);
+            tblFanbase.getTableHeader().setReorderingAllowed(false);
+            tblFanbase.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
+            tblFanbase.setAutoResizeMode(0);
+            tblFanbase.setDragEnabled(false);
+            tblFanbase.setOpaque(false);
+            tblFanbase.setFillsViewportHeight(true);
+            tblFanbase.setPreferredSize(new Dimension(1000,1000));
+
+            tblFanbase.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tblFanbase.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblFanbase.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tblFanbase.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+            JScrollPane scrollPane = new JScrollPane(tblFanbase);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            container.add(scrollPane, BorderLayout.CENTER);
+        }
+
+        /**
+         * Retrieves the current panel of TablePanel.
+         * @return The current tablePanel.
+         */
+        public TablePanel getTablePanel() {
+            return tablePanel;
+        }
+
+        public void setDate(String date) {
+            lblDate.setText(date);
+            this.revalidate();
+        }
+
+        public void populateTable(String[][] sessions) {
+            for (String[] row : sessions) {
+                tblFanbaseModel.addRow(row);
+            }
+        }
+
+        /**
+         * Retrieves the current JTable of tblFanbase.
+         * @return The current tblFanbase.
+         */
+        public JTable getTblFanbase() {
+            return tblFanbase;
+        }
+
+
+        /**
+         * Retrieves the current DefaultTableModel of tblFanbaseModel.
+         * @return The current tblFanbaseModel.
+         */
+        public DefaultTableModel getTblFanbaseModel() {
+            return tblFanbaseModel;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        new CalendarView();
+    }
 }
