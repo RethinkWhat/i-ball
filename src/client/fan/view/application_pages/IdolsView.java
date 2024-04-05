@@ -45,6 +45,7 @@ public class IdolsView extends JPanel {
      */
     private Stylesheet style = new Stylesheet();
 
+
     /**
      * Constructs a panel of IdolsView
      */
@@ -119,16 +120,7 @@ public class IdolsView extends JPanel {
             pnlIdolsContainer = new JPanel(flowLayout);
             pnlIdolsContainer.setBackground(style.white);
             pnlIdolsContainer.setBorder(style.padding);
-            pnlIdolsContainer.setPreferredSize(new Dimension(1000,1500));
-
-            // sample only
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
-            pnlIdolsContainer.add(new IdolDetailsPanel("res/drawables/user-white-solid.png","john doe", "celeb", "100", "120"));
+            pnlIdolsContainer.setPreferredSize(new Dimension(1000,1550));
 
             scrollPane = new JScrollPane(pnlIdolsContainer);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -402,4 +394,6 @@ public class IdolsView extends JPanel {
     public void addIdolPanel(String idolPfp, String idolName, String idolType, String idolVidRate, String idolVoiceRate) {
         pnlIdolsContainer.add(new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate));
     }
+
+
 }

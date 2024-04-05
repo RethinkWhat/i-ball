@@ -270,6 +270,14 @@ public class FanApplicationView extends JFrame {
         return lblUserPfp;
     }
 
+    /**
+     * Retrieves the IdolsView object
+     * @return
+     */
+    public IdolsView getIdolsView() {
+        return idolsView;
+    }
+
     public static void main(String[] args) {
         new FanApplicationView();
     }

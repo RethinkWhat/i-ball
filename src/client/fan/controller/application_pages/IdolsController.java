@@ -15,16 +15,15 @@ public class IdolsController {
         this.view = view;
         this.model = model;
 
-        /*
+
         for (Idol idol : model.getAllIdols()){
-            view.getPnlIdolsContainer().add(new IdolsView.IdolDetailsPanel(idol.getProfilePictureAddress(),
+            view.addIdolPanel(idol.getProfilePictureAddress(),
                     idol.getIdolName(),
                     idol.getIdolType(),
                     Double.toString(idol.getVideoCallRate()),
-                    Double.toString(idol.getVoiceCallRate())
-                    ));
+                    Double.toString(idol.getVoiceCallRate()));
         }
-         */
+
 
         /*
         for (int i = 0; i < model.getAllIdols().size(); i++){
