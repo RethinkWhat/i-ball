@@ -4,6 +4,7 @@ import shared.res.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The BookingView is the interface to book an idol. It contains the:
@@ -240,7 +241,7 @@ public class BookingView extends JPanel {
             gbc.anchor = GridBagConstraints.WEST;
             gbc.weightx = 300;
             gbc.ipady = 30;
-            JLabel lblAvailability = style.createLblH2("Availability",style.black);
+            JLabel lblAvailability = style.createLblH2("Availability:",style.black);
             add(lblAvailability, gbc);
 
             gbc.gridy = 1;
@@ -258,7 +259,7 @@ public class BookingView extends JPanel {
             pnlAvailDetails.add(new AvailableTimePanel());
 
             gbc.gridy = 2;
-            JLabel lblRates = style.createLblH2("Rates",style.black);
+            JLabel lblRates = style.createLblH2("Rates:",style.black);
             add(lblRates, gbc);
 
             gbc.gridy = 3;
@@ -472,5 +473,229 @@ public class BookingView extends JPanel {
                 this.setPreferredSize(new Dimension(550, 200));
             }
         }
+    }
+
+    /**
+     * Retrieves the current JButton of btnBack.
+     * @return The current btnBack.
+     */
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblIdolPfp.
+     * @return The current lblIdolPfp.
+     */
+    public JLabel getLblIdolPfp() {
+        return lblIdolPfp;
+    }
+
+    /**
+     * Retrieves the current JLabel of getLblIdolName.
+     * @return The current lblIdolName.
+     */
+    public JLabel getLblIdolName() {
+        return lblIdolName;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblIdolType.
+     * @return The current lblIdolType.
+     */
+    public JLabel getLblIdolType() {
+        return lblIdolType;
+    }
+
+    /**
+     * Retrieves the current JButton of btnIdolFb.
+     * @return The current btnIdolFb.
+     */
+    public JButton getBtnIdolFb() {
+        return btnIdolFb;
+    }
+
+    /**
+     * Retrieves the current JButton of btnIdolIg.
+     * @return The current btnIdolIg.
+     */
+    public JButton getBtnIdolIg() {
+        return btnIdolIg;
+    }
+
+    /**
+     * Retrieves the current JButton of btnIdolX.
+     * @return The current btnIdolX.
+     */
+    public JButton getBtnIdolX() {
+        return btnIdolX;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblIdolQuote.
+     * @return The current lblIdolQuote.
+     */
+    public JLabel getLblIdolQuote() {
+        return lblIdolQuote;
+    }
+
+    /**
+     * Retrieves the current idolBio.
+     * @return The current idolBio.
+     */
+    public String getIdolBio() {
+        return idolBio;
+    }
+
+    /**
+     * Retrieves the current availDays.
+     * @return The current availDays.
+     */
+    public String getAvailDays() {
+        return availDays;
+    }
+
+    /**
+     * Retrieves the current availTime.
+     * @return The current availTime.
+     */
+    public String getAvailTime() {
+        return availTime;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblVidRate.
+     * @return The current lblVidRate.
+     */
+    public JLabel getLblVidRate() {
+        return lblVidRate;
+    }
+
+    /**
+     * Retrieves the current JLabel of lblVoiceRate.
+     * @return The current lblVoiceRate.
+     */
+    public JLabel getLblVoiceRate() {
+        return lblVoiceRate;
+    }
+
+    /**
+     * Retrieves the current JRadioButton of radVidCall.
+     * @return The current radVidCall.
+     */
+    public JRadioButton getRadVidCall() {
+        return radVidCall;
+    }
+
+    /**
+     * Retrieves the current JRadioButton of radVoiceCall.
+     * @return The current radVoiceCall.
+     */
+    public JRadioButton getRadVoiceCall() {
+        return radVoiceCall;
+    }
+
+    /**
+     * Retrieves the current JComboBox of cmbDate.
+     * @return The current cmbDate.
+     */
+    public JComboBox<String> getCmbDate() {
+        return cmbDate;
+    }
+
+    /**
+     * Retrieves the current JComboBox of cmbTime.
+     * @return The current cmbTime.
+     */
+    public JComboBox<String> getCmbTime() {
+        return cmbTime;
+    }
+
+    /**
+     * Retrieves the current JComboBox of cmbDuration.
+     * @return The current cmbDuration.
+     */
+    public JComboBox<String> getCmbDuration() {
+        return cmbDuration;
+    }
+
+    /**
+     * Retrieves the current JTextField of txtAmount.
+     * @return The current txtAmount.
+     */
+    public JTextField getTxtAmount() {
+        return txtAmount;
+    }
+
+    /**
+     * Retrieves the current JButton of btnBook.
+     * @return The current btnBook.
+     */
+    public JButton getBtnBook() {
+        return btnBook;
+    }
+
+    /**
+     * Sets a specified action listener for btnBack.
+     * @param actionListener The specified action listener.
+     */
+    public void setBackListener(ActionListener actionListener) {
+        btnBack.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a specified action listener for btnBook.
+     * @param actionListener The specified action listener.
+     */
+    public void setBookListener(ActionListener actionListener) {
+        btnBook.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a specified action listener for btnIdolFb.
+     * @param actionListener The specified action listener.
+     */
+    public void setFbListener(ActionListener actionListener) {
+        btnIdolFb.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a specified action listener for btnIdolIg.
+     * @param actionListener The specified action listener.
+     */
+    public void setIgListener(ActionListener actionListener) {
+        btnIdolIg.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a specified action listener fot btnIdolX.
+     * @param actionListener The specified action listener.
+     */
+    public void setXListener(ActionListener actionListener) {
+        btnIdolX.addActionListener(actionListener);
+    }
+
+    /**
+     * Sets a new idolBio.
+     * @param idolBio The new idolBio.
+     */
+    public void setIdolBio(String idolBio) {
+        this.idolBio = idolBio;
+    }
+
+    /**
+     * Sets a new availDays.
+     * @param availDays The new availDays.
+     */
+    public void setAvailDays(String availDays) {
+        this.availDays = availDays;
+    }
+
+    /**
+     * Sets a new availTime.
+     * @param availTime The new availTime.
+     */
+    public void setAvailTime(String availTime) {
+        this.availTime = availTime;
     }
 }
