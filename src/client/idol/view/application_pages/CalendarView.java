@@ -11,7 +11,7 @@ import java.time.LocalDate;
 /**
  * The CalendarView contains an overview of the bookings of the idol in a given calendar format.
  */
-public class CalendarView extends JFrame {
+public class CalendarView extends JPanel {
     /**
      * The next month button.
      */
@@ -30,6 +30,8 @@ public class CalendarView extends JFrame {
     private CalendarPanel calendarPanel;
     private TablePanel tablePanel;
 
+
+
     /**
      * Constructs a panel of CalendarView.
      */
@@ -45,11 +47,6 @@ public class CalendarView extends JFrame {
 //        add(new TablePanel(), BorderLayout.CENTER);
 
         this.setSize(1100, 755);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
     }
 
     /**
@@ -297,7 +294,4 @@ public class CalendarView extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        new CalendarView();
-    }
 }
