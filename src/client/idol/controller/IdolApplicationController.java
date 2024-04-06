@@ -58,5 +58,16 @@ public class IdolApplicationController {
             view.getCardLayout().show(view.getPnlCards(), "home");
         });
 
+        view.getBtnNavAccount().addActionListener(e -> {
+            view.getCardLayout().show(view.getPnlCards(),"account");
+        });
+        view.getBtnNavCalendar().addActionListener(e -> {
+            view.getCardLayout().show(view.getPnlCards(), "calendar");
+        });
+
+        view.getBtnNavLogout().addActionListener(e -> {
+            System.exit(0);
+        });
+
     }
 }
