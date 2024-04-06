@@ -36,7 +36,7 @@ public class DataPB {
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "root";
+            String password = "";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -192,15 +192,17 @@ public class DataPB {
     public static ResultSet idolSearch(String searchTerm) throws SQLException {
         DataPB.setCon();
 
-        String query = "SELECT idolName FROM Idol WHERE idolName LIKE ? || '%'";
+        String query = "SELECT * FROM idol WHERE idolName LIKE ?";
+        // Add wildcard '%' to the search term
+        String searchPattern = searchTerm + "%";
 
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, searchTerm);
+        stmt.setString(1, searchPattern);
 
         ResultSet searchInput = stmt.executeQuery();
 
         return searchInput;
-    }
+        }
 
 
 

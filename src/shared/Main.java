@@ -1,5 +1,8 @@
 package shared;
 
+import client.fan.controller.application_pages.IdolsController;
+import client.fan.model.application_pages.IdolsModel;
+import client.fan.view.application_pages.IdolsView;
 import shared.login_register.LoginController;
 import shared.login_register.LoginModel;
 import shared.login_register.LoginView;
