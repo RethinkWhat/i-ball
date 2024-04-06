@@ -42,6 +42,14 @@ public class IdolsController {
             view.getIdolPanels().get(i).setPfpListener(new ChosenIdolListener(mainController, model.getAllIdols().get(i)));
         }
 
+        view.getBtnSearch().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchTerm = view.getTxtSearchbar().getText();
+
+            }
+        });
+
         /*
         for (int i = 0; i < model.getAllIdols().size(); i++){
 
@@ -85,4 +93,6 @@ public class IdolsController {
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "booking");
         }
     }
+
+
 }

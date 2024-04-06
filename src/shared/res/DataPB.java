@@ -1,5 +1,7 @@
 package shared.res;
 
+import client.fan.view.application_pages.IdolsView;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -186,6 +188,20 @@ public class DataPB {
 
         return idolSet;
     }
+
+    public static ResultSet idolSearch(String searchTerm) throws SQLException {
+        DataPB.setCon();
+
+        String query = "SELECT idolName FROM Idol WHERE idolName LIKE ? || '%'";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, searchTerm);
+
+        ResultSet searchInput = stmt.executeQuery();
+
+        return searchInput;
+    }
+
 
 
 

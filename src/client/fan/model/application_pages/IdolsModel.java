@@ -42,6 +42,34 @@ public class IdolsModel {
         return idolList;
     }
 
+    public List<Idol> searchIdols(String searchTerm) throws SQLException {
+        ResultSet idolSet = DataPB.idolSearch(searchTerm);
+        return parseResultSet(idolSet);
+    }
+    private List<Idol> parseResultSet(ResultSet resultSet) throws SQLException {
+        List<Idol> idolList = new ArrayList<>();
+        while (resultSet.next()) {
+            idolList.add(new Idol(
+                    resultSet.getInt("idolID"),
+                    resultSet.getString("username"),
+                    resultSet.getString("idolName"),
+                    resultSet.getString("gCashNumber"),
+                    resultSet.getString("idolType"),
+                    resultSet.getString("idolStatus").equalsIgnoreCase("Verified"),
+                    resultSet.getDouble("voiceCallRate"),
+                    resultSet.getDouble("videoCallRate"),
+                    resultSet.getString("fbAccount"),
+                    resultSet.getString("xAccount"),
+                    resultSet.getString("igAccount"),
+                    resultSet.getString("bio"),
+                    resultSet.getString("quote"),
+                    resultSet.getString("profilePictureAddress"),
+                    resultSet.getString("password")
+            ));
+        }
+        return idolList;
+    }
+
     /**
      * For testing purposes only
      * @param args

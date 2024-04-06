@@ -48,6 +48,8 @@ public class BookingController {
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "home");
         });
 
+
+
         view.setFbListener(new SocialsListener(model.getIdolDetails().get(3), 'f'));
         view.setIgListener(new SocialsListener(model.getIdolDetails().get(4), 'i'));
         view.setXListener(new SocialsListener(model.getIdolDetails().get(5), 'x'));
