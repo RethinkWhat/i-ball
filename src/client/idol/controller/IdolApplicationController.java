@@ -10,18 +10,9 @@ import client.idol.model.application_pages.CalendarModel;
 import client.idol.model.application_pages.FanbaseModel;
 import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.IdolApplicationView;
-import client.idol.view.application_pages.FanbaseView;
-import shared.res.DataPB;
-import shared.res.Idol;
-import shared.res.Resources;
-import shared.res.Session;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * The IdolApplicationController provides the logic to navigate between different pages.

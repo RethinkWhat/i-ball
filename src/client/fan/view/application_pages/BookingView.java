@@ -51,7 +51,7 @@ public class BookingView extends JPanel {
     /**
      * The idol bio.
      */
-    private String idolBio;
+    private String idolBio = "";
     /**
      * The available days of the idol.
      */
@@ -198,11 +198,6 @@ public class BookingView extends JPanel {
             pnlBio.setLayout(new BorderLayout());
             pnlBio.setPreferredSize(new Dimension(550, 70));
             add(pnlBio, gbc);
-
-            idolBio = "I am a certified lover boy, data scientist, machine learning enthusiast, professional yapper, Fazzio driver, Vespa hater," +
-                    "nyondomizer smasher, destroyer of tice mits, and future " +
-                    "SLU Department Head of Computer Science and Computer" +
-                    "Applications Department. Amen.";
 
             txaIdolBio = new JTextArea();
             txaIdolBio.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -460,6 +455,7 @@ public class BookingView extends JPanel {
 
                 gbc.gridy = 6;
                 txtAmount = style.createTxtRounded("Info",style.lightGray,style.black, 20);
+                txtAmount.setEditable(false);
                 add(txtAmount, gbc);
 
                 gbc.gridy = 7;
@@ -545,6 +541,14 @@ public class BookingView extends JPanel {
      */
     public String getIdolBio() {
         return idolBio;
+    }
+
+    /**
+     * Retrieves the current JTextArea of txaIdolBio.
+     * @return The current txaIdolBio.
+     */
+    public JTextArea getTxaIdolBio() {
+        return txaIdolBio;
     }
 
     /**
