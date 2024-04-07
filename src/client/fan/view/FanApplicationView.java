@@ -108,7 +108,7 @@ public class FanApplicationView extends JFrame {
         virtualMeetupView = new VirtualMeetupView();
         pnlCards.add(virtualMeetupView, "meetup");
 
-        cardLayout.show(pnlCards, "booking");
+        cardLayout.show(pnlCards, "home");
 
         this.setContentPane(contentArea);
         this.pack();
@@ -271,11 +271,35 @@ public class FanApplicationView extends JFrame {
     }
 
     /**
-     * Retrieves the IdolsView object
-     * @return
+     * Retrieves the current IdolsView of idolView.
+     * @return The current idolsView.
      */
     public IdolsView getIdolsView() {
         return idolsView;
+    }
+
+    /**
+     * Retrieves the current BookingsView of bookingsView.
+     * @return The current bookingsView.
+     */
+    public BookingView getBookingView() {
+        return bookingView;
+    }
+
+    /**
+     * Retrieves the current MyIdolsView of myIdolsView.
+     * @return The current myIdolsView.
+     */
+    public MyIdolsView getMyIdolsView() {
+        return myIdolsView;
+    }
+
+    /**
+     * Retrieves the current VirtualMeetupView of virtualMeetupView.
+     * @return Teh current virtualMeetupView.
+     */
+    public VirtualMeetupView getVirtualMeetupView() {
+        return virtualMeetupView;
     }
 
     public static void main(String[] args) {

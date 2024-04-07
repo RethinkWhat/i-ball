@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The IdolView is the home page of the application where fans can choose an idol to book. It contains:
@@ -40,6 +42,10 @@ public class IdolsView extends JPanel {
      * Panel holding all the idols.
      */
     private JPanel pnlIdolsContainer;
+    /**
+     * Array of IdolDetailsPanel.
+     */
+    private List<IdolDetailsPanel> idolPanels = new ArrayList<>();
     /**
      * The stylesheet.
      */
@@ -123,6 +129,7 @@ public class IdolsView extends JPanel {
             pnlIdolsContainer.setPreferredSize(new Dimension(1000,1550));
 
             scrollPane = new JScrollPane(pnlIdolsContainer);
+            scrollPane.setBorder(BorderFactory.createEmptyBorder());
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
             add(scrollPane, BorderLayout.CENTER);
 
@@ -384,15 +391,25 @@ public class IdolsView extends JPanel {
     }
 
     /**
-     *
-     * @param idolPfp
-     * @param idolName
-     * @param idolType
-     * @param idolVidRate
-     * @param idolVoiceRate
+     * Retrieves the current IdolDetailsPanel array of idolPanels.
+     * @return The current array of idolPanels.
+     */
+    public List<IdolDetailsPanel> getIdolPanels() {
+        return idolPanels;
+    }
+
+    /**
+     * Adds a new IdolDetailsPanel in the pnlContainer with specified details.
+     * @param idolPfp The specified idol pfp file url.
+     * @param idolName The specified idol name.
+     * @param idolType The specified idol type.
+     * @param idolVidRate The specified idol video call rate.
+     * @param idolVoiceRate The specified idol voice call rate.
      */
     public void addIdolPanel(String idolPfp, String idolName, String idolType, String idolVidRate, String idolVoiceRate) {
-        pnlIdolsContainer.add(new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate));
+        IdolDetailsPanel idolDetailsPanel = new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate);
+        pnlIdolsContainer.add(idolDetailsPanel);
+        idolPanels.add(idolDetailsPanel);
     }
 
 
