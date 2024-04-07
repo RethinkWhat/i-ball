@@ -155,17 +155,18 @@ public class DataPB {
      * @return
      * @throws SQLException
      */
-    public ResultSet searchFanSessions(String date) throws SQLException{
+    public static ResultSet searchFanSessions(int userID, String date) throws SQLException{
         DataPB.setCon();
 
-        String query =  "SELECT startTime, idolName, sessionType, duration" +
-                "FROM session JOIN idol USING(idolID)" +
-                "WHERE userID = ?";
+        String query =  "SELECT startTime, idolName, sessionType, duration " +
+                "FROM session JOIN idol USING(idolID) " +
+                "WHERE userID = ? AND date LIKE ?";
 
         PreparedStatement stmt = con.prepareStatement(query);
         String searchKey = date + "%";
 
-        stmt.setString(1, searchKey);
+        stmt.setString(1, String.valueOf(userID));
+        stmt.setString(2, searchKey);
 
         ResultSet resultSet = stmt.executeQuery();
 
