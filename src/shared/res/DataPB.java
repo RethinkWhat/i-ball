@@ -31,7 +31,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -149,6 +149,31 @@ public class DataPB {
         }
         return sessionsList;
     }
+
+    /**
+     * Returns all the booking of a fan given a specific date
+     * @param date
+     * @return
+     * @throws SQLException
+     */
+    public static ResultSet searchFanSessions(int userID, String date) throws SQLException{
+        DataPB.setCon();
+
+        String query =  "SELECT startTime, idolName, sessionType, duration " +
+                "FROM session JOIN idol USING(idolID) " +
+                "WHERE userID = ? AND date LIKE ?";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        String searchKey = date + "%";
+
+        stmt.setString(1, String.valueOf(userID));
+        stmt.setString(2, searchKey);
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        return resultSet;
+    }
+
 
     public static User getUser(int userID) {
         DataPB.setCon();
@@ -274,10 +299,43 @@ public class DataPB {
     }
 
 
+    public static ResultSet idolSearch(String searchTerm) throws SQLException {
+        DataPB.setCon();
 
+        String query = "SELECT * FROM idol WHERE idolName LIKE ?";
+        // Add wildcard '%' to the search term
+        String searchPattern = searchTerm + "%";
 
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, searchPattern);
 
-    //===============================//
+        ResultSet searchInput = stmt.executeQuery();
+
+        return searchInput;
+    }
+
+    public static ResultSet filterIdolsByType(String idolType) throws SQLException {
+        DataPB.setCon();
+
+        String query = "SELECT * FROM idol WHERE idolType = ?";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, idolType);
+
+        ResultSet filteredIdols = stmt.executeQuery();
+
+        return filteredIdols;
+    }
+
+    public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
+        int idolID = idol.getIdolID();
+
+        String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
+        Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        return statement.executeQuery(query);
+    }
+
 
     /**
      * TO BE DELETED

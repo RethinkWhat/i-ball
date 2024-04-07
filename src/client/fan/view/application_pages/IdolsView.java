@@ -1,11 +1,19 @@
 package client.fan.view.application_pages;
 
+import client.fan.controller.application_pages.IdolsController;
+import client.fan.model.application_pages.IdolsModel;
+import shared.login_register.LoginController;
+import shared.login_register.LoginModel;
+import shared.login_register.LoginView;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The IdolView is the home page of the application where fans can choose an idol to book. It contains:
@@ -40,6 +48,10 @@ public class IdolsView extends JPanel {
      * Panel holding all the idols.
      */
     private JPanel pnlIdolsContainer;
+    /**
+     * Array of IdolDetailsPanel.
+     */
+    private List<IdolDetailsPanel> idolPanels = new ArrayList<>();
     /**
      * The stylesheet.
      */
@@ -123,6 +135,7 @@ public class IdolsView extends JPanel {
             pnlIdolsContainer.setPreferredSize(new Dimension(1000,1550));
 
             scrollPane = new JScrollPane(pnlIdolsContainer);
+            scrollPane.setBorder(BorderFactory.createEmptyBorder());
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
             add(scrollPane, BorderLayout.CENTER);
 
@@ -196,7 +209,7 @@ public class IdolsView extends JPanel {
             this.setBackground(style.iconGray);
 
             ImageIcon icon = new ImageIcon(idolPfp);
-            btnPfp = style.createBtnIconOnly(icon, 90,90);
+            btnPfp = style.createBtnIconOnly(icon, 355,200);
             btnPfp.setHorizontalAlignment(SwingConstants.CENTER);
             add(btnPfp, BorderLayout.CENTER);
 
@@ -384,16 +397,25 @@ public class IdolsView extends JPanel {
     }
 
     /**
-     *
-     * @param idolPfp
-     * @param idolName
-     * @param idolType
-     * @param idolVidRate
-     * @param idolVoiceRate
+     * Retrieves the current IdolDetailsPanel array of idolPanels.
+     * @return The current array of idolPanels.
      */
-    public void addIdolPanel(String idolPfp, String idolName, String idolType, String idolVidRate, String idolVoiceRate) {
-        pnlIdolsContainer.add(new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate));
+    public List<IdolDetailsPanel> getIdolPanels() {
+        return idolPanels;
     }
 
+    /**
+     * Adds a new IdolDetailsPanel in the pnlContainer with specified details.
+     * @param idolPfp The specified idol pfp file url.
+     * @param idolName The specified idol name.
+     * @param idolType The specified idol type.
+     * @param idolVidRate The specified idol video call rate.
+     * @param idolVoiceRate The specified idol voice call rate.
+     */
+    public void addIdolPanel(String idolPfp, String idolName, String idolType, String idolVidRate, String idolVoiceRate) {
+        IdolDetailsPanel idolDetailsPanel = new IdolDetailsPanel(idolPfp, idolName, idolType, idolVidRate, idolVoiceRate);
+        pnlIdolsContainer.add(idolDetailsPanel);
+        idolPanels.add(idolDetailsPanel);
+    }
 
 }

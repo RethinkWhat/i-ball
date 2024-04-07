@@ -1,11 +1,16 @@
 package client.fan.controller;
 
+import client.fan.controller.application_pages.BookingController;
 import client.fan.controller.application_pages.IdolsController;
 import client.fan.model.FanApplicationModel;
+import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.IdolsModel;
 import client.fan.view.FanApplicationView;
+import client.fan.view.application_pages.VirtualMeetupView;
 import client.idol.controller.application_pages.FanbaseController;
+import client.idol.controller.application_pages.VirtualMeetupController;
 import client.idol.model.application_pages.FanbaseModel;
+import client.idol.model.application_pages.VirtualMeetupModel;
 import shared.res.Resources;
 import shared.res.User;
 
@@ -33,9 +38,8 @@ public class FanApplicationController {
         this.view = view;
         this.model = model;
 
-//        new FanbaseController(view.getFanbaseView(), new FanbaseModel(model.getIdol()));
-
-        new IdolsController(view.getIdolsView(), new IdolsModel());
+        new IdolsController(view.getIdolsView(), new IdolsModel(), this);
+        // new VirtualMeetupController(view.getVirtualMeetupView(), new VirtualMeetupModel());
 
         // action listeners
         view.getBtnNavHome().addActionListener(e -> {
@@ -55,5 +59,13 @@ public class FanApplicationController {
         view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
 
         // focus listeners
+    }
+
+    public FanApplicationView getView() {
+        return view;
+    }
+
+    public FanApplicationModel getModel() {
+        return model;
     }
 }

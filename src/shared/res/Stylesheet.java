@@ -13,23 +13,23 @@ public class Stylesheet {
     /**
      * Primary brand color
      */
-    public final Color purple = new Color(86,71,135);
+    public final Color purple = new Color(86, 71, 135);
     /**
      * Dark solid color.
      */
-    public final Color black = new Color(0,0,0);
+    public final Color black = new Color(0, 0, 0);
     /**
      * Light solid color.
      */
-    public final Color white = new Color(255,255,255);
+    public final Color white = new Color(255, 255, 255);
     /**
      * Foreground color for I/O components.
      */
-    public final Color gray = new Color(133,133,133);
+    public final Color gray = new Color(133, 133, 133);
     /**
      * Background color for I/O components.
      */
-    public final Color lightGray = new Color(239,239,239);
+    public final Color lightGray = new Color(239, 239, 239);
     /**
      * Background of miscellaneous UI elements.
      */
@@ -105,12 +105,13 @@ public class Stylesheet {
     /**
      * Default padding for panels.
      */
-    public final EmptyBorder padding = new EmptyBorder(10,20,10,20);
+    public final EmptyBorder padding = new EmptyBorder(10, 20, 10, 20);
 
     /**
      * Creates a new JLabel with a specified text and color.
      * The JLabel is a heading (h1).
-     * @param text The specified text.
+     *
+     * @param text  The specified text.
      * @param color The specified foreground color.
      * @return JLabel with the specified text and color in an H1 format.
      */
@@ -180,10 +181,12 @@ public class Stylesheet {
         label.setForeground(color);
         return label;
     }
+
     /**
      * Creates a new JLabel with a specified text and color.
      * The JLabel is label for the calendar days.
-     * @param text The specified text.
+     *
+     * @param text  The specified text.
      * @param color The specified foreground color.
      * @return JLabel with the specified text and color.
      */
@@ -196,8 +199,9 @@ public class Stylesheet {
 
     /**
      * Creates a new JLabel with a specified icon and size.
-     * @param icon The specified icon URL.
-     * @param width The specified width.
+     *
+     * @param icon   The specified icon URL.
+     * @param width  The specified width.
      * @param height The specified height.
      * @return The JLabel with the specified icon.
      */
@@ -272,6 +276,25 @@ public class Stylesheet {
     }
 
     /**
+     * Creates a new JRadioButton with a specified text and foreground color.
+     *
+     * @param text       The specified text.
+     * @param foreground The specified foreground.
+     * @return The specified JRadioButton.
+     */
+    public JRadioButton createRad(String text, Color foreground) {
+        JRadioButton button = new JRadioButton();
+        button.setText(text);
+        button.setForeground(foreground);
+        button.setFont(new Font("Arial", Font.PLAIN, 14));
+        button.setVerticalTextPosition(SwingConstants.CENTER);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.setBorderPainted(false);
+        button.setOpaque(false);
+        return button;
+    }
+
+    /**
      * Creates a new JComboBox with a specified background color, foreground color, and radius.
      *
      * @param background The specified background.
@@ -279,8 +302,8 @@ public class Stylesheet {
      * @param radius     The specified radius.
      * @return The specified combo box.
      */
-    public JComboBox<?> createCmbRounded(Color background, Color foreground, int radius) {
-        JComboBox<?> comboBox = new JComboBox<>();
+    public JComboBox<String> createCmbRounded(Color background, Color foreground, int radius) {
+        JComboBox<String> comboBox = new JComboBox<>();
         comboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         comboBox.setBackground(background);
         comboBox.setForeground(foreground);
