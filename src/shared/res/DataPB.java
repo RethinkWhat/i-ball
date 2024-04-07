@@ -229,11 +229,33 @@ public class DataPB {
     public static ResultSet getAllIdolSession(Idol idol) throws SQLException {
         DataPB.setCon();
 
-        String query = "SELECT date, startTime, duration FROM session WHERE idolId=?";
-        PreparedStatement statement = con.prepareStatement(query);
-        statement.setInt(1,idol.getIdolID());
-        ResultSet sessions = statement.getResultSet();
+        String query = "SELECT date, startTime, duration FROM session WHERE idolId=" + idol.getIdolID();
+        Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-        return sessions;
+        return statement.executeQuery(query);
+    }
+
+    /**
+     * Inserts a new record in the session table.
+     * @param session The specified session.
+     * @throws SQLException If error or exception occurs.
+     */
+    public static void addNewSession(Session session) throws SQLException {
+        DataPB.setCon();
+
+        String insertion = "INSERT INTO session "
+                + "(idolID, date, startTime, duration, sessionType, amount, userID)"
+                + " values (?,?,?,?,?,?,?)";
+
+        PreparedStatement statement = con.prepareStatement(insertion);
+        statement.setInt(0,session.getIdolID());
+        statement.setDate(1,session.getDate());
+        statement.setTime(2,session.getStartTime());
+        statement.setTime(3,session.getDuration());
+        statement.setString(4,session.getSessionType());
+        statement.setDouble(5,session.getAmount());
+        statement.setInt(6,session.getIdolID());
+
+        statement.executeUpdate();
     }
 }

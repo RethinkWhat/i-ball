@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The BookingController processes the user requests. Based on the user request, the BookingController
@@ -47,11 +49,24 @@ public class BookingController {
         // constants / variables
         populateIdolDetails();
         populateReservationDetails();
-        populateDateOptions();
+        populateReservationComboBoxes();
 
         // action listeners
         view.getBtnBack().addActionListener(e -> {
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "home");
+        });
+
+        view.getCmbDate().addActionListener(e -> {
+            List<String> availTimes;
+            try {
+                availTimes = model.getAvailTimes(String.valueOf(view.getCmbDate().getSelectedItem()))
+                        .stream().distinct().toList();
+                for (String availTime : availTimes) {
+                    view.getCmbTime().addItem(availTime);
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         view.getCmbDuration().addActionListener(e -> {
@@ -161,16 +176,6 @@ public class BookingController {
         }
     }
 
-    private void populateDateOptions() {
-
-
-        try {
-            model.getAvailSchedule(model.getIdol());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Populates the necessary JFrame components of the idol's details.
      */
@@ -211,5 +216,13 @@ public class BookingController {
         }
         view.getTxaAvailDays().setText(sbDaysAvail.toString());
         view.getTxaAvailTime().setText(sbTimeAvail.toString());
+    }
+
+    private void populateReservationComboBoxes() {
+        List<String> dates = model.getAvailableDatesToBook()
+                .stream().distinct().toList();
+        for (String date : dates) {
+            view.getCmbDate().addItem(date);
+        }
     }
 }

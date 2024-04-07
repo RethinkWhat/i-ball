@@ -402,7 +402,6 @@ public class BookingView extends JPanel {
                 ButtonGroup buttonGroup = new ButtonGroup();
 
                 radVidCall = style.createRad("Video Call", style.black);
-                radVidCall.setSelected(true);
                 buttonGroup.add(radVidCall);
                 pnlRadioButtons.add(radVidCall);
 
@@ -441,7 +440,7 @@ public class BookingView extends JPanel {
                 cmbDuration.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbDuration, gbc);
 
-                for (int i = 5; i <= 30; i += 5) {
+                for (int i = 0; i <= 30; i += 5) {
                     cmbDuration.addItem(i);
                 }
 

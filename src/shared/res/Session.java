@@ -158,6 +158,14 @@ public class Session {
     }
 
     /**
+     * Getter of the session amount.
+     * @return The current session amount.
+     */
+    public double getAmount() {
+        return amount;
+    }
+
+    /**
      * Setter for the sessionType
      * @param sessionType
      */
