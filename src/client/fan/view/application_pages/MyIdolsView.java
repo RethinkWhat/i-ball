@@ -115,8 +115,9 @@ public class MyIdolsView extends JPanel {
 
             tblFanbaseModel = new DefaultTableModel();
             tblFanbaseModel.addColumn("Time");
-            tblFanbaseModel.addColumn("Fan");
+            tblFanbaseModel.addColumn("Idol");
             tblFanbaseModel.addColumn("Type");
+            tblFanbaseModel.addColumn("Duration");
 
             tblFanbase = new JTable(tblFanbaseModel);
             tblFanbase.getTableHeader().setResizingAllowed(false);
@@ -138,6 +139,8 @@ public class MyIdolsView extends JPanel {
             container.add(scrollPane, BorderLayout.CENTER);
 
         }
+
+
     }
 
     /**
