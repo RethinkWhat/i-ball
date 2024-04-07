@@ -48,6 +48,8 @@ public class BookingController {
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "home");
         });
 
+
+
         view.setFbListener(new SocialsListener(model.getIdolDetails().get(3), 'f'));
         view.setIgListener(new SocialsListener(model.getIdolDetails().get(4), 'i'));
         view.setXListener(new SocialsListener(model.getIdolDetails().get(5), 'x'));
@@ -115,9 +117,9 @@ public class BookingController {
     }
 
      private void populateDetails() {
-         ImageIcon icon = new ImageIcon(model.getIdolDetails().getFirst());
-         Image image = icon.getImage().getScaledInstance(533,300, Image.SCALE_SMOOTH);
-         view.getLblIdolPfp().setIcon(new ImageIcon(image));
+         //ImageIcon icon = new ImageIcon(model.getIdolDetails().getFirst());
+         //Image image = icon.getImage().getScaledInstance(533,300, Image.SCALE_SMOOTH);
+         //view.getLblIdolPfp().setIcon(new ImageIcon(image));
 
          view.getLblIdolName().setText(model.getIdolDetails().get(1));
          view.getLblIdolType().setText(model.getIdolDetails().get(2));

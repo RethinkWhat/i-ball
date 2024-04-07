@@ -702,4 +702,24 @@ public class BookingView extends JPanel {
     public void setAvailTime(String availTime) {
         this.availTime = availTime;
     }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    private static void createAndShowGUI() {
+        JFrame frame = new JFrame("Booking View Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        BookingView bookingView = new BookingView();
+        frame.add(bookingView);
+
+        frame.pack();
+        frame.setLocationRelativeTo(null); // Center the frame
+        frame.setVisible(true);
+    }
 }
