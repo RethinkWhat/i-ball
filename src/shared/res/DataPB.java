@@ -1,7 +1,5 @@
 package shared.res;
 
-import client.fan.view.application_pages.IdolsView;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -202,6 +200,19 @@ public class DataPB {
         ResultSet searchInput = stmt.executeQuery();
 
         return searchInput;
+    }
+
+    public static ResultSet filterIdolsByType(String idolType) throws SQLException {
+        DataPB.setCon();
+
+        String query = "SELECT * FROM idol WHERE idolType = ?";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, idolType);
+
+        ResultSet filteredIdols = stmt.executeQuery();
+
+        return filteredIdols;
     }
 
     public static ResultSet getIdolSchedule(Idol idol) throws SQLException {

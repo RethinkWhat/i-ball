@@ -53,6 +53,19 @@ public class IdolsModel {
     }
 
     /**
+     * This method filters idols based on their type.
+     *
+     * @param idolType The type of idols to filter
+     * @return A list of idols matching the specified type
+     * @throws SQLException If a database access error occurs
+     */
+
+    public List<Idol> filterIdolsByType(String idolType) throws SQLException {
+        ResultSet filteredIdols = DataPB.filterIdolsByType(idolType);
+        return parseResultSet(filteredIdols);
+    }
+
+    /**
      * Parses a ResultSet into a list of Idol objects
      * @param resultSet The ResultSet to parse
      * @return A list of Idol objects
