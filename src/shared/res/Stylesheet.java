@@ -34,10 +34,12 @@ public class Stylesheet {
      * Background of miscellaneous UI elements.
      */
     public final Color darkGray = new Color(63,63,63);
+
     /**
      * Background of icons.
      */
     public final Color iconGray = new Color(15,14,14,30);
+
     /**
      * Error color.
      */
@@ -60,6 +62,13 @@ public class Stylesheet {
      * Icon of profile picture placeholder.
      */
     public final ImageIcon iconPfpPlaceholder = new ImageIcon("res/drawables/user-white-solid.png");
+
+    public final ImageIcon iconBlackPfpPlaceholder = new ImageIcon("res/drawables/user-black-solid.png");
+
+    /**
+     * Icon of edit symbol
+     */
+    public final ImageIcon iconEdit = new ImageIcon("res/drawables/edit-outline.png");
     /**
      * Icon of end call.
      */

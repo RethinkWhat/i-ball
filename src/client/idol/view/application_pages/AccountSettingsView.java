@@ -17,7 +17,7 @@ import java.awt.*;
  * 5. Available days and respective available times.
  * 6. Delete account.
  */
-public class AccountSettingsView extends JFrame {
+public class AccountSettingsView extends JPanel {
 
     Stylesheet style = new Stylesheet();
 
@@ -40,10 +40,6 @@ public class AccountSettingsView extends JFrame {
         add(pnlEdit, BorderLayout.SOUTH);
 
         this.setPreferredSize(new Dimension(1100, 755));
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
@@ -87,7 +83,7 @@ public class AccountSettingsView extends JFrame {
 
         public EditPanel() {
             this.setLayout(new BorderLayout());
-            this.setBorder(style.padding);
+            this.setBorder(new EmptyBorder(10,20,20,20));
 
             container = style.createPnlRounded(700,575,style.white,style.gray);
             container.setLayout(new BorderLayout());
@@ -139,11 +135,27 @@ public class AccountSettingsView extends JFrame {
 
     public class DetailsPanel extends JPanel{
 
-        JLabel lblUserPfp;
 
         JPanel container;
 
         JPanel pnlPadded;
+        JLabel lblUserPfp;
+
+        JLabel lblAccountType;
+
+        JLabel lblEditInfo;
+
+        JPanel pnlDetails;
+
+        JTextField txtName;
+        JTextField txtUsername;
+        JTextField txtEmail;
+        JTextField txtGCash;
+
+        JButton btnEditName;
+        JButton btnEditUsername;
+        JButton btnEditEmail;
+        JButton btnEditGCash;
 
         public DetailsPanel() {
             this.setLayout(new BorderLayout());
@@ -152,14 +164,139 @@ public class AccountSettingsView extends JFrame {
             this.setBorder(BorderFactory.createMatteBorder(0,0,0,1, style.gray));
 
             pnlPadded = new JPanel();
-            pnlPadded.setBorder(style.padding);
+            pnlPadded.setBorder(new EmptyBorder(30,20,10,20));
             pnlPadded.setPreferredSize(new Dimension(375,575));
-            pnlPadded.setBackground(style.black);
+            pnlPadded.setBackground(style.white);
 
 
             container = new JPanel();
             container.setPreferredSize(new Dimension(375,510));
             container.setLayout(new BorderLayout());
+
+            JPanel pnlHeader = new JPanel();
+            pnlHeader.setLayout(new BorderLayout());
+            pnlHeader.setPreferredSize(new Dimension(375,80));
+            pnlHeader.setBackground(style.white);
+
+            JPanel pnlEmpty = new JPanel();
+            pnlEmpty.setPreferredSize(new Dimension(150,50));
+            pnlEmpty.setBackground(style.white);
+            pnlEmpty.setLayout(new BorderLayout());
+            pnlHeader.add(pnlEmpty, BorderLayout.WEST);
+
+            JPanel pnlPfp = new JPanel();
+            pnlPfp.setPreferredSize(new Dimension(170,50));
+            pnlPfp.setBackground(style.white);
+            pnlPfp.setLayout(new BorderLayout());
+            pnlHeader.add(pnlPfp, BorderLayout.CENTER);
+
+            JPanel pnlEdit = new JPanel();
+            pnlEdit.setPreferredSize(new Dimension(150,50));
+            pnlEdit.setBackground(style.white);
+            pnlEdit.setLayout(new BorderLayout());
+            pnlHeader.add(pnlEdit, BorderLayout.EAST);
+
+
+            lblUserPfp = new JLabel();
+            lblUserPfp.setIcon(style.iconBlackPfpPlaceholder);
+            lblUserPfp.setHorizontalAlignment(SwingConstants.CENTER);
+            pnlPfp.add(lblUserPfp);
+
+            lblEditInfo = new JLabel();
+            lblEditInfo.setIcon(style.iconEdit);
+            pnlEdit.add(lblEditInfo, BorderLayout.NORTH);
+
+
+
+            lblAccountType = style.createLblP("Account Type: Idol", style.black);
+            lblAccountType.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+
+            pnlDetails = new JPanel();
+            pnlDetails.setLayout(new GridBagLayout());
+            pnlDetails.setPreferredSize(new Dimension(150,375));
+            pnlDetails.setBackground(style.white);
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(0,25,0,0);
+            gbc.anchor = GridBagConstraints.WEST;
+            gbc.weightx=150;
+            gbc.weighty= 0;
+
+            gbc.ipady = 15;
+            gbc.gridy = 0;
+            JLabel lblPersonal = style.createLblH3("Personal Details", style.black);
+            pnlDetails.add(lblPersonal, gbc);
+
+            gbc.ipady = 0;
+            gbc.gridy = 1;
+            JLabel lblFullName = style.createLblH4("Full Name", style.black);
+            pnlDetails.add(lblFullName, gbc);
+
+            gbc.gridy = 2;
+            txtName = style.createTxtRounded("Juan Dela Cruz", style.lightGray, style.gray, 20);
+            pnlDetails.add(txtName,gbc);
+
+            gbc.ipady = 15;
+            gbc.gridx = 2;
+            btnEditName = style.createBtnIconOnly(style.iconEdit,25,25);
+            pnlDetails.add(btnEditName,gbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            JLabel lblUsername = style.createLblH4("Username", style.black);
+            pnlDetails.add(lblUsername, gbc);
+
+            gbc.ipady = 0;
+            gbc.gridy = 4;
+            txtUsername = style.createTxtRounded("juandelacruz", style.lightGray, style.gray, 20);
+            pnlDetails.add(txtUsername,gbc);
+
+
+            gbc.gridx = 2;
+            btnEditUsername = style.createBtnIconOnly(style.iconEdit,25,25);
+            pnlDetails.add(btnEditUsername,gbc);
+
+            gbc.ipady = 20;
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            JLabel lblEmail = style.createLblH4("Email", style.black);
+            pnlDetails.add(lblEmail,gbc);
+
+            gbc.ipady = 0;
+            gbc.gridy = 6;
+            txtEmail = style.createTxtRounded("jdelacruz@gmail.com", style.lightGray, style.gray, 20);
+            pnlDetails.add(txtEmail,gbc);
+
+            gbc.gridx = 2;
+            btnEditEmail = style.createBtnIconOnly(style.iconEdit, 25, 25);
+            pnlDetails.add(btnEditEmail,gbc);
+
+            gbc.ipady = 20;
+            gbc.gridx = 0;
+            gbc.gridy = 7;
+            JLabel lblGCash = style.createLblH4("GCash Number", style.black);
+            pnlDetails.add(lblGCash, gbc);
+
+            gbc.ipady = 0;
+            gbc.gridy = 8;
+            txtGCash = style.createTxtRounded("0929 123 4567", style.lightGray,style.gray, 20);
+            pnlDetails.add(txtGCash, gbc);
+
+            gbc.gridx = 2;
+            btnEditGCash = style.createBtnIconOnly(style.iconEdit, 25, 25);
+            pnlDetails.add(btnEditGCash, gbc);
+
+
+
+
+
+
+            container.add(pnlHeader, BorderLayout.NORTH );
+            container.setBackground(style.white);
+            container.add(lblAccountType, BorderLayout.CENTER);
+            container.add(pnlDetails, BorderLayout.SOUTH);
 
 
             pnlPadded.add(container);
@@ -171,10 +308,103 @@ public class AccountSettingsView extends JFrame {
 
     public class AvailabilityPanel extends JPanel {
 
+        JPanel container;
+
+        JButton btnEditDay;
+
+        JComboBox<String> cmbDate;
+
+        JComboBox<String> cmbStartTime;
+
+        JComboBox<String> cmbEndTime;
+
+        JButton btnConfirm;
+
+        JPanel pnlDate;
+
         public AvailabilityPanel() {
             this.setLayout(new BorderLayout());
             this.setBackground(style.white);
             this.setPreferredSize(new Dimension(375, 575));
+            this.setBorder(style.padding);
+
+            this.setBorder(new EmptyBorder(40,0,0,0));
+            JLabel lblSetTime = style.createLblH1("Set Time", style.black);
+            lblSetTime.setHorizontalAlignment(SwingConstants.CENTER);
+            this.add(lblSetTime, BorderLayout.NORTH);
+
+
+
+            pnlDate = new JPanel(new BorderLayout());
+            pnlDate.setBorder(style.padding);
+            pnlDate.setBackground(style.white);
+
+            cmbDate = new JComboBox<>(new String[]{
+                    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
+            cmbDate.setPreferredSize(new Dimension(150,30));
+
+            btnEditDay = style.createBtnTxtOnly("EDIT", style.purple);
+            btnEditDay.setPreferredSize(new Dimension(80,30));
+            pnlDate.add(cmbDate, BorderLayout.WEST);
+            pnlDate.add(btnEditDay, BorderLayout.EAST);
+
+
+
+
+
+
+            container = new JPanel();
+            container.setLayout(new BorderLayout());
+            container.setPreferredSize(new Dimension(375,350));
+            container.setBackground(style.white);
+            container.setBorder(style.padding);
+
+
+            JPanel pnlTimeHeader = new JPanel();
+            pnlTimeHeader.setLayout(new BorderLayout());
+            pnlTimeHeader.setPreferredSize(new Dimension(375,50));
+            pnlTimeHeader.setBackground(style.white);
+            pnlTimeHeader.setBorder(new EmptyBorder(0,10,0,6));
+
+
+            JLabel lblStartTime = style.createLblH3("Start Time", style.black);
+            pnlTimeHeader.add(lblStartTime, BorderLayout.WEST);
+
+            JLabel lblEndTime = style.createLblH3("End Time", style.black);
+            pnlTimeHeader.add(lblEndTime, BorderLayout.EAST);
+
+            container.add(pnlTimeHeader, BorderLayout.NORTH);
+
+            cmbStartTime = new JComboBox<>(new String[]{
+                    "7:00", "8:00", "9:00)", "10:00"});
+            cmbStartTime.setPreferredSize(new Dimension(150,30));
+            container.add(cmbStartTime, BorderLayout.WEST);
+
+            cmbEndTime = new JComboBox<>(new String[]{
+                    "7:00", "8:00", "9:00)", "10:00"});
+            cmbEndTime.setPreferredSize(new Dimension(150,30));
+            container.add(cmbEndTime, BorderLayout.EAST);
+
+
+            btnConfirm = style.createBtnRounded("Confirm", style.purple, style.purple, 10);
+            btnConfirm.setPreferredSize(new Dimension(100,50));
+
+            JPanel pnlFooter = new JPanel();
+            pnlFooter.setPreferredSize(new Dimension(100,250));
+            pnlFooter.setBorder(new EmptyBorder(40,0,0,0));
+            pnlFooter.setBackground(style.white);
+            pnlFooter.add(btnConfirm);
+
+            container.add(pnlFooter,BorderLayout.SOUTH);
+
+
+
+
+
+            this.add(pnlDate, BorderLayout.CENTER);
+            this.add(container, BorderLayout.SOUTH);
+
+
         }
     }
 
