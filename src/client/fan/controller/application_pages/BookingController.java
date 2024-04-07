@@ -3,6 +3,7 @@ package client.fan.controller.application_pages;
 import client.fan.controller.FanApplicationController;
 import client.fan.model.application_pages.BookingModel;
 import client.fan.view.application_pages.BookingView;
+import shared.res.Resources;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The BookingController processes the user requests. Based on the user request, the BookingController
@@ -46,35 +49,88 @@ public class BookingController {
         // constants / variables
         populateIdolDetails();
         populateReservationDetails();
+        populateReservationComboBoxes();
 
         // action listeners
         view.getBtnBack().addActionListener(e -> {
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "home");
         });
 
+        view.getCmbDate().addActionListener(e -> {
+            List<String> availTimes;
+            try {
+                availTimes = model.getAvailTimes(String.valueOf(view.getCmbDate().getSelectedItem()))
+                        .stream().distinct().toList();
+                for (String availTime : availTimes) {
+                    view.getCmbTime().addItem(availTime);
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
+        view.getCmbDuration().addActionListener(e -> {
+            double rate;
+            int duration = (int) view.getCmbDuration().getSelectedItem();
+            if (view.getRadVidCall().isSelected()) {
+                rate = model.getIdol().getVideoCallRate();
+            } else {
+                rate = model.getIdol().getVoiceCallRate();
+            }
+            view.getTxtAmount().setText("Php " + (rate * ((double) duration / 5)));
+        });
+
+        view.getBtnBook().addActionListener(e -> {
+
+
+            view.getRadVidCall().addActionListener(e1 -> {
+                // view.getTxtAmount().setText(Double.toString(finalRate));
+            });
+        });
+
+        view.getRadVidCall().addActionListener(e -> {
+            double rate;
+            int duration = (int) view.getCmbDuration().getSelectedItem();
+            if (view.getRadVidCall().isSelected()) {
+                rate = model.getIdol().getVideoCallRate();
+            } else {
+                rate = model.getIdol().getVoiceCallRate();
+            }
+            view.getTxtAmount().setText("Php " + (rate * ((double) duration / 5)));
+        });
+
+        view.getRadVoiceCall().addActionListener(e -> {
+            double rate;
+            int duration = (int) view.getCmbDuration().getSelectedItem();
+            if (view.getRadVidCall().isSelected()) {
+                rate = model.getIdol().getVideoCallRate();
+            } else {
+                rate = model.getIdol().getVoiceCallRate();
+            }
+            view.getTxtAmount().setText("Php " + (rate * ((double) duration / 5)));
+        });
 
         view.setFbListener(new SocialsListener(model.getIdolDetails().get(3), 'f'));
         view.setIgListener(new SocialsListener(model.getIdolDetails().get(4), 'i'));
         view.setXListener(new SocialsListener(model.getIdolDetails().get(5), 'x'));
 
         // mouse listeners
+        view.getBtnBook().addMouseListener(new Resources.CursorChanger(view.getBtnBook()));
+        view.getBtnBack().addMouseListener(new Resources.CursorChanger(view.getBtnBack()));
+        view.getBtnIdolFb().addMouseListener(new Resources.CursorChanger(view.getBtnIdolFb()));
+        view.getBtnIdolIg().addMouseListener(new Resources.CursorChanger(view.getBtnIdolIg()));
+        view.getBtnIdolX().addMouseListener(new Resources.CursorChanger(view.getBtnIdolX()));
 
         // focus listeners
+
+        view.repaint();
+        view.revalidate();
     }
 
     /**
      * Processes the clicking of idol social media links.
      */
-    class SocialsListener implements ActionListener {
-        /**
-         * The URL of the social media profile.
-         */
-        private String socialsLink;
-        /**
-         * The type of social media.
-         */
-        private char socMed;
+    static class SocialsListener implements ActionListener {
         /**
          * The URL.
          */
@@ -87,8 +143,6 @@ public class BookingController {
          */
         public SocialsListener(String socialsLink, char socMed) {
             url = "";
-            this.socialsLink = socialsLink;
-            this.socMed = socMed;
 
             switch (socMed) {
                 case 'i' -> url = "https://www.instagram.com/" + socialsLink;
@@ -122,10 +176,13 @@ public class BookingController {
         }
     }
 
-     private void populateIdolDetails() {
-         ImageIcon icon = new ImageIcon(model.getIdolDetails().get(0));
-         Image image = icon.getImage().getScaledInstance(533,300, Image.SCALE_SMOOTH);
-         view.getLblIdolPfp().setIcon(new ImageIcon(image));
+    /**
+     * Populates the necessary JFrame components of the idol's details.
+     */
+    private void populateIdolDetails() {
+        ImageIcon icon = new ImageIcon(model.getIdolDetails().getFirst());
+        Image image = icon.getImage().getScaledInstance(533, 300, Image.SCALE_SMOOTH);
+        view.getLblIdolPfp().setIcon(new ImageIcon(image));
 
         view.getLblIdolName().setText(model.getIdolDetails().get(1));
         view.getLblIdolType().setText(model.getIdolDetails().get(2));
@@ -142,6 +199,8 @@ public class BookingController {
         StringBuilder sbDaysAvail = new StringBuilder();
         StringBuilder sbTimeAvail = new StringBuilder();
 
+        // view.getCmbDuration().removeAllItems();
+
         try {
             model.getAvailSchedule(model.getIdol());
         } catch (SQLException e) {
@@ -155,8 +214,15 @@ public class BookingController {
             sbDaysAvail.append(date).append("\n");
             sbTimeAvail.append(time).append("\n");
         }
-
         view.getTxaAvailDays().setText(sbDaysAvail.toString());
         view.getTxaAvailTime().setText(sbTimeAvail.toString());
+    }
+
+    private void populateReservationComboBoxes() {
+        List<String> dates = model.getAvailableDatesToBook()
+                .stream().distinct().toList();
+        for (String date : dates) {
+            view.getCmbDate().addItem(date);
+        }
     }
 }

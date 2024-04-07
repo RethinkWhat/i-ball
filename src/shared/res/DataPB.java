@@ -31,7 +31,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/deans5";
+            String url = "jdbc:mysql://localhost:3306/iball";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -343,23 +343,51 @@ public class DataPB {
     }
 
     public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
-        int idolID = idol.getIdolID();
+        DataPB.setCon();
 
+        int idolID = idol.getIdolID();
         String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
         Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         return statement.executeQuery(query);
     }
 
+    /**
+     * Retrieves all the sessions of a specified idol.
+     * @param idol The specified idol.
+     * @return ResultSet of the idol's schedule.
+     * @throws SQLException If error or exception occurs.
+     */
+    public static ResultSet getAllIdolSession(Idol idol) throws SQLException {
+        DataPB.setCon();
+
+        String query = "SELECT date, startTime, duration FROM session WHERE idolId=" + idol.getIdolID();
+        Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        return statement.executeQuery(query);
+    }
 
     /**
-     * TO BE DELETED
-     *
-     * For testing purposes only
-     * @param args
+     * Inserts a new record in the session table.
+     * @param session The specified session.
+     * @throws SQLException If error or exception occurs.
      */
-    public static void main(String[] args) throws SQLException {
+    public static void addNewSession(Session session) throws SQLException {
+        DataPB.setCon();
 
+        String insertion = "INSERT INTO session "
+                + "(idolID, date, startTime, duration, sessionType, amount, userID)"
+                + " values (?,?,?,?,?,?,?)";
 
+        PreparedStatement statement = con.prepareStatement(insertion);
+        statement.setInt(0,session.getIdolID());
+        statement.setDate(1,session.getDate());
+        statement.setTime(2,session.getStartTime());
+        statement.setTime(3,session.getDuration());
+        statement.setString(4,session.getSessionType());
+        statement.setDouble(5,session.getAmount());
+        statement.setInt(6,session.getIdolID());
+
+        statement.executeUpdate();
     }
 }

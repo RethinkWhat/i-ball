@@ -6,6 +6,12 @@ import client.fan.model.FanApplicationModel;
 import client.fan.model.application_pages.IdolsModel;
 import client.fan.model.application_pages.MyIdolsModel;
 import client.fan.view.FanApplicationView;
+import client.fan.view.application_pages.BookingView;
+import client.fan.view.application_pages.VirtualMeetupView;
+import client.idol.controller.application_pages.FanbaseController;
+import client.idol.controller.application_pages.VirtualMeetupController;
+import client.idol.model.application_pages.FanbaseModel;
+import client.idol.model.application_pages.VirtualMeetupModel;
 import shared.res.Resources;
 
 import java.sql.SQLException;
@@ -68,5 +74,11 @@ public class FanApplicationController {
 
     public FanApplicationModel getModel() {
         return model;
+    }
+
+    public BookingView addBookingView() {
+        BookingView bookingView = new BookingView();
+        view.getPnlCards().add(bookingView, "booking");
+        return bookingView;
     }
 }
