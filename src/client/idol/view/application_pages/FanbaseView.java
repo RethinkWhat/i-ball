@@ -133,6 +133,7 @@ public class FanbaseView extends JPanel {
             tblFanbaseModel.addColumn("Time");
             tblFanbaseModel.addColumn("Fan");
             tblFanbaseModel.addColumn("Type");
+            tblFanbaseModel.addColumn("Duration");
 
             tblFanbase = new JTable(tblFanbaseModel);
             tblFanbase.getTableHeader().setResizingAllowed(false);

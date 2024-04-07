@@ -1,5 +1,7 @@
 package shared.res;
 
+import client.fan.view.application_pages.IdolsView;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/iball";
+            String url = "jdbc:mysql://localhost:8889/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -187,14 +189,22 @@ public class DataPB {
         return idolSet;
     }
 
-    /**
-     * Retrieves the schedule of the specified idol.
-     * @param idol The specified idol.
-     * @return DataSet of the available day and available time.
-     * @throws SQLException If error or exception occurs.
-     */
-    public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
+    public static ResultSet idolSearch(String searchTerm) throws SQLException {
         DataPB.setCon();
+
+        String query = "SELECT * FROM idol WHERE idolName LIKE ?";
+        // Add wildcard '%' to the search term
+        String searchPattern = searchTerm + "%";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, searchPattern);
+
+        ResultSet searchInput = stmt.executeQuery();
+
+        return searchInput;
+        }
+
+
 
         int idolID = idol.getIdolID();
 
