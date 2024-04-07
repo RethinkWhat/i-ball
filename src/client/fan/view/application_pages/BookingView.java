@@ -95,7 +95,7 @@ public class BookingView extends JPanel {
     /**
      * The duration picker.
      */
-    private JComboBox<String> cmbDuration;
+    private JComboBox<Integer> cmbDuration;
     /**
      * The amount text field (cannot be edited).
      */
@@ -415,8 +415,8 @@ public class BookingView extends JPanel {
                 add(lblDate, gbc);
 
                 gbc.gridy = 2;
-                cmbDate = style.createCmbRounded(style.lightGray, style.black, 20);
-                cmbDate.setSelectedItem("Select Date");
+                cmbDate = new JComboBox<>(new String[] {"Select Date:"});
+                cmbDate.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbDate, gbc);
 
                 gbc.gridy = 3;
@@ -426,20 +426,24 @@ public class BookingView extends JPanel {
                 add(lblTime, gbc);
 
                 gbc.gridy = 4;
-                cmbTime = style.createCmbRounded(style.lightGray, style.black, 20);
-                cmbTime.setSelectedItem("Select Time");
+                cmbTime = new JComboBox<>(new String[] {"Select Time:"});
+                cmbTime.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbTime, gbc);
 
                 gbc.gridy = 3;
                 gbc.gridx = 1;
                 gbc.gridwidth = 1;
-                JLabel lblDuration = style.createLblH4("Duration",style.black);
+                JLabel lblDuration = style.createLblH4("Duration (minutes)",style.black);
                 add(lblDuration, gbc);
 
                 gbc.gridy = 4;
-                cmbDuration = style.createCmbRounded(style.lightGray, style.black, 20);
-                cmbDuration.setSelectedItem("Select Duration");
+                cmbDuration = new JComboBox<>();
+                cmbDuration.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbDuration, gbc);
+
+                for (int i = 5; i <= 30; i += 5) {
+                    cmbDuration.addItem(i);
+                }
 
                 gbc.gridx = 0;
                 gbc.gridy = 5;
@@ -448,8 +452,9 @@ public class BookingView extends JPanel {
                 add(lblAmount, gbc);
 
                 gbc.gridy = 6;
-                txtAmount = style.createTxtRounded("Info",style.lightGray,style.black, 20);
+                txtAmount = style.createTxtRounded("Amount",style.lightGray,style.black, 20);
                 txtAmount.setEditable(false);
+                txtAmount.setFocusable(false);
                 add(txtAmount, gbc);
 
                 gbc.gridy = 7;
@@ -613,7 +618,7 @@ public class BookingView extends JPanel {
      * Retrieves the current JComboBox of cmbDuration.
      * @return The current cmbDuration.
      */
-    public JComboBox<String> getCmbDuration() {
+    public JComboBox<Integer> getCmbDuration() {
         return cmbDuration;
     }
 

@@ -6,6 +6,7 @@ import client.fan.model.FanApplicationModel;
 import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.IdolsModel;
 import client.fan.view.FanApplicationView;
+import client.fan.view.application_pages.BookingView;
 import client.fan.view.application_pages.VirtualMeetupView;
 import client.idol.controller.application_pages.FanbaseController;
 import client.idol.controller.application_pages.VirtualMeetupController;
@@ -67,5 +68,11 @@ public class FanApplicationController {
 
     public FanApplicationModel getModel() {
         return model;
+    }
+
+    public BookingView addBookingView() {
+        BookingView bookingView = new BookingView();
+        view.getPnlCards().add(bookingView, "booking");
+        return bookingView;
     }
 }

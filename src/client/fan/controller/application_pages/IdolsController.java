@@ -98,11 +98,11 @@ public class IdolsController {
         /**
          * The main controller of the application.
          */
-        private FanApplicationController mainController;
+        private final FanApplicationController mainController;
         /**
          * The chosen idol.
          */
-        private Idol idol;
+        private final Idol idol;
 
         /**
          * Constructs a ChosenIdolListener with a specified controller and idol.
@@ -117,7 +117,7 @@ public class IdolsController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new BookingController(mainController.getView().getBookingView(), new BookingModel(idol), mainController);
+            new BookingController(mainController.addBookingView(), new BookingModel(idol), mainController);
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "booking");
         }
     }

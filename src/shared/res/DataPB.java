@@ -32,7 +32,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/iball";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -204,25 +204,36 @@ public class DataPB {
         return searchInput;
     }
 
+    /**
+     * Retrieves the schedule of the specified idol.
+     * @param idol The specified idol.
+     * @return ResultSet of the idol's schedule.
+     * @throws SQLException If error or exception occurs.
+     */
     public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
-        int idolID = idol.getIdolID();
+        DataPB.setCon();
 
+        int idolID = idol.getIdolID();
         String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
         Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         return statement.executeQuery(query);
     }
 
-    //===============================//
-
     /**
-     * TO BE DELETED
-     *
-     * For testing purposes only
-     * @param args
+     * Retrieves all the sessions of a specified idol.
+     * @param idol The specified idol.
+     * @return ResultSet of the idol's schedule.
+     * @throws SQLException If error or exception occurs.
      */
-    public static void main(String[] args) throws SQLException {
+    public static ResultSet getAllIdolSession(Idol idol) throws SQLException {
+        DataPB.setCon();
 
+        String query = "SELECT date, startTime, duration FROM session WHERE idolId=?";
+        PreparedStatement statement = con.prepareStatement(query);
+        statement.setInt(1,idol.getIdolID());
+        ResultSet sessions = statement.getResultSet();
 
+        return sessions;
     }
 }
