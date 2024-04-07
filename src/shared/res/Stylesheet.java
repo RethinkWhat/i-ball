@@ -85,6 +85,16 @@ public class Stylesheet {
      * Icon for back arrow.
      */
     public final ImageIcon iconBack = new ImageIcon("res/drawables/arrow-left-black-solid.png");
+
+    /**
+     * Icon of white back arrow.
+     */
+    public final ImageIcon iconBackWhite = new ImageIcon("res/drawables/arrow-left-white-solid.png");
+
+    /**
+     * Icon of refresh.
+     */
+    public final ImageIcon iconRefresh = new ImageIcon("res/drawables/refresh-white-solid.png");
     /**
      * Icon for Facebook.
      */
