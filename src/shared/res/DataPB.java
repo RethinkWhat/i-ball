@@ -202,10 +202,9 @@ public class DataPB {
         ResultSet searchInput = stmt.executeQuery();
 
         return searchInput;
-        }
+    }
 
-
-
+    public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
         int idolID = idol.getIdolID();
 
         String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
@@ -213,7 +212,6 @@ public class DataPB {
 
         return statement.executeQuery(query);
     }
-
 
     //===============================//
 
