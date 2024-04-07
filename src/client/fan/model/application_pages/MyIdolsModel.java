@@ -6,7 +6,9 @@ import shared.res.User;
 import java.awt.geom.RectangularShape;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MyIdolsModel {
@@ -41,6 +43,16 @@ public class MyIdolsModel {
 
 
         return fanSessions;
+    }
+
+    /**
+     * Returns the String representation of the date today
+     * @return
+     */
+    public String getDateToday() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar cal = Calendar.getInstance();
+        return sdf.format(cal.getTime());
     }
 
     /**
