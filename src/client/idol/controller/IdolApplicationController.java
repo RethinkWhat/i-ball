@@ -10,6 +10,8 @@ import client.idol.model.application_pages.CalendarModel;
 import client.idol.model.application_pages.FanbaseModel;
 import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.IdolApplicationView;
+import shared.res.LogoutDialog;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +68,9 @@ public class IdolApplicationController {
         });
 
         view.getBtnNavLogout().addActionListener(e -> {
-            System.exit(0);
+            Stylesheet style = new Stylesheet();
+            LogoutDialog dialog = new LogoutDialog("Logout", new ImageIcon("res/drawables/logout-red-solid.png"),
+                    "LOGOUT CONFIRMATION", "Are you sure you want to logout?", "LOGOUT", style.red, style.white, style.black, style.red);
         });
 
     }

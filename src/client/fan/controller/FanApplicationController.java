@@ -12,8 +12,11 @@ import client.idol.controller.application_pages.FanbaseController;
 import client.idol.controller.application_pages.VirtualMeetupController;
 import client.idol.model.application_pages.FanbaseModel;
 import client.idol.model.application_pages.VirtualMeetupModel;
+import shared.res.LogoutDialog;
 import shared.res.Resources;
+import shared.res.Stylesheet;
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 /**
@@ -56,8 +59,9 @@ public class FanApplicationController {
             view.getCardLayout().show(view.getPnlCards(), "idols");
         });
         view.getBtnNavLogout().addActionListener(e -> {
-            view.dispose();
-            System.exit(0);
+            Stylesheet style = new Stylesheet();
+            LogoutDialog dialog = new LogoutDialog("Logout", new ImageIcon("res/drawables/logout-red-solid.png"),
+                    "LOGOUT CONFIRMATION", "Are you sure you want to logout?", "LOGOUT", style.red, style.white, style.black, style.red);
         });
 
         // mouse listeners
