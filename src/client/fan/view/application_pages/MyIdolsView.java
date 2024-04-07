@@ -75,7 +75,7 @@ public class MyIdolsView extends JPanel {
             this.setLayout(new FlowLayout());
             this.setBorder(new EmptyBorder(0,0,0,60));
 
-            txtSearchbar = style.createTxtRounded("Search date (MM/DD/YY)",style.lightGray, style.gray, 20);
+            txtSearchbar = style.createTxtRounded("Search date (YYYY-MM-DD)",style.lightGray, style.gray, 20);
             add(txtSearchbar);
 
             btnSearch = style.createBtnIconOnly(style.iconSearch, 25,25);
