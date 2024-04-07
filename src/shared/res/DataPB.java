@@ -34,7 +34,7 @@ public class DataPB {
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "";
+            String password = "root";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -148,6 +148,30 @@ public class DataPB {
         }
         return sessionsList;
     }
+
+    /**
+     * Returns all the booking of a fan given a specific date
+     * @param date
+     * @return
+     * @throws SQLException
+     */
+    public ResultSet searchFanSessions(String date) throws SQLException{
+        DataPB.setCon();
+
+        String query =  "SELECT startTime, idolName, sessionType, duration" +
+                "FROM session JOIN idol USING(idolID)" +
+                "WHERE userID = ?";
+
+        PreparedStatement stmt = con.prepareStatement(query);
+        String searchKey = date + "%";
+
+        stmt.setString(1, searchKey);
+
+        ResultSet resultSet = stmt.executeQuery();
+
+        return resultSet;
+    }
+
 
     public static User getUser(int userID) {
         DataPB.setCon();

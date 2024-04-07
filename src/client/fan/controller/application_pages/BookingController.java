@@ -123,7 +123,7 @@ public class BookingController {
     }
 
      private void populateIdolDetails() {
-         ImageIcon icon = new ImageIcon(model.getIdolDetails().getFirst());
+         ImageIcon icon = new ImageIcon(model.getIdolDetails().get(0));
          Image image = icon.getImage().getScaledInstance(533,300, Image.SCALE_SMOOTH);
          view.getLblIdolPfp().setIcon(new ImageIcon(image));
 
