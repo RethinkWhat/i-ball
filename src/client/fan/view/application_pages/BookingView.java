@@ -352,9 +352,6 @@ public class BookingView extends JPanel {
 
                 lblVidRate = style.createLblP("Info",style.black);
                 add(lblVidRate, BorderLayout.CENTER);
-
-                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
-                add(lblPerDuration, BorderLayout.SOUTH);
             }
          }
 
@@ -374,9 +371,6 @@ public class BookingView extends JPanel {
 
                 lblVoiceRate = style.createLblP("Info",style.black);
                 add(lblVoiceRate, BorderLayout.CENTER);
-
-                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
-                add(lblPerDuration, BorderLayout.SOUTH);
             }
          }
 
@@ -701,5 +695,21 @@ public class BookingView extends JPanel {
      */
     public void setAvailTime(String availTime) {
         this.availTime = availTime;
+    }
+
+    /**
+     * Retrieves the current JTextArea of txaAvailDays.
+     * @return The current txaAvailDays.
+     */
+    public JTextArea getTxaAvailDays() {
+        return txaAvailDays;
+    }
+
+    /**
+     * Retrieves the current JTextArea of txaAvailTime.
+     * @return The current txaAvailTime.
+     */
+    public JTextArea getTxaAvailTime() {
+        return txaAvailTime;
     }
 }

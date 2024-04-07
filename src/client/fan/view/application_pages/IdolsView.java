@@ -203,7 +203,7 @@ public class IdolsView extends JPanel {
             this.setBackground(style.iconGray);
 
             ImageIcon icon = new ImageIcon(idolPfp);
-            btnPfp = style.createBtnIconOnly(icon, 90,90);
+            btnPfp = style.createBtnIconOnly(icon, 355,200);
             btnPfp.setHorizontalAlignment(SwingConstants.CENTER);
             add(btnPfp, BorderLayout.CENTER);
 

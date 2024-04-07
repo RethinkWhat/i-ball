@@ -30,11 +30,11 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/deans5";
+            String url = "jdbc:mysql://localhost:3306/iball";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "root";
+            String password = "";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -187,7 +187,22 @@ public class DataPB {
         return idolSet;
     }
 
+    /**
+     * Retrieves the schedule of the specified idol.
+     * @param idol The specified idol.
+     * @return DataSet of the available day and available time.
+     * @throws SQLException If error or exception occurs.
+     */
+    public static ResultSet getIdolSchedule(Idol idol) throws SQLException {
+        DataPB.setCon();
 
+        int idolID = idol.getIdolID();
+
+        String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
+        Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        return statement.executeQuery(query);
+    }
 
 
     //===============================//
