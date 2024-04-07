@@ -128,6 +128,8 @@ public class AccountSettingsView extends JPanel {
 
         JButton btnDelete;
 
+        JButton btnProfile;
+
         public SidePanel() {
             this.setLayout(new BorderLayout());
             this.setBorder(BorderFactory.createMatteBorder(0,0,0,1, style.gray));
@@ -142,10 +144,10 @@ public class AccountSettingsView extends JPanel {
             container.setPreferredSize(new Dimension(170,100));
             container.setBackground(style.white);
             container.setLayout(new GridLayout(2,1));
-            JLabel lblProfile = style.createLblP("My Profile", style.purple);
+            btnProfile = style.createBtnTxtOnly("My Profile", style.purple);
             btnDelete = style.createBtnTxtOnly("Delete Account", style.red);
 
-            container.add(lblProfile);
+            container.add(btnProfile);
             container.add(btnDelete);
 
             pnlPadded.add(container, BorderLayout.NORTH);
