@@ -1,21 +1,12 @@
 package client.fan.controller;
 
-import client.fan.controller.application_pages.BookingController;
 import client.fan.controller.application_pages.IdolsController;
 import client.fan.controller.application_pages.MyIdolsController;
 import client.fan.model.FanApplicationModel;
-import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.IdolsModel;
 import client.fan.model.application_pages.MyIdolsModel;
 import client.fan.view.FanApplicationView;
-import client.fan.view.application_pages.MyIdolsView;
-import client.fan.view.application_pages.VirtualMeetupView;
-import client.idol.controller.application_pages.FanbaseController;
-import client.idol.controller.application_pages.VirtualMeetupController;
-import client.idol.model.application_pages.FanbaseModel;
-import client.idol.model.application_pages.VirtualMeetupModel;
 import shared.res.Resources;
-import shared.res.User;
 
 import java.sql.SQLException;
 
@@ -42,8 +33,7 @@ public class FanApplicationController {
         this.model = model;
 
         new IdolsController(view.getIdolsView(), new IdolsModel(), this);
-        new MyIdolsController(view.getMyIdolsView(), new MyIdolsModel(model.getUser()), this);
-
+        MyIdolsController myIdolsController = new MyIdolsController(view.getMyIdolsView(), new MyIdolsModel(model.getUser()), this);
         // new VirtualMeetupController(view.getVirtualMeetupView(), new VirtualMeetupModel());
 
         // action listeners
@@ -51,6 +41,12 @@ public class FanApplicationController {
             view.getCardLayout().show(view.getPnlCards(), "home");
         });
         view.getBtnNavMyIdols().addActionListener(e -> {
+            // Show all user's booking sessions when "My Idols" button is clicked
+            try {
+                myIdolsController.showAllFanSessions();
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // Handle SQLException appropriately
+            }
             view.getCardLayout().show(view.getPnlCards(), "idols");
         });
         view.getBtnNavLogout().addActionListener(e -> {

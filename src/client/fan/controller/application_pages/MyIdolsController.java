@@ -7,7 +7,6 @@ import client.fan.view.application_pages.MyIdolsView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 public class MyIdolsController {
@@ -31,21 +30,33 @@ public class MyIdolsController {
 
         // focus listeners
     }
+    public void showAllFanSessions() throws SQLException {
+        // Clear existing table rows
+        view.getTblFanbaseModel().setRowCount(0);
 
-    class SearchListener implements ActionListener{
+        // Get all booking sessions of the user and populate the table
+        List<List<String>> sessionList = model.getAllFanSessions();
+        for (List<String> currSession : sessionList) {
+            view.getTblFanbaseModel().addRow(currSession.toArray());
+        }
+    }
+
+    class SearchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String searchKey = view.getTxtSearchbar().getText();
             try {
+                // Clear existing table rows
+                view.getTblFanbaseModel().setRowCount(0);
+
+                // Search for booking sessions with the same date from the search input
                 List<List<String>> sessionList = model.searchFanSessions(searchKey);
-                for (List<String> currSession : sessionList){
+                for (List<String> currSession : sessionList) {
                     view.getTblFanbaseModel().addRow(currSession.toArray());
-                    System.out.println(currSession.toString());
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
         }
     }
 }
