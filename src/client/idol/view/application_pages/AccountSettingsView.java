@@ -7,6 +7,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * The AccountSettingsView contains the idol's account information. It contains:
@@ -23,8 +24,12 @@ public class AccountSettingsView extends JPanel {
 
     private JPanel pnlHeader;
     private JPanel pnlTitle;
-    private JPanel pnlEdit;
+    private EditPanel pnlEdit;
 
+
+    public Stylesheet getStyle() {
+        return style;
+    }
 
 
     public AccountSettingsView() {
@@ -41,6 +46,10 @@ public class AccountSettingsView extends JPanel {
 
         this.setPreferredSize(new Dimension(1100, 755));
         this.setVisible(true);
+    }
+
+    public EditPanel getPnlEdit() {
+        return pnlEdit;
     }
 
     public class HeaderPanel extends JPanel {
@@ -73,13 +82,13 @@ public class AccountSettingsView extends JPanel {
 
     public class EditPanel extends JPanel {
 
-        JPanel container;
+        private JPanel container;
 
-        SidePanel pnlSide;
+        private SidePanel pnlSide;
 
-        DetailsPanel pnlDetails;
+        private DetailsPanel pnlDetails;
 
-        AvailabilityPanel pnlAvailability;
+        private AvailabilityPanel pnlAvailability;
 
         public EditPanel() {
             this.setLayout(new BorderLayout());
@@ -97,8 +106,18 @@ public class AccountSettingsView extends JPanel {
             container.add(pnlSide, BorderLayout.WEST);
             container.add(pnlDetails, BorderLayout.CENTER);
             container.add(pnlAvailability, BorderLayout.EAST);
+        }
 
+        public SidePanel getPnlSide() {
+            return pnlSide;
+        }
 
+        public DetailsPanel getPnlDetails() {
+            return pnlDetails;
+        }
+
+        public AvailabilityPanel getPnlAvailability() {
+            return pnlAvailability;
         }
     }
 
@@ -106,6 +125,10 @@ public class AccountSettingsView extends JPanel {
 
         JPanel pnlPadded;
         JPanel container;
+
+        JButton btnDelete;
+
+        JButton btnProfile;
 
         public SidePanel() {
             this.setLayout(new BorderLayout());
@@ -121,15 +144,23 @@ public class AccountSettingsView extends JPanel {
             container.setPreferredSize(new Dimension(170,100));
             container.setBackground(style.white);
             container.setLayout(new GridLayout(2,1));
-            JLabel lblProfile = style.createLblP("My Profile", style.purple);
-            JLabel lblDelete = style.createLblP("Delete Account", style.red);
+            btnProfile = style.createBtnTxtOnly("My Profile", style.purple);
+            btnDelete = style.createBtnTxtOnly("Delete Account", style.red);
 
-            container.add(lblProfile);
-            container.add(lblDelete);
+            container.add(btnProfile);
+            container.add(btnDelete);
 
             pnlPadded.add(container, BorderLayout.NORTH);
 
             add(pnlPadded);
+        }
+
+        public JButton getBtnDelete() {
+            return btnDelete;
+        }
+
+        public void setBtnDeleteListener(ActionListener listener) {
+            btnDelete.addActionListener(listener);
         }
     }
 
@@ -143,7 +174,6 @@ public class AccountSettingsView extends JPanel {
 
         JLabel lblAccountType;
 
-        JLabel lblEditInfo;
 
         JPanel pnlDetails;
 
@@ -152,6 +182,7 @@ public class AccountSettingsView extends JPanel {
         JTextField txtEmail;
         JTextField txtGCash;
 
+        JButton btnEditPFP;
         JButton btnEditName;
         JButton btnEditUsername;
         JButton btnEditEmail;
@@ -202,9 +233,8 @@ public class AccountSettingsView extends JPanel {
             lblUserPfp.setHorizontalAlignment(SwingConstants.CENTER);
             pnlPfp.add(lblUserPfp);
 
-            lblEditInfo = new JLabel();
-            lblEditInfo.setIcon(style.iconEdit);
-            pnlEdit.add(lblEditInfo, BorderLayout.NORTH);
+            btnEditPFP = style.createBtnIconOnly(style.iconEdit,20,20);
+            pnlEdit.add(btnEditPFP, BorderLayout.NORTH);
 
 
 
@@ -240,7 +270,7 @@ public class AccountSettingsView extends JPanel {
 
             gbc.ipady = 15;
             gbc.gridx = 2;
-            btnEditName = style.createBtnIconOnly(style.iconEdit,25,25);
+            btnEditName = style.createBtnIconOnly(style.iconEdit,20,20);
             pnlDetails.add(btnEditName,gbc);
 
             gbc.gridx = 0;
@@ -255,22 +285,22 @@ public class AccountSettingsView extends JPanel {
 
 
             gbc.gridx = 2;
-            btnEditUsername = style.createBtnIconOnly(style.iconEdit,25,25);
+            btnEditUsername = style.createBtnIconOnly(style.iconEdit,20,20);
             pnlDetails.add(btnEditUsername,gbc);
 
             gbc.ipady = 20;
             gbc.gridx = 0;
             gbc.gridy = 5;
-            JLabel lblEmail = style.createLblH4("Email", style.black);
+            JLabel lblEmail = style.createLblH4("Idol Type", style.black);
             pnlDetails.add(lblEmail,gbc);
 
             gbc.ipady = 0;
             gbc.gridy = 6;
-            txtEmail = style.createTxtRounded("jdelacruz@gmail.com", style.lightGray, style.gray, 20);
+            txtEmail = style.createTxtRounded("Content Creator", style.lightGray, style.gray, 20);
             pnlDetails.add(txtEmail,gbc);
 
             gbc.gridx = 2;
-            btnEditEmail = style.createBtnIconOnly(style.iconEdit, 25, 25);
+            btnEditEmail = style.createBtnIconOnly(style.iconEdit, 20, 20);
             pnlDetails.add(btnEditEmail,gbc);
 
             gbc.ipady = 20;
@@ -285,12 +315,8 @@ public class AccountSettingsView extends JPanel {
             pnlDetails.add(txtGCash, gbc);
 
             gbc.gridx = 2;
-            btnEditGCash = style.createBtnIconOnly(style.iconEdit, 25, 25);
+            btnEditGCash = style.createBtnIconOnly(style.iconEdit, 20, 20);
             pnlDetails.add(btnEditGCash, gbc);
-
-
-
-
 
 
             container.add(pnlHeader, BorderLayout.NORTH );
@@ -298,12 +324,112 @@ public class AccountSettingsView extends JPanel {
             container.add(lblAccountType, BorderLayout.CENTER);
             container.add(pnlDetails, BorderLayout.SOUTH);
 
-
             pnlPadded.add(container);
+
+            txtName.setEnabled(false);
+            txtUsername.setEnabled(false);
+            txtEmail.setEnabled(false);
+            txtGCash.setEnabled(false);
+
             this.add(pnlPadded);
-
-
         }
+
+        public JLabel getLblUserPfp() {
+            return lblUserPfp;
+        }
+
+        public JTextField getTxtName() {
+            return txtName;
+        }
+
+        public void setName(String txtName) {
+            this.txtName.setText(txtName);
+        }
+
+        public JTextField getTxtUsername() {
+            return txtUsername;
+        }
+
+        public void setUsername(String username) {
+            this.txtUsername.setText(username);
+        }
+
+        public JTextField getTxtEmail() {
+            return txtEmail;
+        }
+
+        public void seEmail(String email) {
+            this.txtEmail.setText(email);
+        }
+
+        public JTextField getTxtGCash() {
+            return txtGCash;
+        }
+
+        public void setTxtGCash(JTextField txtGCash) {
+            this.txtGCash = txtGCash;
+        }
+
+        public JButton getBtnEditName() {
+            return btnEditName;
+        }
+
+        public void setBtnEditNameListener(ActionListener listener) {
+            this.btnEditName.addActionListener(listener);
+        }
+
+        public JButton getBtnEditUsername() {
+            return btnEditUsername;
+        }
+
+        public void setBtnEditUsernameListener(ActionListener listener) {
+            this.btnEditUsername.addActionListener(listener);
+        }
+
+        public JButton getBtnEditEmail() {
+            return btnEditEmail;
+        }
+
+        public void setBtnEditEmailListener(ActionListener listener) {
+            this.btnEditEmail.addActionListener(listener);
+        }
+
+        public JButton getBtnEditPFP() {
+            return btnEditPFP;
+        }
+
+        public void setBtnEditPFPListener(ActionListener listener) {
+            this.btnEditPFP.addActionListener(listener);
+        }
+
+        public JButton getBtnEditGCash() {
+            return btnEditGCash;
+        }
+
+        public void setBtnEditGCashListener(ActionListener listener) {
+            this.btnEditGCash.addActionListener(listener);
+        }
+
+        public void setBtnEditPFP(JButton btnEditPFP) {
+            this.btnEditPFP = btnEditPFP;
+        }
+
+        public void setBtnEditName(JButton btnEditName) {
+            this.btnEditName = btnEditName;
+        }
+
+        public void setBtnEditUsername(JButton btnEditUsername) {
+            this.btnEditUsername = btnEditUsername;
+        }
+
+        public void setBtnEditEmail(JButton btnEditEmail) {
+            this.btnEditEmail = btnEditEmail;
+        }
+
+        public void setBtnEditGCash(JButton btnEditGCash) {
+            this.btnEditGCash = btnEditGCash;
+        }
+
     }
 
     public class AvailabilityPanel extends JPanel {
@@ -348,11 +474,6 @@ public class AccountSettingsView extends JPanel {
             pnlDate.add(cmbDate, BorderLayout.WEST);
             pnlDate.add(btnEditDay, BorderLayout.EAST);
 
-
-
-
-
-
             container = new JPanel();
             container.setLayout(new BorderLayout());
             container.setPreferredSize(new Dimension(375,350));
@@ -376,12 +497,12 @@ public class AccountSettingsView extends JPanel {
             container.add(pnlTimeHeader, BorderLayout.NORTH);
 
             cmbStartTime = new JComboBox<>(new String[]{
-                    "7:00", "8:00", "9:00)", "10:00"});
+                    "07:00:00", "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00" });
             cmbStartTime.setPreferredSize(new Dimension(150,30));
             container.add(cmbStartTime, BorderLayout.WEST);
 
             cmbEndTime = new JComboBox<>(new String[]{
-                    "7:00", "8:00", "9:00)", "10:00"});
+                    "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00", "18:00:00"});
             cmbEndTime.setPreferredSize(new Dimension(150,30));
             container.add(cmbEndTime, BorderLayout.EAST);
 
@@ -397,15 +518,66 @@ public class AccountSettingsView extends JPanel {
 
             container.add(pnlFooter,BorderLayout.SOUTH);
 
-
-
-
-
             this.add(pnlDate, BorderLayout.CENTER);
             this.add(container, BorderLayout.SOUTH);
-
-
         }
+
+        public JButton getBtnEditDay() {
+            return btnEditDay;
+        }
+
+        public JComboBox<String> getCmbDate() {
+            return cmbDate;
+        }
+
+        public JComboBox<String> getCmbStartTime() {
+            return cmbStartTime;
+        }
+
+        public JComboBox<String> getCmbEndTime() {
+            return cmbEndTime;
+        }
+
+        public JButton getBtnConfirm() {
+            return btnConfirm;
+        }
+
+        public void setBtnEditDayListener(ActionListener listener) {
+            this.btnEditDay.addActionListener(listener);
+        }
+
+        public void setCmbDate(String[] cmbDate) {
+            this.cmbDate = new JComboBox<>(cmbDate);
+        }
+
+        public void setCmbDateListener(ActionListener listener) {
+            this.cmbDate.addActionListener(listener);
+        }
+
+        public void setCmbStartTime(String[] cmbStartTime) {
+            this.cmbStartTime.setModel(new DefaultComboBoxModel<>(cmbStartTime));
+        }
+
+        public void setCmbEndTime(String[] cmbEndTime) {
+            this.cmbEndTime.setModel(new DefaultComboBoxModel<>(cmbEndTime));
+        }
+
+        public String getDateChosen() {
+            return cmbDate.getItemAt(cmbDate.getSelectedIndex());
+        }
+
+        public String getStartTimeChosen() {
+            return cmbStartTime.getItemAt(cmbStartTime.getSelectedIndex());
+        }
+
+        public String getEndTimeChosen() {
+            return cmbEndTime.getItemAt(cmbEndTime.getSelectedIndex());
+        }
+
+        public void setBtnConfirmListener(ActionListener listener) {
+            this.btnConfirm.addActionListener(listener);
+        }
+
     }
 
 

@@ -97,6 +97,11 @@ public class Stylesheet {
      * Icon for X.
      */
     public final ImageIcon iconX = new ImageIcon("res/drawables/x-logo-solid.png");
+
+    /**
+     * Icon for check
+     */
+    public final ImageIcon iconCheck = new ImageIcon("res/drawables/check-solid.png");
     /**
      * Default padding for panels.
      */

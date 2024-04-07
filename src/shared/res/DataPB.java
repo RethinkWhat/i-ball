@@ -1,6 +1,7 @@
 package shared.res;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -212,6 +213,92 @@ public class DataPB {
         return idolSet;
     }
 
+    public static boolean deleteAccount(int id) {
+        try {
+            String query = "delete from idol WHERE idolID=?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static boolean editInfo(int idolID, String toEdit, String newInfo) {
+        try {
+            String query = "UPDATE idol SET " + toEdit + " = ? WHERE idolid = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, newInfo);
+            statement.setInt(2, idolID);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String[] getAvailability(int idolID, String date) {
+        try {
+            String query = "SELECT startTime, endTime, day FROM idol_availability WHERE idolID = ? AND day = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1, idolID);
+            statement.setString(2, date);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String st = resultSet.getString("startTime");
+                String et = resultSet.getString("endTime");
+
+                return new String[]{st, et};
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void updateStartEndTime(int idolID, String date, String st, String et) {
+        Long startTime = 0L;
+        Long endTime = 0L;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            java.util.Date dateForStart = sdf.parse(st);
+            java.util.Date dateForEnd = sdf.parse(et);
+            startTime = dateForStart.getTime();
+            endTime = dateForEnd.getTime();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (getAvailability(idolID, date) != null) {
+                String query = "update idol_availability set startTime =?, endtime=? WHERE idolID=? AND day=?";
+                PreparedStatement statement = con.prepareStatement(query);
+                statement.setTime(1,new Time(startTime));
+                statement.setTime(2,new Time(endTime));
+                statement.setInt(3,idolID);
+                statement.setString(4,date);
+                statement.executeUpdate();
+            } else {
+                String query = "INSERT INTO idol_availability (startTime, endTime, day, idolID) " +
+                        "VALUES(?,?,?,?)";
+                PreparedStatement statement = con.prepareStatement(query);
+                statement.setTime(1, new Time(startTime));
+                statement.setTime(2, new Time(endTime));
+                statement.setString(3,date);
+                statement.setInt(4, idolID);
+                statement.executeUpdate();
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static ResultSet idolSearch(String searchTerm) throws SQLException {
         DataPB.setCon();
 
@@ -249,7 +336,6 @@ public class DataPB {
         return statement.executeQuery(query);
     }
 
-    //===============================//
 
     /**
      * TO BE DELETED
