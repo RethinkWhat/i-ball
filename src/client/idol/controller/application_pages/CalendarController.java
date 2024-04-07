@@ -5,6 +5,8 @@ import client.idol.view.application_pages.CalendarView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 /**
  * The CalendarController processes the user requests. Based on the user request, the CalendarController
@@ -23,6 +25,7 @@ public class CalendarController {
         this.view.getCalendarPanel().setNextMonthListener(new NextMonthListener());
         this.view.getCalendarPanel().setPrevMonthListener(new PrevMonthListener());
 
+        updateCalendar();
     }
 
     /**
@@ -38,6 +41,7 @@ public class CalendarController {
                 view.getCalendarPanel().currentMonthIndex = 0;
                 view.getCalendarPanel().currentYear++;
             }
+            updateCalendar();
         }
     }
 
@@ -54,7 +58,26 @@ public class CalendarController {
                 view.getCalendarPanel().currentMonthIndex = 11;
                 view.getCalendarPanel().currentYear--;
             }
+            updateCalendar();
         }
+    }
+
+    /**
+     * Update the calendar grid based on the current month and year.
+     */
+    private void updateCalendar() {
+        // Update the month and year label in the view
+        view.getCalendarPanel().updateMonthYearLabel(view.getCalendarPanel().getLblMonthYear());
+
+        // Get the current month and year from the view
+        int currentMonth = view.getCalendarPanel().currentMonthIndex + 1;
+        int currentYear = view.getCalendarPanel().currentYear;
+
+        // Calendar Data
+        LocalDate[][] calendarData = model.generateCalendarData(currentYear, currentMonth);
+
+        // Updating the calendar grid
+        view.updateCalendarGrid(calendarData);
     }
 
 }
