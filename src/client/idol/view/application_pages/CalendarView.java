@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 /**
  * The CalendarView contains an overview of the bookings of the idol in a given calendar format.
@@ -30,6 +31,7 @@ public class CalendarView extends JPanel {
     private CalendarPanel calendarPanel;
     private TablePanel tablePanel;
 
+    private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     /**
      * Constructs a panel of CalendarView.
@@ -85,7 +87,6 @@ public class CalendarView extends JPanel {
      */
     public class CalendarPanel extends JPanel {
 
-        private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         private final String[] MONTH_NAMES = {"January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"};
         public int currentMonthIndex;
@@ -149,6 +150,13 @@ public class CalendarView extends JPanel {
                 btnDate.setForeground(style.black);
                 container.add(btnDate);
             }
+
+            // Calculate remaining empty spaces after the last day
+            int remainingCells = 42 - offset - current.lengthOfMonth();
+            for (int i = 0; i < remainingCells; i++) {
+                JLabel lblEmpty = new JLabel("", JLabel.CENTER);
+                container.add(lblEmpty);
+            }
         }
 
         /**
@@ -160,7 +168,6 @@ public class CalendarView extends JPanel {
             lblMY.setFont(style.createLblCalendar(null, null).getFont());
             lblMY.setForeground(style.black);
         }
-
 
         /**
          * Retrieves the next month button.
@@ -302,5 +309,67 @@ public class CalendarView extends JPanel {
             return tblFanbaseModel;
         }
 
+    }
+
+    /**
+     * Updates the calendar grid based on the given data.
+     * @param calendarData The data to update the calendar grid.
+     */
+    public void updateCalendarGrid(LocalDate[][] calendarData) {
+        JPanel container = (JPanel) calendarPanel.getComponent(0);
+        container.removeAll();
+
+        // Create and add weekday labels
+        Font dayFont = style.createLblH3(null, null).getFont();
+        for (String dayName : DAY_NAMES) {
+            JLabel lblDay = style.createLblH3(dayName, style.black);
+            lblDay.setHorizontalAlignment(JLabel.CENTER);
+            lblDay.setBorder(BorderFactory.createEmptyBorder()); // Remove line borders
+            container.add(lblDay);
+        }
+
+        // Get the first day of the current month
+        LocalDate firstDayOfMonth = LocalDate.of(calendarPanel.currentYear, calendarPanel.currentMonthIndex + 1, 1);
+        // Calculate the day of the week of the first day
+        int offset = firstDayOfMonth.getDayOfWeek().getValue() % 7;
+
+        Font dateFont = style.createLblCalendar(null, null).getFont();
+
+        // Fill empty spaces before the first day
+        for (int i = 0; i < offset; i++) {
+            JLabel lblEmpty = new JLabel("", JLabel.CENTER);
+            lblEmpty.setBorder(BorderFactory.createLineBorder(style.black, 1));
+            container.add(lblEmpty);
+        }
+
+        // Add buttons for each day in the calendarData array
+        for (LocalDate[] week : calendarData) {
+            for (LocalDate date : week) {
+                if (date != null) {
+                    JButton btnDate = new JButton(Integer.toString(date.getDayOfMonth()));
+                    btnDate.setFont(dateFont);
+                    btnDate.setBackground(style.white);
+                    btnDate.setOpaque(false);
+                    btnDate.setBorder(BorderFactory.createLineBorder(style.black, 1));
+                    btnDate.setForeground(style.black);
+                    btnDate.setHorizontalAlignment(JLabel.CENTER);
+                    container.add(btnDate);
+                }
+            }
+        }
+
+        // Calculate remaining empty spaces after the last day
+        int totalDaysInMonth = YearMonth.of(calendarPanel.currentYear, calendarPanel.currentMonthIndex + 1).lengthOfMonth();
+        int totalCells = offset + totalDaysInMonth;
+        int remainingCells = 7 - (totalCells % 7);
+        if (remainingCells != 7) {
+            for (int i = 0; i < remainingCells; i++) {
+                JLabel lblEmpty = new JLabel("", JLabel.CENTER);
+                lblEmpty.setBorder(BorderFactory.createLineBorder(style.black, 1));
+                container.add(lblEmpty);
+            }
+        }
+        container.revalidate();
+        container.repaint();
     }
 }
