@@ -31,7 +31,6 @@ public class CalendarView extends JPanel {
     private TablePanel tablePanel;
 
 
-
     /**
      * Constructs a panel of CalendarView.
      */
@@ -43,7 +42,7 @@ public class CalendarView extends JPanel {
         tablePanel = new TablePanel();
 
         add(new HeaderPanel(), BorderLayout.NORTH);
-        add(new CalendarPanel(), BorderLayout.CENTER);
+        add(calendarPanel, BorderLayout.CENTER);
 //        add(new TablePanel(), BorderLayout.CENTER);
 
         this.setSize(1100, 755);
@@ -53,14 +52,32 @@ public class CalendarView extends JPanel {
      * The HeaderPanel.
      */
     class HeaderPanel extends JPanel {
+
+        JButton btnBack;
+        JButton btnRefresh;
         /**
          * Constructs a HeaderPanel.
          */
         public HeaderPanel() {
             this.setBackground(style.purple);
-            this.setLayout(new FlowLayout());
+            this.setLayout(new BorderLayout());
             this.setPreferredSize(new Dimension(1000, 45));
+
+            btnBack = style.createBtnIconOnly(style.iconBackWhite,30,30);
+            btnRefresh = style.createBtnIconOnly(style.iconRefresh,20,20);
+
+            // Add buttons to the panel
+            add(btnBack, BorderLayout.WEST);
+            add(btnRefresh, BorderLayout.EAST);
         }
+    }
+
+    /**
+     * Retrieves the current panel of CalendarPanel.
+     * @return The current calendarPanel.
+     */
+    public CalendarPanel getCalendarPanel() {
+        return calendarPanel;
     }
 
     /**
@@ -71,8 +88,8 @@ public class CalendarView extends JPanel {
         private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         private final String[] MONTH_NAMES = {"January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"};
-        private int currentMonthIndex;
-        private int currentYear;
+        public int currentMonthIndex;
+        public int currentYear;
 
         /**
          * Constructs a CalendarPanel.
@@ -138,19 +155,12 @@ public class CalendarView extends JPanel {
          * Updates the month and year label.
          * @param lblMY The label to be updated.
          */
-        private void updateMonthYearLabel(JLabel lblMY) {
+        public void updateMonthYearLabel(JLabel lblMY) {
             lblMY.setText(MONTH_NAMES[currentMonthIndex] + " " + currentYear);
             lblMY.setFont(style.createLblCalendar(null, null).getFont());
             lblMY.setForeground(style.black);
         }
 
-        /**
-         * Retrieves the current panel of CalendarPanel.
-         * @return The current calendarPanel.
-         */
-        public CalendarPanel getCalendarPanel() {
-            return calendarPanel;
-        }
 
         /**
          * Retrieves the next month button.
@@ -293,5 +303,4 @@ public class CalendarView extends JPanel {
         }
 
     }
-
 }
