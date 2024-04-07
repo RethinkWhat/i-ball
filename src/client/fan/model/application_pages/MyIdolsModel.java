@@ -3,7 +3,6 @@ package client.fan.model.application_pages;
 import shared.res.DataPB;
 import shared.res.User;
 
-import java.awt.geom.RectangularShape;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -41,6 +40,24 @@ public class MyIdolsModel {
             fanSessions.add(currSession);
         }
 
+
+        return fanSessions;
+    }
+
+    public List<List<String>> getAllFanSessions() throws SQLException {
+        ResultSet fanSessionsSet = DataPB.getAllSessions(this.user.getUserID());
+        List<List<String>> fanSessions = new ArrayList<>();
+
+        while (fanSessionsSet.next()) {
+            List<String> currSession = new ArrayList<>();
+
+            currSession.add(String.valueOf(fanSessionsSet.getTime("startTime")));
+            currSession.add(fanSessionsSet.getString("idolName"));
+            currSession.add(fanSessionsSet.getString("sessionType"));
+            currSession.add(String.valueOf(fanSessionsSet.getTime("duration")));
+
+            fanSessions.add(currSession);
+        }
 
         return fanSessions;
     }
