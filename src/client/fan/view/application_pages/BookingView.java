@@ -352,9 +352,6 @@ public class BookingView extends JPanel {
 
                 lblVidRate = style.createLblP("Info",style.black);
                 add(lblVidRate, BorderLayout.CENTER);
-
-                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
-                add(lblPerDuration, BorderLayout.SOUTH);
             }
          }
 
@@ -374,9 +371,6 @@ public class BookingView extends JPanel {
 
                 lblVoiceRate = style.createLblP("Info",style.black);
                 add(lblVoiceRate, BorderLayout.CENTER);
-
-                JLabel lblPerDuration = style.createLblP("/5 minutes", style.black);
-                add(lblPerDuration, BorderLayout.SOUTH);
             }
          }
 
@@ -703,23 +697,19 @@ public class BookingView extends JPanel {
         this.availTime = availTime;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+    /**
+     * Retrieves the current JTextArea of txaAvailDays.
+     * @return The current txaAvailDays.
+     */
+    public JTextArea getTxaAvailDays() {
+        return txaAvailDays;
     }
 
-    private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Booking View Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        BookingView bookingView = new BookingView();
-        frame.add(bookingView);
-
-        frame.pack();
-        frame.setLocationRelativeTo(null); // Center the frame
-        frame.setVisible(true);
+    /**
+     * Retrieves the current JTextArea of txaAvailTime.
+     * @return The current txaAvailTime.
+     */
+    public JTextArea getTxaAvailTime() {
+        return txaAvailTime;
     }
 }

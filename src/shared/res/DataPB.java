@@ -206,6 +206,13 @@ public class DataPB {
 
 
 
+        int idolID = idol.getIdolID();
+
+        String query = "SELECT day, startTime, endTime FROM idol_availability WHERE idolID = " + idolID + ";";
+        Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        return statement.executeQuery(query);
+    }
 
 
     //===============================//
