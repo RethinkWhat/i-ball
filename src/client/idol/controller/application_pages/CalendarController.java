@@ -6,7 +6,6 @@ import client.idol.view.application_pages.CalendarView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.YearMonth;
 
 /**
  * The CalendarController processes the user requests. Based on the user request, the CalendarController

@@ -66,7 +66,7 @@ public class CalendarView extends JPanel {
             this.setPreferredSize(new Dimension(1000, 45));
 
             btnBack = style.createBtnIconOnly(style.iconBackWhite,30,30);
-            btnRefresh = style.createBtnIconOnly(style.iconRefresh,20,20);
+            btnRefresh = style.createBtnIconOnly(style.iconRefresh,30,30);
 
             // Add buttons to the panel
             add(btnBack, BorderLayout.WEST);
