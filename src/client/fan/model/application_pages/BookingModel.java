@@ -120,7 +120,7 @@ public class BookingModel {
                 LocalTime endTime = LocalTime.parse(schedule.get(1), timeFormat);
 
                 for (String dates : availableDates) {
-                    LocalDate currDate = LocalDate.parse(dates);
+                    LocalDate currDate = LocalDate.parse(dates, dateFormat);
                     if (dayOfWeek.equals(currDate.getDayOfWeek())) {
                         for (List<String> session : sessions) {
                             LocalTime startTime = LocalTime.parse(session.get(1));
@@ -135,6 +135,56 @@ public class BookingModel {
                         }
                         if (endTime.isBefore(LocalTime.parse(schedule.get(2)))) { // update to idol schedule availability
                             availableSlots.add(endTime.format(timeFormat));
+                        }
+                    }
+                }
+            }
+        }
+        return availableSlots;
+    }
+
+    public List<String> getAvailableTimes(String date) throws SQLException {
+        List<List<String>> sessions = getIdolSessions(idol);
+        List<String> availableSlots = new ArrayList<>();
+
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        LocalDate givenDate = LocalDate.parse(date, dateFormat);
+
+        // getIdolSchedule -> schedule is the dates the idol
+
+        for (List<String> schedule: getIdolSchedule()) {
+            DayOfWeek scheduleDay = DayOfWeek.valueOf(schedule.get(0).toUpperCase());
+            DayOfWeek givenDay = givenDate.getDayOfWeek();
+
+            System.out.println(scheduleDay + "" + givenDay);
+
+            if (givenDay.equals(scheduleDay)) {
+                LocalTime scheduleEnd = LocalTime.parse(schedule.get(2), timeFormat);
+                System.out.println(scheduleEnd);
+                LocalTime scheduleStart = LocalTime.parse(schedule.get(1), timeFormat);
+                System.out.println(scheduleStart);
+
+                for (List<String> session : sessions) {
+                    if (givenDate.equals(LocalDate.parse(session.get(0), dateFormat))) {
+                        LocalTime startTime = LocalTime.parse(session.get(1));
+                        LocalTime duration = LocalTime.parse(session.get(2));
+                        LocalTime totalTime = startTime.plusHours(duration.getHour())
+                                .plusMinutes(duration.getMinute()).plusSeconds(duration.getSecond());
+                        System.out.println(totalTime);
+
+                        if (totalTime.isAfter(scheduleStart) && (totalTime.isBefore(scheduleEnd) || totalTime.equals(scheduleEnd))) {
+                            availableSlots.add(totalTime.format(timeFormat));
+                            System.out.println(totalTime);
+                        } else if (!scheduleStart.equals(startTime)) {
+                            availableSlots.add(scheduleStart.format(timeFormat));
+                        }
+                        scheduleStart = totalTime;
+                    } else {
+                        while (scheduleStart.equals(scheduleEnd) || scheduleStart.isBefore(scheduleEnd)) {
+                            availableSlots.add(scheduleStart.format(timeFormat));
+                            scheduleStart = scheduleStart.plusHours(1);
                         }
                     }
                 }

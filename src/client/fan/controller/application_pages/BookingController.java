@@ -3,7 +3,9 @@ package client.fan.controller.application_pages;
 import client.fan.controller.FanApplicationController;
 import client.fan.model.application_pages.BookingModel;
 import client.fan.view.application_pages.BookingView;
+import shared.res.CustomizedMessageDialog;
 import shared.res.Resources;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +36,7 @@ public class BookingController {
      * The main application controller.
      */
     private FanApplicationController mainController;
+    private Stylesheet style = new Stylesheet();
 
     /**
      * Constructs a BookingController with a specified view and specified model.
@@ -59,7 +62,8 @@ public class BookingController {
         view.getCmbDate().addActionListener(e -> {
             List<String> availTimes;
             try {
-                availTimes = model.getAvailTimes(String.valueOf(view.getCmbDate().getSelectedItem()))
+                view.getCmbTime().removeAllItems();
+                availTimes = model.getAvailableTimes(String.valueOf(view.getCmbDate().getSelectedItem()))
                         .stream().distinct().toList();
                 for (String availTime : availTimes) {
                     view.getCmbTime().addItem(availTime);
@@ -82,10 +86,15 @@ public class BookingController {
 
         view.getBtnBook().addActionListener(e -> {
 
-
-            view.getRadVidCall().addActionListener(e1 -> {
-                // view.getTxtAmount().setText(Double.toString(finalRate));
-            });
+            new CustomizedMessageDialog("Booking",
+                    style.iconSuccess,
+                    "Booking Confirmed",
+                    "You have successfully booked this idol. Thank you!",
+                    "Close",
+                    style.purple,
+                    style.purple,
+                    style.black,
+                    style.purple);
         });
 
         view.getRadVidCall().addActionListener(e -> {
