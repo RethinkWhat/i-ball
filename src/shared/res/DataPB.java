@@ -361,7 +361,7 @@ public class DataPB {
     public static ResultSet getAllIdolSession(Idol idol) throws SQLException {
         DataPB.setCon();
 
-        String query = "SELECT date, startTime, duration FROM session WHERE idolId=" + idol.getIdolID();
+        String query = "SELECT date, startTime, duration FROM session WHERE idolId=" + idol.getIdolID() + " ORDER BY date DESC;";
         Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
         return statement.executeQuery(query);

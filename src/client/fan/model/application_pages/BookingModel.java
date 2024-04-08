@@ -158,33 +158,26 @@ public class BookingModel {
             DayOfWeek scheduleDay = DayOfWeek.valueOf(schedule.get(0).toUpperCase());
             DayOfWeek givenDay = givenDate.getDayOfWeek();
 
-            System.out.println(scheduleDay + "" + givenDay);
-
             if (givenDay.equals(scheduleDay)) {
                 LocalTime scheduleEnd = LocalTime.parse(schedule.get(2), timeFormat);
-                System.out.println(scheduleEnd);
                 LocalTime scheduleStart = LocalTime.parse(schedule.get(1), timeFormat);
-                System.out.println(scheduleStart);
 
                 for (List<String> session : sessions) {
-                    if (givenDate.equals(LocalDate.parse(session.get(0), dateFormat))) {
+                    if (givenDate.equals(LocalDate.parse(session.get(0)))) {
                         LocalTime startTime = LocalTime.parse(session.get(1));
                         LocalTime duration = LocalTime.parse(session.get(2));
                         LocalTime totalTime = startTime.plusHours(duration.getHour())
                                 .plusMinutes(duration.getMinute()).plusSeconds(duration.getSecond());
-                        System.out.println(totalTime);
-
-                        if (totalTime.isAfter(scheduleStart) && (totalTime.isBefore(scheduleEnd) || totalTime.equals(scheduleEnd))) {
+                        if (totalTime.isAfter(scheduleStart) && totalTime.isBefore(scheduleEnd)) {
                             availableSlots.add(totalTime.format(timeFormat));
-                            System.out.println(totalTime);
+                            scheduleStart = totalTime.plusMinutes(30);
                         } else if (!scheduleStart.equals(startTime)) {
                             availableSlots.add(scheduleStart.format(timeFormat));
                         }
-                        scheduleStart = totalTime;
                     } else {
-                        while (scheduleStart.equals(scheduleEnd) || scheduleStart.isBefore(scheduleEnd)) {
+                        while (scheduleStart.isBefore(scheduleEnd)) {
                             availableSlots.add(scheduleStart.format(timeFormat));
-                            scheduleStart = scheduleStart.plusHours(1);
+                            scheduleStart = scheduleStart.plusMinutes(30);
                         }
                     }
                 }
