@@ -51,7 +51,7 @@ public class FanbaseController {
         // focus listeners
         view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YYYY)"));
         view.getTxtSearchbar().addActionListener(new SearchListener());
-        view.getTablePanel().getTblFanbase().getSelectionModel().addListSelectionListener(new TableSelectionListener());
+
     }
 
     /**
@@ -71,7 +71,7 @@ public class FanbaseController {
                 String fan = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 1);
                 String type = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 2);
                 String duration = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 3);
-                System.out.println(duration);
+
                 openVirtualMeetupView(time, fan, type , duration);
 
             } else {
@@ -85,14 +85,26 @@ public class FanbaseController {
             startTimer(durationInSeconds,virtualMeetupView.getLblTimer());
             virtualMeetupView.getLblTimer().setText(duration);
             virtualMeetupView.getLblFanName().setText(fan);
-
             JFrame virtualMeetupFrame = new JFrame("Virtual Meetup");
+            virtualMeetupView.getBtnEndCall().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int choice = JOptionPane.showConfirmDialog(view,"Are you sure you want to exit?","End",JOptionPane.YES_NO_OPTION );
+                    if(choice == JOptionPane.YES_OPTION) {
+                        virtualMeetupFrame.dispose();
+                    }
+                }
+            });
             virtualMeetupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             virtualMeetupFrame.getContentPane().add(virtualMeetupView);
             virtualMeetupFrame.pack();
             virtualMeetupFrame.setLocationRelativeTo(null);
             virtualMeetupFrame.setVisible(true);
+
+
         }
+
+
         private int convertDurationToSeconds(String duration) {
             String[] hms = duration.split(":");
             int hours = Integer.parseInt(hms[0]);
@@ -128,20 +140,6 @@ public class FanbaseController {
     class ReturnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        }
-    }
-    class TableSelectionListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
-                int selectedRow = view.getTablePanel().getTblFanbase().getSelectedRow();
-                if (selectedRow != -1) {
-                    String time = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 0);
-                    String fan = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 1);
-                    String type = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 2);
-                    System.out.println("Selected Row: "+ selectedRow +"Time=" + time + ", Fan=" + fan + ", Type=" + type);
-                }
-            }
         }
     }
     class SearchListener implements ActionListener {
