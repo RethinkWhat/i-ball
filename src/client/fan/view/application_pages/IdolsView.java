@@ -1,17 +1,11 @@
 package client.fan.view.application_pages;
 
-import client.fan.controller.application_pages.IdolsController;
-import client.fan.model.application_pages.IdolsModel;
-import shared.login_register.LoginController;
-import shared.login_register.LoginModel;
-import shared.login_register.LoginView;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +38,8 @@ public class IdolsView extends JPanel {
      * Button to filter celebrities.
      */
     private JButton btnFilterCelebs;
+
+    private JLabel lblFilter;
     /**
      * Panel holding all the idols.
      */
@@ -108,10 +104,6 @@ public class IdolsView extends JPanel {
          * The scroll pane.
          */
         private JScrollPane scrollPane;
-        /**
-         * The filter label.
-         */
-        private JLabel lblFilter;
 
         /**
          * Constructs a panel of IdolsPanel.
@@ -372,6 +364,8 @@ public class IdolsView extends JPanel {
         return btnFilterGamers;
     }
 
+    public JLabel getLblFilter(){return lblFilter;}
+
     /**
      * Retrieves the current JButton of btnFilterInfls.
      * @return The current btnFilterInfls.
@@ -417,5 +411,6 @@ public class IdolsView extends JPanel {
         pnlIdolsContainer.add(idolDetailsPanel);
         idolPanels.add(idolDetailsPanel);
     }
+
 
 }
