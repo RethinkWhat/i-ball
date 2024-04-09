@@ -5,6 +5,7 @@ import client.fan.model.application_pages.BookingModel;
 import client.fan.model.application_pages.IdolsModel;
 import client.fan.view.application_pages.IdolsView;
 import shared.res.Idol;
+import shared.res.Resources;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,11 +50,14 @@ public class IdolsController {
                 try {
                     List<Idol> searchResults = model.idolSearch(searchTerm);
                     populateIdolsPanel(searchResults);
+                    view.getTxtSearchbar().setText("");
                 } catch (SQLException ex) {
                     ex.printStackTrace(); // Handle SQLException appropriately
                 }
             }
         });
+
+        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search idol"));
     }
 
     /**
