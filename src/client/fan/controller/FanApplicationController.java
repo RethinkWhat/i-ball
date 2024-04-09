@@ -14,6 +14,8 @@ import client.idol.model.application_pages.FanbaseModel;
 import client.idol.model.application_pages.VirtualMeetupModel;
 import shared.res.Resources;
 
+import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 /**
@@ -37,6 +39,13 @@ public class FanApplicationController {
     public FanApplicationController(FanApplicationView view, FanApplicationModel model) throws SQLException {
         this.view = view;
         this.model = model;
+
+        // Update user label and profile picture
+        view.getLblUser().setText(model.getUser().getUsername());
+        ImageIcon pfp = new ImageIcon(model.getUser().getPpAddress());
+        Image pfpImage = pfp.getImage();
+        Image resized = pfpImage.getScaledInstance(113, 64, Image.SCALE_SMOOTH);
+        view.getLblUserPfp().setIcon(new ImageIcon(resized));
 
         new IdolsController(view.getIdolsView(), new IdolsModel(), this);
         MyIdolsController myIdolsController = new MyIdolsController(view.getMyIdolsView(), new MyIdolsModel(model.getUser()), this);
