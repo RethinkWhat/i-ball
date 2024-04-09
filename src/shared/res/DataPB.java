@@ -380,13 +380,13 @@ public class DataPB {
                 + " values (?,?,?,?,?,?,?)";
 
         PreparedStatement statement = con.prepareStatement(insertion);
-        statement.setInt(0,session.getIdolID());
-        statement.setDate(1,session.getDate());
-        statement.setTime(2,session.getStartTime());
-        statement.setTime(3,session.getDuration());
-        statement.setString(4,session.getSessionType());
-        statement.setDouble(5,session.getAmount());
-        statement.setInt(6,session.getIdolID());
+        statement.setInt(1,session.getIdolID());
+        statement.setDate(2,session.getDate());
+        statement.setTime(3,session.getStartTime());
+        statement.setTime(4,session.getDuration());
+        statement.setString(5,session.getSessionType());
+        statement.setDouble(6,session.getAmount());
+        statement.setInt(7,session.getIdolID());
 
         statement.executeUpdate();
     }

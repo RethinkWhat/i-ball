@@ -3,13 +3,12 @@ package client.fan.model.application_pages;
 import shared.res.DataPB;
 import shared.res.Idol;
 import shared.res.Session;
+import shared.res.User;
 
 import javax.swing.table.DefaultTableModel;
-import java.sql.DataTruncation;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
+import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -23,6 +22,10 @@ public class BookingModel {
      * The current idol.
      */
     private Idol idol;
+    /**
+     * The current user.
+     */
+    private User user;
     /**
      * Holds the idol details.
      */
@@ -45,8 +48,9 @@ public class BookingModel {
      *
      * @param idol The specified idol.
      */
-    public BookingModel(Idol idol) {
+    public BookingModel(Idol idol, User user) {
         this.idol = idol;
+        this.user = user;
 
         idolDetails = new ArrayList<>();
         idolDetails.add(idol.getProfilePictureAddress());
@@ -216,8 +220,18 @@ public class BookingModel {
         return availableDates;
     }
 
-    public void addBooking(Session session) throws SQLException {
+    public void addBooking(int idolId, String sessionType, String date, String startTime, int duration, double amount, int userID) throws SQLException {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+        LocalTime currDuration = LocalTime.of(0,duration);
+
+        java.sql.Date sqlDate = Date.valueOf(LocalDate.parse(date, dateFormat));
+        java.sql.Time sqlTime = Time.valueOf(LocalTime.parse(startTime, timeFormat));
+        java.sql.Time sqlDuration = Time.valueOf(currDuration);
+
+        Session session = new Session(idolId, sqlDate, sqlTime ,sqlDuration, sessionType, amount, userID);
+        DataPB.addNewSession(session);
     }
 
     /**
@@ -265,6 +279,14 @@ public class BookingModel {
      */
     public Idol getIdol() {
         return idol;
+    }
+
+    /**
+     * Retrieves the current user.
+     * @return The current user.
+     */
+    public User getUser() {
+        return user;
     }
 
     public List<String> getAvailableDatesToBook() {

@@ -105,7 +105,7 @@ public class IdolsController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new BookingController(mainController.addBookingView(), new BookingModel(idol), mainController);
+            new BookingController(mainController.addBookingView(), new BookingModel(idol, mainController.getModel().getUser()), mainController);
             mainController.getView().getCardLayout().show(mainController.getView().getPnlCards(), "booking");
         }
     }

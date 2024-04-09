@@ -16,6 +16,8 @@ public class Session {
 
     // holds the name of the fan
     /** In database this is userID, however for ease of use it will just hold the username of fan */
+    private int userID;
+
     private String fanName;
 
     // Holds the date of booking
@@ -36,7 +38,7 @@ public class Session {
      * Default constructor
      * @param sessionID
      * @param idolID
-     * @param fanName
+     * @param userID
      * @param date
      * @param startTime
      * @param duration
@@ -46,6 +48,16 @@ public class Session {
         this.sessionID = sessionID;
         this.idolID = idolID;
         this.fanName = fanName;
+        this.date = date;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.sessionType = sessionType;
+        this.amount = amount;
+    }
+
+    public Session(int idolID,Date date, Time startTime, Time duration, String sessionType, double amount, int userID) {
+        this.idolID = idolID;
+        this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.duration = duration;
@@ -89,16 +101,16 @@ public class Session {
      * Getter for userID
      * @return userID
      */
-    public String getFanName() {
-        return fanName;
+    public int getUserID() {
+        return userID;
     }
 
     /**
      * Setter for fanName
-     * @param fanName
+     * @param userID
      */
-    public void setFanName(String fanName) {
-        this.fanName = fanName;
+    public void setFanName(int userID) {
+        this.userID = userID;
     }
 
     /**
@@ -178,12 +190,16 @@ public class Session {
         return "Session{" +
                 "sessionID=" + sessionID +
                 ", idolID=" + idolID +
-                ", fanName='" + fanName + '\'' +
+                ", userID='" + userID+ '\'' +
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", duration=" + duration +
                 ", sessionType='" + sessionType + '\'' +
                 ", amount=" + amount +
                 '}';
+    }
+
+    public String getFanName() {
+        return fanName;
     }
 }

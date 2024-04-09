@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 /**
  * The BookingController processes the user requests. Based on the user request, the BookingController
@@ -36,6 +36,9 @@ public class BookingController {
      * The main application controller.
      */
     private FanApplicationController mainController;
+    /**
+     * The stylesheet.
+     */
     private Stylesheet style = new Stylesheet();
 
     /**
@@ -84,18 +87,7 @@ public class BookingController {
             view.getTxtAmount().setText("Php " + (rate * ((double) duration / 5)));
         });
 
-        view.getBtnBook().addActionListener(e -> {
-
-            new CustomizedMessageDialog("Booking",
-                    style.iconSuccess,
-                    "Booking Confirmed",
-                    "You have successfully booked this idol. Thank you!",
-                    "Close",
-                    style.purple,
-                    style.purple,
-                    style.black,
-                    style.purple);
-        });
+        view.getBtnBook().addActionListener(new BookingListener());
 
         view.getRadVidCall().addActionListener(e -> {
             double rate;
@@ -181,6 +173,62 @@ public class BookingController {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+            }
+        }
+    }
+
+    /**
+     * Processes booking.
+     */
+    class BookingListener implements ActionListener {
+        /**
+         * Processes the booking of the fan user.
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int userID = model.getUser().getUserID();
+            int idolId = model.getIdol().getIdolID();
+            String sessionType = null;
+            String date = Objects.requireNonNull(view.getCmbDate().getSelectedItem()).toString();
+            String startTime = Objects.requireNonNull(view.getCmbTime().getSelectedItem()).toString();
+            int duration = (int) view.getCmbDuration().getSelectedItem();
+            double amount = Double.parseDouble(view.getTxtAmount().getText().replace("Php ", ""));
+
+            if (view.getRadVoiceCall().isSelected()) {
+                sessionType = "Voice Call";
+            } else if (view.getRadVidCall().isSelected()) {
+                sessionType = "Video Call";
+            }
+
+            try {
+                model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID);
+                new CustomizedMessageDialog("Booking",
+                        style.iconSuccess,
+                        "Booking Confirmed",
+                        "You have successfully booked this idol. Thank you!",
+                        "Close",
+                        style.purple,
+                        style.purple,
+                        style.black,
+                        style.purple,
+                        false);
+
+                view.getCmbTime().setSelectedIndex(0);
+                view.getCmbDuration().setSelectedIndex(0);
+            } catch (SQLException ex) {
+                view.getCmbTime().setSelectedIndex(0);
+                view.getCmbDuration().setSelectedIndex(0);
+                new CustomizedMessageDialog("Booking",
+                        style.iconFailed,
+                        "Booking Failed",
+                        "There has been an error in booking. Please check booking details and try again.",
+                        "Close",
+                        style.red,
+                        style.purple,
+                        style.black,
+                        style.purple,
+                        false);
             }
         }
     }
