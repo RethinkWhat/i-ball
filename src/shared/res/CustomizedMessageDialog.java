@@ -22,6 +22,8 @@ public class CustomizedMessageDialog extends JDialog {
     private JLabel lblBig;
     private Stylesheet style = new Stylesheet();
 
+    private boolean exitProgram;
+
     /**
      * Constructs a CustomizedMessageDialog with customizable content.
      *
@@ -35,7 +37,7 @@ public class CustomizedMessageDialog extends JDialog {
      * @param textColor         The color of the text in the dialog.
      * @param titleMessageColor The color of the title message.
      */
-    public CustomizedMessageDialog(String title, ImageIcon icon, String titleMessage, String message, String buttonText, Color buttonColor, Color iconColor, Color textColor, Color titleMessageColor) {
+    public CustomizedMessageDialog(String title, ImageIcon icon, String titleMessage, String message, String buttonText, Color buttonColor, Color iconColor, Color textColor, Color titleMessageColor, boolean exitProgram) {
         this.title = title;
         this.icon = icon;
         this.titleMessage = titleMessage;
@@ -45,6 +47,7 @@ public class CustomizedMessageDialog extends JDialog {
         this.iconColor = iconColor;
         this.textColor = textColor;
         this.titleMessageColor = titleMessageColor;
+        this.exitProgram = exitProgram;
 
         createDialog();
     }
@@ -89,6 +92,7 @@ public class CustomizedMessageDialog extends JDialog {
         btnDialog.addActionListener(e -> {
             dialog.dispose();
             dialog.setVisible(false);
+            if (exitProgram) System.exit(0);
         });
         pnlButton.add(btnDialog);
 
@@ -187,6 +191,6 @@ public class CustomizedMessageDialog extends JDialog {
     public static void main(String[] args) {
         Stylesheet style = new Stylesheet();
         CustomizedMessageDialog dialog = new CustomizedMessageDialog("Custom Title", new ImageIcon("res/drawables/endcall-red-solid.png"),
-                "Custom Message Title", "Custom error message", "Close", style.purple, style.white, style.black, style.red);
+                "Custom Message Title", "Custom error message", "Close", style.purple, style.white, style.black, style.red, false);
     }
 }
