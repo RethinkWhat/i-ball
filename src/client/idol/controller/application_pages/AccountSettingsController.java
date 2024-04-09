@@ -51,19 +51,43 @@ public class AccountSettingsController {
         public void actionPerformed(ActionEvent e) {
             Stylesheet s = new Stylesheet();
             if (model.deleteAccount()) {
-                System.exit(0);
-            } else {
-                System.out.println("show error");
+                Image originalImage = s.iconSuccess.getImage();
+                int width = 75;
+                int height = 75;
+                Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
                 CustomizedMessageDialog msg =
                         new CustomizedMessageDialog(
-                                "Failed", s.iconFailed,
+                                "Success", scaledIcon,
+                                "Account Delete Success",
+                                "Click confirm to exit application.",
+                                "Confirm",
+                                s.celadon,
+                                s.celadon,
+                                s.gray,
+                                s.celadon,
+                                true);
+                System.exit(0);
+            } else {
+
+                Image originalImage = s.iconFailed.getImage();
+                int width = 75;
+                int height = 75;
+                Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                CustomizedMessageDialog msg =
+                        new CustomizedMessageDialog(
+                                "Failed", scaledIcon,
                                 "Account Delete Failed",
                                 "You still have bookings scheduled",
-                                "okay",
+                                "Confirm",
                                 s.red,
                                 s.red,
                                 s.gray,
-                                s.red);
+                                s.red,
+                                false);
             }
         }
     }
