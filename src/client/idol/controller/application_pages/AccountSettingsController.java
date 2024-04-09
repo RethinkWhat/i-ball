@@ -63,10 +63,10 @@ public class AccountSettingsController {
                                 "Account Delete Success",
                                 "Click confirm to exit application.",
                                 "Confirm",
-                                s.red,
-                                s.red,
+                                s.celadon,
+                                s.celadon,
                                 s.gray,
-                                s.red,
+                                s.celadon,
                                 true);
                 System.exit(0);
             } else {
