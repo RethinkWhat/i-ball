@@ -119,6 +119,7 @@ public class IdolsController {
          */
         private String category;
 
+
         /**
          * Constructs a filter button listener with specified category.
          *
@@ -134,10 +135,12 @@ public class IdolsController {
                 if (category.equals("ALL")) {
                     // Show all idols
                     populateIdolsPanel(model.getAllIdols());
+                    view.getLblFilter().setText("All Idols");
                 } else {
                     // Filter idols by category
                     List<Idol> filteredIdols = model.filterIdolsByType(category);
                     populateIdolsPanel(filteredIdols);
+                    view.getLblFilter().setText(category + " Idols");
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace(); // Handle SQLException appropriately

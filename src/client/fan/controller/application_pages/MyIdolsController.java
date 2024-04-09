@@ -30,7 +30,10 @@ public class MyIdolsController {
 
         // focus listeners
     }
+
+
     public void showAllFanSessions() throws SQLException {
+        view.getLblDate().setText(model.getDateToday());
         // Clear existing table rows
         view.getTblFanbaseModel().setRowCount(0);
 
@@ -46,6 +49,7 @@ public class MyIdolsController {
         public void actionPerformed(ActionEvent e) {
             String searchKey = view.getTxtSearchbar().getText();
             try {
+                view.getLblDate().setText(model.convertDate(searchKey));
                 // Clear existing table rows
                 view.getTblFanbaseModel().setRowCount(0);
 
@@ -59,4 +63,5 @@ public class MyIdolsController {
             }
         }
     }
+
 }

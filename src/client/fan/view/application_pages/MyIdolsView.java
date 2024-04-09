@@ -118,8 +118,14 @@ public class MyIdolsView extends JPanel {
             tblFanbaseModel.addColumn("Idol");
             tblFanbaseModel.addColumn("Type");
             tblFanbaseModel.addColumn("Duration");
-
-            tblFanbase = new JTable(tblFanbaseModel);
+            tblFanbase = new JTable(tblFanbaseModel) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            // Disable editing of the table
+            tblFanbase.setDefaultEditor(Object.class, null);
             tblFanbase.getTableHeader().setResizingAllowed(false);
             tblFanbase.getTableHeader().setReorderingAllowed(false);
             tblFanbase.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
@@ -133,6 +139,7 @@ public class MyIdolsView extends JPanel {
             tblFanbase.getColumnModel().getColumn(1).setPreferredWidth(200);
             tblFanbase.getColumnModel().getColumn(2).setPreferredWidth(60);
             tblFanbase.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
 
             JScrollPane scrollPane = new JScrollPane(tblFanbase);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -214,4 +221,5 @@ public class MyIdolsView extends JPanel {
     public void setReturnListener(ActionListener actionListener) {
         btnReturn.addActionListener(actionListener);
     }
+
 }

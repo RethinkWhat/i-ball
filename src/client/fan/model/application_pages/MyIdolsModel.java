@@ -6,6 +6,8 @@ import shared.res.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -71,6 +73,12 @@ public class MyIdolsModel {
         Calendar cal = Calendar.getInstance();
         return sdf.format(cal.getTime());
     }
+
+    public String convertDate(String search) {
+            LocalDate date = LocalDate.parse(search, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    }
+
 
     /**
      * FOR TESTING PURPOSES ONLY
