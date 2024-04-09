@@ -231,7 +231,19 @@ public class BookingModel {
         java.sql.Time sqlDuration = Time.valueOf(currDuration);
 
         Session session = new Session(idolId, sqlDate, sqlTime ,sqlDuration, sessionType, amount, userID);
-        DataPB.addNewSession(session);
+
+        try {
+            for (List<String> currSession : getIdolSessions(idol)) {
+                if (!currSession.get(0).equals(session.getDate().toString()) && !currSession.get(1).equals(session.getStartTime().toString())) {
+                    System.out.println(currSession);
+                } else {
+                    throw new SQLException();
+                }
+            }
+            DataPB.addNewSession(session);
+        } catch (SQLException e) {
+            throw new SQLException();
+        }
     }
 
     /**

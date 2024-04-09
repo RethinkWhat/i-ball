@@ -71,8 +71,7 @@ public class BookingController {
                 for (String availTime : availTimes) {
                     view.getCmbTime().addItem(availTime);
                 }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            } catch (Exception ex) {
             }
         });
 
@@ -187,42 +186,51 @@ public class BookingController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            int userID = model.getUser().getUserID();
-            int idolId = model.getIdol().getIdolID();
+            int userID = 0;
+            int idolId = 0;
             String sessionType = null;
-            String date = Objects.requireNonNull(view.getCmbDate().getSelectedItem()).toString();
-            String startTime = Objects.requireNonNull(view.getCmbTime().getSelectedItem()).toString();
-            int duration = (int) view.getCmbDuration().getSelectedItem();
-            double amount = Double.parseDouble(view.getTxtAmount().getText().replace("Php ", ""));
-
-            if (view.getRadVoiceCall().isSelected()) {
-                sessionType = "Voice Call";
-            } else if (view.getRadVidCall().isSelected()) {
-                sessionType = "Video Call";
-            }
+            String date = null;
+            String startTime = null;
+            int duration = 0;
+            double amount = 0.0;
 
             try {
-                model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID);
-                new CustomizedMessageDialog("Booking",
-                        style.iconSuccess,
-                        "Booking Confirmed",
-                        "You have successfully booked this idol. Thank you!",
-                        "Close",
-                        style.purple,
-                        style.purple,
-                        style.black,
-                        style.purple,
-                        false);
+                userID = model.getUser().getUserID();
+                idolId = model.getIdol().getIdolID();
+                sessionType = null;
+                date = Objects.requireNonNull(view.getCmbDate().getSelectedItem()).toString();
+                startTime = Objects.requireNonNull(view.getCmbTime().getSelectedItem()).toString();
+                duration = (int) view.getCmbDuration().getSelectedItem();
+                amount = Double.parseDouble(view.getTxtAmount().getText().replace("Php ", ""));
 
-                view.getCmbTime().setSelectedIndex(0);
-                view.getCmbDuration().setSelectedIndex(0);
-            } catch (SQLException ex) {
-                view.getCmbTime().setSelectedIndex(0);
+                if (view.getRadVoiceCall().isSelected()) {
+                    sessionType = "Voice Call";
+                } else if (view.getRadVidCall().isSelected()) {
+                    sessionType = "Video Call";
+                }
+
+                if (!(duration == 0) && (!view.getRadVidCall().isSelected() || !view.getRadVoiceCall().isSelected())) {
+                    model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID);
+                    new CustomizedMessageDialog("Booking",
+                            style.iconSuccess,
+                            "Booking Confirmed",
+                            "You have successfully booked this idol. Thank you!",
+                            "Close",
+                            style.purple,
+                            style.purple,
+                            style.black,
+                            style.purple,
+                            false);
+                    view.getCmbDate().setSelectedIndex(0);
+                    view.getCmbDuration().setSelectedIndex(0);
+                }
+            } catch (Exception ex) {
+                view.getCmbDate().setSelectedIndex(0);
                 view.getCmbDuration().setSelectedIndex(0);
                 new CustomizedMessageDialog("Booking",
                         style.iconFailed,
                         "Booking Failed",
-                        "There has been an error in booking. Please check booking details and try again.",
+                        "Please check booking details and try again.",
                         "Close",
                         style.red,
                         style.purple,

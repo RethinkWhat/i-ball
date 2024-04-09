@@ -394,6 +394,10 @@ public class BookingView extends JPanel {
                 gbc.anchor = GridBagConstraints.CENTER;
                 gbc.weightx = 300;
                 gbc.gridwidth = 3;
+                JLabel lblSessionType = style.createLblH4("Session Type",style.black);
+                add(lblSessionType, gbc);
+
+                gbc.gridy = 1;
                 JPanel pnlRadioButtons = new JPanel(new FlowLayout());
                 pnlRadioButtons.setBackground(style.white);
                 pnlRadioButtons.setPreferredSize(new Dimension(550,60));
@@ -409,33 +413,33 @@ public class BookingView extends JPanel {
                 buttonGroup.add(radVoiceCall);
                 pnlRadioButtons.add(radVoiceCall);
 
-                gbc.gridy = 1;
+                gbc.gridy = 2;
                 JLabel lblDate = style.createLblH4("Date",style.black);
                 add(lblDate, gbc);
 
-                gbc.gridy = 2;
+                gbc.gridy = 3;
                 cmbDate = new JComboBox<>(new String[] {"Select Date:"});
                 cmbDate.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbDate, gbc);
 
-                gbc.gridy = 3;
+                gbc.gridy = 4;
                 gbc.gridx = 0;
                 gbc.gridwidth = 1;
                 JLabel lblTime = style.createLblH4("Time",style.black);
                 add(lblTime, gbc);
 
-                gbc.gridy = 4;
+                gbc.gridy = 5;
                 cmbTime = new JComboBox<>(new String[] {"Select Time:"});
                 cmbTime.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbTime, gbc);
 
-                gbc.gridy = 3;
+                gbc.gridy = 4;
                 gbc.gridx = 1;
                 gbc.gridwidth = 1;
                 JLabel lblDuration = style.createLblH4("Duration (minutes)",style.black);
                 add(lblDuration, gbc);
 
-                gbc.gridy = 4;
+                gbc.gridy = 5;
                 cmbDuration = new JComboBox<>();
                 cmbDuration.setFont(new Font("Arial", Font.PLAIN, 14));
                 add(cmbDuration, gbc);
@@ -445,22 +449,22 @@ public class BookingView extends JPanel {
                 }
 
                 gbc.gridx = 0;
-                gbc.gridy = 5;
+                gbc.gridy = 7;
                 gbc.gridwidth = 3;
                 JLabel lblAmount = style.createLblH4("Amount",style.black);
                 add(lblAmount, gbc);
 
-                gbc.gridy = 6;
-                txtAmount = style.createTxtRounded("Amount",style.lightGray,style.black, 20);
+                gbc.gridy = 8;
+                txtAmount = style.createTxtRounded("",style.lightGray,style.black, 20);
                 txtAmount.setEditable(false);
                 txtAmount.setFocusable(false);
                 add(txtAmount, gbc);
 
-                gbc.gridy = 7;
+                gbc.gridy = 9;
                 JLabel lblBr = new JLabel("");
                 add(lblBr, gbc);
 
-                gbc.gridy = 8;
+                gbc.gridy = 10;
                 btnBook = style.createBtnRounded("Book",style.purple, style.black, 20);
                 add(btnBook, gbc);
 
