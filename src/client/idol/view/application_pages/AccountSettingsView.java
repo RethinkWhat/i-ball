@@ -448,6 +448,14 @@ public class AccountSettingsView extends JPanel {
 
         JPanel pnlDate;
 
+        JTextField txtVideoRate;
+
+        JTextField txtVoiceRate;
+
+        JLabel lblVideoRate;
+
+        JLabel lblVoiceRate;
+
         public AvailabilityPanel() {
             this.setLayout(new BorderLayout());
             this.setBackground(style.white);
@@ -506,16 +514,62 @@ public class AccountSettingsView extends JPanel {
             cmbEndTime.setPreferredSize(new Dimension(150,30));
             container.add(cmbEndTime, BorderLayout.EAST);
 
-
-            btnConfirm = style.createBtnRounded("Confirm", style.purple, style.purple, 10);
+            btnConfirm = style.createBtnRounded("Confirm", style.purple, style.white, 10);
             btnConfirm.setPreferredSize(new Dimension(100,50));
 
             JPanel pnlFooter = new JPanel();
             pnlFooter.setPreferredSize(new Dimension(100,250));
-            pnlFooter.setBorder(new EmptyBorder(40,0,0,0));
+            pnlFooter.setBorder(new EmptyBorder(5,0,0,0));
             pnlFooter.setBackground(style.white);
-            pnlFooter.add(btnConfirm);
+            lblVideoRate = style.createLblH3("Video Call Rate:", style.black);
+            lblVoiceRate = style.createLblH3("Voice Call Rate:", style.black);
 
+            txtVideoRate = style.createTxtRounded("", style.white, style.black, 10);
+            txtVoiceRate = style.createTxtRounded("", style.white, style.black, 10);
+
+            pnlFooter.setLayout(new GridBagLayout());
+            pnlFooter.setBackground(style.white);
+
+            GridBagConstraints gbcLblVideoRate = new GridBagConstraints();
+            gbcLblVideoRate.gridx = 0;
+            gbcLblVideoRate.gridy = 0;
+            gbcLblVideoRate.anchor = GridBagConstraints.WEST;
+            gbcLblVideoRate.insets = new Insets(5, 10, 5, 10);
+
+            GridBagConstraints gbcTxtVideoRate = new GridBagConstraints();
+            gbcTxtVideoRate.gridx = 0;
+            gbcTxtVideoRate.gridy = 1;
+            gbcTxtVideoRate.fill = GridBagConstraints.HORIZONTAL;
+            gbcTxtVideoRate.weightx = 1.0;
+            gbcTxtVideoRate.insets = new Insets(5, 10, 5, 10);
+
+            pnlFooter.add(lblVideoRate, gbcLblVideoRate);
+            pnlFooter.add(txtVideoRate, gbcTxtVideoRate);
+
+            GridBagConstraints gbcLblVoiceRate = new GridBagConstraints();
+            gbcLblVoiceRate.gridx = 1;
+            gbcLblVoiceRate.gridy = 0;
+            gbcLblVoiceRate.anchor = GridBagConstraints.WEST;
+            gbcLblVoiceRate.insets = new Insets(5, 10, 5, 10);
+
+            GridBagConstraints gbcTxtVoiceRate = new GridBagConstraints();
+            gbcTxtVoiceRate.gridx = 1;
+            gbcTxtVoiceRate.gridy = 1;
+            gbcTxtVoiceRate.fill = GridBagConstraints.HORIZONTAL;
+            gbcTxtVoiceRate.weightx = 1.0;
+            gbcTxtVoiceRate.insets = new Insets(5, 10, 5, 10);
+
+            pnlFooter.add(lblVoiceRate, gbcLblVoiceRate);
+            pnlFooter.add(txtVoiceRate, gbcTxtVoiceRate);
+
+            GridBagConstraints gbcButton = new GridBagConstraints();
+            gbcButton.gridx = 0;
+            gbcButton.gridy = 2;
+            gbcButton.gridwidth = 2;
+            gbcButton.anchor = GridBagConstraints.CENTER;
+            gbcButton.insets = new Insets(20, 0, 0, 0);
+
+            pnlFooter.add(btnConfirm, gbcButton);
             container.add(pnlFooter,BorderLayout.SOUTH);
 
             this.add(pnlDate, BorderLayout.CENTER);
@@ -576,6 +630,14 @@ public class AccountSettingsView extends JPanel {
 
         public void setBtnConfirmListener(ActionListener listener) {
             this.btnConfirm.addActionListener(listener);
+        }
+
+        public JTextField getTxtVideoRate() {
+            return txtVideoRate;
+        }
+
+        public JTextField getTxtVoiceRate() {
+            return txtVoiceRate;
         }
 
     }
