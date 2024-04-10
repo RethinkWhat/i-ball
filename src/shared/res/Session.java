@@ -38,7 +38,7 @@ public class Session {
      * Default constructor
      * @param sessionID
      * @param idolID
-     * @param userID
+     * @param fanName
      * @param date
      * @param startTime
      * @param duration
