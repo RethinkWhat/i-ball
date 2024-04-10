@@ -3,6 +3,7 @@ package client.idol.controller.application_pages;
 import client.idol.model.application_pages.AccountSettingsModel;
 import client.idol.view.application_pages.AccountSettingsView;
 import shared.res.CustomizedMessageDialog;
+import shared.res.Resources;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
@@ -33,6 +34,8 @@ public class AccountSettingsController {
         view.getPnlEdit().getPnlDetails().getTxtUsername().setText(model.getIdol().getUsername());
         view.getPnlEdit().getPnlDetails().getTxtEmail().setText(model.getIdol().getIdolType());
         view.getPnlEdit().getPnlDetails().getTxtGCash().setText(model.getIdol().getGCashNumber());
+        view.getPnlEdit().getPnlAvailability().getTxtVideoRate().setText(String.valueOf(model.getIdol().getVideoCallRate()));
+        view.getPnlEdit().getPnlAvailability().getTxtVoiceRate().setText(String.valueOf(model.getIdol().getVoiceCallRate()));
         view.getPnlEdit().getPnlDetails().setBtnEditNameListener(new EditInformation(view.getPnlEdit().getPnlDetails().getTxtName(),"idolName"));
         view.getPnlEdit().getPnlDetails().setBtnEditUsernameListener(new EditInformation(view.getPnlEdit().getPnlDetails().getTxtUsername(), "username"));
         view.getPnlEdit().getPnlDetails().setBtnEditEmailListener(new EditInformation(view.getPnlEdit().getPnlDetails().getTxtEmail(), "idolType"));
@@ -42,6 +45,12 @@ public class AccountSettingsController {
 
         view.getPnlEdit().getPnlAvailability().setBtnEditDayListener(new EditListener());
         view.getPnlEdit().getPnlAvailability().setBtnConfirmListener(new ConfirmListener());
+
+        // focus listeners
+        view.getPnlEdit().getPnlAvailability().getTxtVideoRate().addFocusListener(
+                new Resources.TextFieldFocus(view.getPnlEdit().getPnlAvailability().getTxtVideoRate(), String.valueOf(model.getIdol().getVideoCallRate())));
+        view.getPnlEdit().getPnlAvailability().getTxtVoiceRate().addFocusListener(
+                new Resources.TextFieldFocus(view.getPnlEdit().getPnlAvailability().getTxtVoiceRate(), String.valueOf(model.getIdol().getVoiceCallRate())));
 
         populateTime();
     }
@@ -147,6 +156,13 @@ public class AccountSettingsController {
     class ConfirmListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (model.getIdol().getVoiceCallRate() != Double.parseDouble(view.getPnlEdit().getPnlAvailability().getTxtVoiceRate().getText())) {
+                model.editInfo("voiceCallRate", view.getPnlEdit().getPnlAvailability().getTxtVoiceRate().getText());
+
+            }
+            if (model.getIdol().getVideoCallRate() != Double.parseDouble(view.getPnlEdit().getPnlAvailability().getTxtVideoRate().getText())) {
+                model.editInfo("videoCallRate", view.getPnlEdit().getPnlAvailability().getTxtVideoRate().getText());
+            }
             model.updateStartEndTime(
                     view.getPnlEdit().getPnlAvailability().getDateChosen(),
                     view.getPnlEdit().getPnlAvailability().getStartTimeChosen(),

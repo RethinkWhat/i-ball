@@ -514,7 +514,7 @@ public class AccountSettingsView extends JPanel {
             cmbEndTime.setPreferredSize(new Dimension(150,30));
             container.add(cmbEndTime, BorderLayout.EAST);
 
-            btnConfirm = style.createBtnRounded("Confirm", style.purple, style.white, 10);
+            btnConfirm = style.createBtnRounded("Confirm", style.purple, style.black, 10);
             btnConfirm.setPreferredSize(new Dimension(100,50));
 
             JPanel pnlFooter = new JPanel();
@@ -564,8 +564,8 @@ public class AccountSettingsView extends JPanel {
 
             GridBagConstraints gbcButton = new GridBagConstraints();
             gbcButton.gridx = 0;
-            gbcButton.gridy = 2;
-            gbcButton.gridwidth = 2;
+            gbcButton.gridy = 3;
+            gbcButton.gridwidth = 3;
             gbcButton.anchor = GridBagConstraints.CENTER;
             gbcButton.insets = new Insets(20, 0, 0, 0);
 
