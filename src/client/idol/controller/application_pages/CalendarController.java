@@ -12,10 +12,20 @@ import java.time.LocalDate;
  * defines methods and invokes methods in the View and Model to accomplish the requested action.
  */
 public class CalendarController {
-
+    /**
+     * The model
+     */
     private CalendarModel model;
+    /**
+     * The view.
+     */
     private CalendarView view;
 
+    /**
+     * Constructs a CalendarController with a specified view and model.
+     * @param view The specified view.
+     * @param model The specified model.
+     */
     public CalendarController(CalendarView view, CalendarModel model) {
         this.view = view;
         this.model = model;
@@ -25,6 +35,10 @@ public class CalendarController {
         this.view.getCalendarPanel().setPrevMonthListener(new PrevMonthListener());
 
         updateCalendar();
+
+        for (int i = 0; i < view.getButtons().length; i++) {
+            view.getButtons()[i].ad;
+        }
     }
 
     /**
@@ -61,6 +75,13 @@ public class CalendarController {
         }
     }
 
+    class DateListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("reached");
+        }
+    }
+
     /**
      * Update the calendar grid based on the current month and year.
      */
@@ -78,5 +99,4 @@ public class CalendarController {
         // Updating the calendar grid
         view.updateCalendarGrid(calendarData);
     }
-
 }

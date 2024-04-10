@@ -30,6 +30,7 @@ public class CalendarView extends JPanel {
 
     private CalendarPanel calendarPanel;
     private TablePanel tablePanel;
+    private JButton[] buttons = new JButton[31];
 
     private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
@@ -148,6 +149,7 @@ public class CalendarView extends JPanel {
                 btnDate.setOpaque(false);
                 btnDate.setBorder(BorderFactory.createLineBorder(style.black, 3));
                 btnDate.setForeground(style.black);
+                buttons[i-1] = btnDate;
                 container.add(btnDate);
             }
 
@@ -371,5 +373,17 @@ public class CalendarView extends JPanel {
         }
         container.revalidate();
         container.repaint();
+    }
+
+    public JButton[] getButtons() {
+        return buttons;
+    }
+
+    public JButton getBtnNextMonth() {
+        return btnNextMonth;
+    }
+
+    public JButton getBtnPrevMonth() {
+        return btnPrevMonth;
     }
 }
