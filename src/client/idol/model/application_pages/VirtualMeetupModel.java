@@ -9,4 +9,12 @@ public class VirtualMeetupModel {
     public VirtualMeetupModel(Idol idol) {
         this.idol = idol;
     }
+
+    public Idol getIdol() {
+        return idol;
+    }
+
+    public void setIdol(Idol idol) {
+        this.idol = idol;
+    }
 }

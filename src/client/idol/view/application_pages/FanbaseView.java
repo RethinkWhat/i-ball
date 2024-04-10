@@ -160,6 +160,10 @@ public class FanbaseView extends JPanel {
             this.revalidate();
         }
 
+        public String getDate() {
+            return lblDate.getText();
+        }
+
         public void populateTable(String[][] sessions) {
             tblFanbaseModel.setRowCount(0);
             for (String[] row : sessions) {
