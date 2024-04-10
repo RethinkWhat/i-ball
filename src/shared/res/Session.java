@@ -33,6 +33,7 @@ public class Session {
     private String sessionType;
 
     private double amount;
+    private boolean status;
 
     /**
      * Default constructor
@@ -55,7 +56,7 @@ public class Session {
         this.amount = amount;
     }
 
-    public Session(int idolID,Date date, Time startTime, Time duration, String sessionType, double amount, int userID) {
+    public Session(int idolID,Date date, Time startTime, Time duration, String sessionType, double amount, int userID, int status) {
         this.idolID = idolID;
         this.userID = userID;
         this.date = date;
@@ -63,6 +64,7 @@ public class Session {
         this.duration = duration;
         this.sessionType = sessionType;
         this.amount = amount;
+        this.status = status == 0;
     }
 
     /**
@@ -197,6 +199,13 @@ public class Session {
                 ", sessionType='" + sessionType + '\'' +
                 ", amount=" + amount +
                 '}';
+    }
+
+    public int getStatus() {
+        if (!status) {
+            return 0;
+        }
+        return 1;
     }
 
     public String getFanName() {

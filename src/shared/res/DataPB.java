@@ -31,11 +31,11 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/iball";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "root";
+            String password = "";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -395,8 +395,8 @@ public class DataPB {
         DataPB.setCon();
 
         String insertion = "INSERT INTO session "
-                + "(idolID, date, startTime, duration, sessionType, amount, userID)"
-                + " values (?,?,?,?,?,?,?)";
+                + "(idolID, date, startTime, duration, sessionType, amount, userID, sessionStatus)"
+                + " values (?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = con.prepareStatement(insertion);
         statement.setInt(1,session.getIdolID());
@@ -406,6 +406,7 @@ public class DataPB {
         statement.setString(5,session.getSessionType());
         statement.setDouble(6,session.getAmount());
         statement.setInt(7,session.getIdolID());
+        statement.setInt(8, session.getStatus());
 
         statement.executeUpdate();
     }

@@ -210,7 +210,7 @@ public class BookingController {
                 }
 
                 if (!(duration == 0) && (!view.getRadVidCall().isSelected() || !view.getRadVoiceCall().isSelected())) {
-                    model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID);
+                    model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID, 0);
                     new CustomizedMessageDialog("Booking",
                             style.iconSuccess,
                             "Booking Confirmed",
@@ -225,6 +225,7 @@ public class BookingController {
                     view.getCmbDuration().setSelectedIndex(0);
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
                 view.getCmbDate().setSelectedIndex(0);
                 view.getCmbDuration().setSelectedIndex(0);
                 new CustomizedMessageDialog("Booking",

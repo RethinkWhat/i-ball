@@ -220,7 +220,7 @@ public class BookingModel {
         return availableDates;
     }
 
-    public void addBooking(int idolId, String sessionType, String date, String startTime, int duration, double amount, int userID) throws SQLException {
+    public void addBooking(int idolId, String sessionType, String date, String startTime, int duration, double amount, int userID, int status) throws SQLException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -230,13 +230,11 @@ public class BookingModel {
         java.sql.Time sqlTime = Time.valueOf(LocalTime.parse(startTime, timeFormat));
         java.sql.Time sqlDuration = Time.valueOf(currDuration);
 
-        Session session = new Session(idolId, sqlDate, sqlTime ,sqlDuration, sessionType, amount, userID);
+        Session session = new Session(idolId, sqlDate, sqlTime ,sqlDuration, sessionType, amount, userID, status);
 
         try {
             for (List<String> currSession : getIdolSessions(idol)) {
-                if (!currSession.get(0).equals(session.getDate().toString()) && !currSession.get(1).equals(session.getStartTime().toString())) {
-                    System.out.println(currSession);
-                } else {
+                if (currSession.get(0).equals(session.getDate().toString()) && currSession.get(1).equals(session.getStartTime().toString())) {
                     throw new SQLException();
                 }
             }
