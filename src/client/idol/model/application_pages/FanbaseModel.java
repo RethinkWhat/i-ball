@@ -38,7 +38,6 @@ public class FanbaseModel {
 
     public String[][] getSessionsOnDate(String date) {
         ArrayList<Session> sessions = DataPB.getIdolSessions(getIdol().getIdolID(), date);
-        System.out.println(sessions);
         String[][] toReturn = new String[sessions.size()][4];
 
         for (int x =0 ; x < sessions.size(); x ++) {
