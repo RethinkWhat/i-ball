@@ -57,7 +57,7 @@ public class FanbaseModel {
                 Integer.parseInt(startList[1]) + Integer.parseInt(durationToAdd[1]),
                 Integer.parseInt(startList[2]) + Integer.parseInt(durationToAdd[2]));
 
-        return (cal.compareTo(timeOfBooking) >= 0) && (cal.compareTo(endOfBooking) < 0);
+≈çç√        return (cal.compareTo(timeOfBooking) >= 0) && (cal.compareTo(endOfBooking) < 0);
     }
 
     public String[][] getSessionsOnDate(String date) {
