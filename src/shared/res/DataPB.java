@@ -125,22 +125,24 @@ public class DataPB {
 
         try {
             String query = "SELECT " +
-                    "sessionID, date, startTime, duration, sessionType, amount, userID " +
+                    "sessionID, date, startTime, duration, sessionType, amount, userID, sessionStatus " +
                     "FROM Session WHERE idolID=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setInt(1, idolID);
             ResultSet sessions = stmt.executeQuery();
             while (sessions.next()) {
                 Date date = sessions.getDate(2);
-                if (date.toString().equalsIgnoreCase(formatDate(dateToFind))) {
+                if (date.toString().equalsIgnoreCase(dateToFind)) {
                     int sessionID = sessions.getInt(1);
                     Time startTime = sessions.getTime(3);
                     Time duration = sessions.getTime(4);
                     String sessionType = sessions.getString(5);
                     Double amount = sessions.getDouble(6);
                     int userID = sessions.getInt(7);
+                    int status = sessions.getInt(8);
                     String username = getUser(userID).getUsername();
                     Session session = new Session(sessionID, idolID, date, startTime, duration, sessionType, amount, username);
+                    session.setStatus(status);
                     sessionsList.add(session);
                 }
             }

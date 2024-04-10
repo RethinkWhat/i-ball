@@ -1,8 +1,15 @@
 package client.idol.model.application_pages;
 
+import shared.res.DataPB;
 import shared.res.Idol;
+import shared.res.Session;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The CalendarModel provides methods for displaying the bookings of the idol.
@@ -10,6 +17,7 @@ import java.time.YearMonth;
 public class CalendarModel {
 
     private Idol idol;
+    private List<Session> sessions;
     public CalendarModel(Idol idol) {
         this.idol = idol;
     }
@@ -51,4 +59,11 @@ public class CalendarModel {
         return data;
     }
 
+    public void getIdolSession(String date) {
+        sessions = DataPB.getIdolSessions(idol.getIdolID(), date);
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
 }

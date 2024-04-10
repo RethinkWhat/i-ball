@@ -6,8 +6,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 
 /**
  * The CalendarView contains an overview of the bookings of the idol in a given calendar format.
@@ -26,12 +28,16 @@ public class CalendarView extends JPanel {
      */
     private JLabel lblMonthYear;
 
+    private HeaderPanel pnlHeader;
+
     private Stylesheet style = new Stylesheet();
 
     private CalendarPanel calendarPanel;
     private TablePanel tablePanel;
-    private JButton[] buttons = new JButton[31];
+    private ArrayList<JButton> buttons = new ArrayList<>();
 
+    private JPanel pnlCards;
+    private CardLayout cardLayout = new CardLayout(0,0);
     private final String[] DAY_NAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     /**
@@ -41,11 +47,18 @@ public class CalendarView extends JPanel {
         this.setBackground(style.lightGray);
         this.setLayout(new BorderLayout());
 
+        add(pnlHeader = new HeaderPanel(), BorderLayout.NORTH);
+
+        pnlCards = new JPanel(cardLayout);
+        pnlCards.setBackground(style.white);
+        pnlCards.setPreferredSize(new Dimension(1100,755));
+        add(pnlCards, BorderLayout.CENTER);
+
         calendarPanel = new CalendarPanel();
         tablePanel = new TablePanel();
 
-        add(new HeaderPanel(), BorderLayout.NORTH);
-        add(calendarPanel, BorderLayout.CENTER);
+        pnlCards.add(calendarPanel, "calendar");
+        pnlCards.add(tablePanel, "table");
 //        add(new TablePanel(), BorderLayout.CENTER);
 
         this.setSize(1100, 755);
@@ -54,7 +67,7 @@ public class CalendarView extends JPanel {
     /**
      * The HeaderPanel.
      */
-    class HeaderPanel extends JPanel {
+    public class HeaderPanel extends JPanel {
 
         JButton btnBack;
         JButton btnRefresh;
@@ -72,6 +85,22 @@ public class CalendarView extends JPanel {
             // Add buttons to the panel
             add(btnBack, BorderLayout.WEST);
             add(btnRefresh, BorderLayout.EAST);
+        }
+
+        public JButton getBtnBack() {
+            return btnBack;
+        }
+
+        public JButton getBtnRefresh() {
+            return btnRefresh;
+        }
+
+        public void setBackListener(ActionListener actionListener) {
+            btnBack.addActionListener(actionListener);
+        }
+
+        public void setRefreshListener(ActionListener actionListener) {
+            btnRefresh.addActionListener(actionListener);
         }
     }
 
@@ -92,6 +121,14 @@ public class CalendarView extends JPanel {
                 "August", "September", "October", "November", "December"};
         public int currentMonthIndex;
         public int currentYear;
+
+        public int getCurrentMonthIndex() {
+            return currentMonthIndex;
+        }
+
+        public int getCurrentYear() {
+            return currentYear;
+        }
 
         /**
          * Constructs a CalendarPanel.
@@ -149,7 +186,7 @@ public class CalendarView extends JPanel {
                 btnDate.setOpaque(false);
                 btnDate.setBorder(BorderFactory.createLineBorder(style.black, 3));
                 btnDate.setForeground(style.black);
-                buttons[i-1] = btnDate;
+                btnDate.addActionListener(e -> System.out.println("reached"));
                 container.add(btnDate);
             }
 
@@ -159,6 +196,8 @@ public class CalendarView extends JPanel {
                 JLabel lblEmpty = new JLabel("", JLabel.CENTER);
                 container.add(lblEmpty);
             }
+
+
         }
 
         /**
@@ -233,6 +272,7 @@ public class CalendarView extends JPanel {
          * The model of the fanbaseTable.
          */
         private DefaultTableModel tblFanbaseModel;
+
         public TablePanel() {
             this.setLayout(new BorderLayout());
             this.setBorder(style.padding);
@@ -252,8 +292,10 @@ public class CalendarView extends JPanel {
 
             tblFanbaseModel = new DefaultTableModel();
             tblFanbaseModel.addColumn("Time");
+            tblFanbaseModel.addColumn("Duration");
             tblFanbaseModel.addColumn("Fan");
             tblFanbaseModel.addColumn("Type");
+            tblFanbaseModel.addColumn("Amount");
 
             tblFanbase = new JTable(tblFanbaseModel);
             tblFanbase.getTableHeader().setResizingAllowed(false);
@@ -292,6 +334,10 @@ public class CalendarView extends JPanel {
             for (String[] row : sessions) {
                 tblFanbaseModel.addRow(row);
             }
+        }
+
+        public void clearTable() {
+            tblFanbaseModel.setRowCount(0);
         }
 
         /**
@@ -344,6 +390,7 @@ public class CalendarView extends JPanel {
             container.add(lblEmpty);
         }
 
+        int j = 1;
         // Add buttons for each day in the calendarData array
         for (LocalDate[] week : calendarData) {
             for (LocalDate date : week) {
@@ -355,7 +402,9 @@ public class CalendarView extends JPanel {
                     btnDate.setBorder(BorderFactory.createLineBorder(style.black, 1));
                     btnDate.setForeground(style.black);
                     btnDate.setHorizontalAlignment(JLabel.CENTER);
+                    buttons.add(btnDate);
                     container.add(btnDate);
+                    j++;
                 }
             }
         }
@@ -375,7 +424,19 @@ public class CalendarView extends JPanel {
         container.repaint();
     }
 
-    public JButton[] getButtons() {
+    public JLabel getLblMonthYear() {
+        return lblMonthYear;
+    }
+
+    public TablePanel getTablePanel() {
+        return tablePanel;
+    }
+
+    public HeaderPanel getPnlHeader() {
+        return pnlHeader;
+    }
+
+    public ArrayList<JButton> getButtons() {
         return buttons;
     }
 
@@ -386,4 +447,14 @@ public class CalendarView extends JPanel {
     public JButton getBtnPrevMonth() {
         return btnPrevMonth;
     }
+
+    public JPanel getPnlCards() {
+        return pnlCards;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+
+
 }

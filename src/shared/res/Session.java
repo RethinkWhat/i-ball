@@ -114,6 +114,9 @@ public class Session {
     public void setFanName(int userID) {
         this.userID = userID;
     }
+    public void setStatus(int statusInt) {
+        this.status = statusInt != 0;
+    }
 
     /**
      * Getter for date of session

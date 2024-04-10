@@ -2,10 +2,16 @@ package client.idol.controller.application_pages;
 
 import client.idol.model.application_pages.CalendarModel;
 import client.idol.view.application_pages.CalendarView;
+import shared.res.Session;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * The CalendarController processes the user requests. Based on the user request, the CalendarController
@@ -31,10 +37,16 @@ public class CalendarController {
         this.model = model;
 
         // Add action listeners to the view components
-        this.view.getCalendarPanel().setNextMonthListener(new NextMonthListener());
-        this.view.getCalendarPanel().setPrevMonthListener(new PrevMonthListener());
+        view.getCalendarPanel().setNextMonthListener(new NextMonthListener());
+        view.getCalendarPanel().setPrevMonthListener(new PrevMonthListener());
+        view.getPnlHeader().setBackListener(e -> view.getCardLayout().show(view.getPnlCards(), "calendar"));
+        view.getPnlHeader().setRefreshListener(new RefreshListener());
 
         updateCalendar();
+
+        for (JButton button : view.getButtons()) {
+            button.addActionListener(new DateListener(button));
+        }
     }
 
     /**
@@ -72,9 +84,44 @@ public class CalendarController {
     }
 
     class DateListener implements ActionListener {
+        private String date;
+        public DateListener(JButton button) {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            int currDay = parseInt(button.getText());
+            int currMonth = view.getCalendarPanel().getCurrentMonthIndex() + 1;
+            int currYear = view.getCalendarPanel().getCurrentYear();
+
+            LocalDate currDate = LocalDate.of(currYear, currMonth, currDay);
+            date = currDate.format(dateFormat);
+
+            String txtButton = button.getText();
+            int selectedDay = Integer.parseInt(txtButton);
+
+            LocalDate selectedDate = LocalDate.of(view.getCalendarPanel().currentYear, view.getCalendarPanel().currentMonthIndex + 1, selectedDay);
+            date = selectedDate.toString();
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("reached");
+            view.getTablePanel().getTblFanbaseModel().setRowCount(0);
+            model.getIdolSession(date);
+
+            for (Session session : model.getSessions()) {
+                view.getTablePanel().getTblFanbaseModel().addRow(new Object[]{
+                        session.getStartTime(), session.getDuration(), session.getFanName(),
+                        session.getSessionType(), session.getAmount()});
+            }
+
+            view.getTablePanel().setDate(date);
+            view.getCardLayout().show(view.getPnlCards(), "table");
+        }
+    }
+
+    class RefreshListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
     }
 
