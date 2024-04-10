@@ -19,6 +19,7 @@ public class FanApplicationModel {
 
     public FanApplicationModel(User user) {
         this.user = user;
+        System.out.println(user.getPpAddress());
     }
 
     public List<Idol> getAllIdols() throws Exception {
