@@ -205,7 +205,7 @@ public class BookingModel {
         for (List<String> schedule : getIdolSchedule()) {
 
             for (int i = 1; i < currentMonth.lengthOfMonth(); i++) {
-                DayOfWeek dayOfWeek = DayOfWeek.valueOf(schedule.getFirst().toUpperCase());
+                DayOfWeek dayOfWeek = DayOfWeek.valueOf(schedule.get(0).toUpperCase());
 
                 LocalDate date = currentMonth.atDay(i);
                 LocalDate now = LocalDate.now();

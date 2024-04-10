@@ -18,7 +18,6 @@ public class AccountSettingsModel {
     }
 
     public boolean deleteAccount() {
-        System.out.println("clicked");
         return DataPB.deleteAccount(idol.getIdolID());
     }
 
