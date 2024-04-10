@@ -3,11 +3,13 @@ package client.idol.controller.application_pages;
 import client.idol.model.application_pages.FanbaseModel;
 import client.idol.view.application_pages.FanbaseView;
 import client.idol.view.application_pages.VirtualMeetupView;
+import shared.res.DataPB;
 import shared.res.Resources;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +37,7 @@ public class FanbaseController {
         this.model = model;
 
         // action listeners
-        view.setJoinListener(new JoinListener(view));
+        view.setJoinListener(new JoinListener(view, model));
         view.setReturnListener(new ReturnListener());
 
 
@@ -59,50 +61,73 @@ public class FanbaseController {
      */
     class JoinListener implements ActionListener {
         private FanbaseView view;
-        public JoinListener(FanbaseView view) {
+
+        private FanbaseModel model;
+
+        public JoinListener(FanbaseView view, FanbaseModel model) {
             this.view = view;
+            this.model = model;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow = view.getTablePanel().getTblFanbase().getSelectedRow();
             if (selectedRow != -1) {
                 // this retrieves data from the selected row
-                String time = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 0);
                 String fan = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 1);
-                String type = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 2);
+                String startTime = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 0);
                 String duration = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 3);
 
-                openVirtualMeetupView(time, fan, type , duration);
+                if (model.compareBookingToTimeNow(view.getTablePanel().getDate(),startTime,duration)) {
+                    System.out.println(model.getDateToday());
+                    System.out.println(view.getTablePanel().getDate());
+                    openVirtualMeetupView(fan, duration, model);
+                } else {
+                    JOptionPane.showMessageDialog(view, "Please check the session time and try again.");
+                }
 
             } else {
                 JOptionPane.showMessageDialog(view, "Please select a session to join.");
             }
         }
-        private void openVirtualMeetupView(String time, String fan, String type ,String duration) {
+        private void openVirtualMeetupView(String fan, String duration, FanbaseModel model) {
             VirtualMeetupView virtualMeetupView = new VirtualMeetupView();
 
             int durationInSeconds = convertDurationToSeconds(duration);
-            startTimer(durationInSeconds,virtualMeetupView.getLblTimer());
+            startTimer(durationInSeconds, virtualMeetupView.getLblTimer());
             virtualMeetupView.getLblTimer().setText(duration);
             virtualMeetupView.getLblFanName().setText(fan);
+
+            String userPFP = DataPB.getUserPFP(fan);
+            ImageIcon userPfp = new ImageIcon(userPFP);
+            Image userPfpImage = userPfp.getImage();
+            Image userResized = userPfpImage.getScaledInstance(226, 128, Image.SCALE_SMOOTH);
+            virtualMeetupView.getLblFanPfp().setIcon(new ImageIcon(userResized));
+
+            ImageIcon pfp = new ImageIcon(model.getIdol().getProfilePictureAddress());
+            Image pfpImage = pfp.getImage();
+            Image resized = pfpImage.getScaledInstance(113, 64, Image.SCALE_SMOOTH);
+            virtualMeetupView.getLblIdolPfp().setIcon(new ImageIcon(resized));
+
             JFrame virtualMeetupFrame = new JFrame("Virtual Meetup");
-            virtualMeetupView.getBtnEndCall().addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    int choice = JOptionPane.showConfirmDialog(view,"Are you sure you want to exit?","End",JOptionPane.YES_NO_OPTION );
-                    if(choice == JOptionPane.YES_OPTION) {
-                        virtualMeetupFrame.dispose();
-                    }
-                }
-            });
-            virtualMeetupFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            virtualMeetupFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Prevent default closing behavior
             virtualMeetupFrame.getContentPane().add(virtualMeetupView);
             virtualMeetupFrame.pack();
             virtualMeetupFrame.setLocationRelativeTo(null);
             virtualMeetupFrame.setVisible(true);
 
-
+            virtualMeetupView.getBtnEndCall().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int choice = JOptionPane.showConfirmDialog(view, "Are you sure you want to end call?", "End Call", JOptionPane.YES_NO_OPTION);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        virtualMeetupFrame.dispose();
+                    } else if (choice == JOptionPane.NO_OPTION) {
+                        // Do nothing, or optionally add some behavior here
+                    }
+                }
+            });
         }
+
 
 
         private int convertDurationToSeconds(String duration) {
@@ -148,6 +173,7 @@ public class FanbaseController {
             String searchedDate = view.getTxtSearchbar().getText();
             String[][] sessions = model.getSessionsOnDate(searchedDate);
             view.getTablePanel().populateTable(sessions);
+            view.getTablePanel().setDate(searchedDate);
         }
     }
 }

@@ -17,6 +17,7 @@ import shared.res.Resources;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 /**
@@ -40,6 +41,13 @@ public class FanApplicationController {
     public FanApplicationController(FanApplicationView view, FanApplicationModel model) throws SQLException {
         this.view = view;
         this.model = model;
+
+
+        System.out.println(model.getUser().getPpAddress());
+        ImageIcon pfp = new ImageIcon(model.getUser().getPpAddress());
+        Image pfpImage = pfp.getImage();
+        Image resized = pfpImage.getScaledInstance(113,64,Image.SCALE_SMOOTH);
+        view.getLblUserPfp().setIcon(new ImageIcon(resized));
 
         new IdolsController(view.getIdolsView(), new IdolsModel(), this);
         MyIdolsController myIdolsController = new MyIdolsController(view.getMyIdolsView(), new MyIdolsModel(model.getUser()), this);
