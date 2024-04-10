@@ -42,11 +42,11 @@ public class FanApplicationController {
         this.view = view;
         this.model = model;
 
-
-        System.out.println(model.getUser().getPpAddress());
+        // Update user label and profile picture
+        view.getLblUser().setText(model.getUser().getUsername());
         ImageIcon pfp = new ImageIcon(model.getUser().getPpAddress());
         Image pfpImage = pfp.getImage();
-        Image resized = pfpImage.getScaledInstance(113,64,Image.SCALE_SMOOTH);
+        Image resized = pfpImage.getScaledInstance(113, 64, Image.SCALE_SMOOTH);
         view.getLblUserPfp().setIcon(new ImageIcon(resized));
 
         new IdolsController(view.getIdolsView(), new IdolsModel(), this);
