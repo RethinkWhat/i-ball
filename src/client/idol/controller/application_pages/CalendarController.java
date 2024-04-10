@@ -35,10 +35,6 @@ public class CalendarController {
         this.view.getCalendarPanel().setPrevMonthListener(new PrevMonthListener());
 
         updateCalendar();
-
-        for (int i = 0; i < view.getButtons().length; i++) {
-            view.getButtons()[i].ad;
-        }
     }
 
     /**
