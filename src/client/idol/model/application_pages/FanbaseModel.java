@@ -29,7 +29,7 @@ public class FanbaseModel {
 
 
     public String getDateToday() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = new GregorianCalendar(new Locale("English", "PH"));
         return sdf.format(cal.getTime());
     }
@@ -65,7 +65,6 @@ public class FanbaseModel {
         String[][] toReturn = new String[sessions.size()][4];
 
         for (int x =0 ; x < sessions.size(); x ++) {
-            sessions.get(x);
             toReturn[x] = new String[]{
                     String.valueOf(sessions.get(x).getStartTime()),
                     sessions.get(x).getFanName(),

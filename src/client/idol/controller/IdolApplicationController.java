@@ -11,6 +11,7 @@ import client.idol.model.application_pages.FanbaseModel;
 import client.idol.model.application_pages.VirtualMeetupModel;
 import client.idol.view.IdolApplicationView;
 import shared.res.LogoutDialog;
+import shared.res.Resources;
 import shared.res.Stylesheet;
 
 import javax.swing.*;
@@ -73,5 +74,10 @@ public class IdolApplicationController {
                     "LOGOUT CONFIRMATION", "Are you sure you want to logout?", "LOGOUT", style.red, style.white, style.black, style.red);
         });
 
+        // mouse listeners
+        view.getBtnNavHome().addMouseListener(new Resources.CursorChanger(view.getBtnNavHome()));
+        view.getBtnNavAccount().addMouseListener(new Resources.CursorChanger(view.getBtnNavAccount()));
+        view.getBtnNavCalendar().addMouseListener(new Resources.CursorChanger(view.getBtnNavCalendar()));
+        view.getBtnNavLogout().addMouseListener(new Resources.CursorChanger(view.getBtnNavLogout()));
     }
 }
