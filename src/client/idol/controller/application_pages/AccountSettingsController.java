@@ -167,6 +167,10 @@ public class AccountSettingsController {
                     view.getPnlEdit().getPnlAvailability().getDateChosen(),
                     view.getPnlEdit().getPnlAvailability().getStartTimeChosen(),
                     view.getPnlEdit().getPnlAvailability().getEndTimeChosen());
+
+            populateTime();
+
+            JOptionPane.showMessageDialog(view, "Availability Set.");
         }
     }
 }
