@@ -86,7 +86,7 @@ public class IdolsView extends JPanel {
             this.setLayout(new FlowLayout());
             this.setBorder(new EmptyBorder(0,0,0,60));
 
-            txtSearchbar = style.createTxtRounded("Search idol",style.lightGray, style.gray, 30);
+            txtSearchbar = style.createTxtRounded("Search idol name",style.lightGray, style.gray, 30);
             add(txtSearchbar);
 
             btnSearch = style.createBtnIconOnly(style.iconSearch, 25,25);

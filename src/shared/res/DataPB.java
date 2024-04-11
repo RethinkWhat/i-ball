@@ -235,6 +235,25 @@ public class DataPB {
         return null;
     }
 
+    public static String getIdolPFP(String username) {
+        DataPB.setCon();
+        User userObj = null;
+        try {
+            String query = "SELECT profilePictureAddress " +
+                    "FROM idol WHERE idolName=?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1,username);
+            ResultSet user = stmt.executeQuery();
+
+            if (user.next()) {
+                return user.getString("profilePictureAddress");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * Returns a ResultSet containing all the names of idols present in the system
      * @throws SQLException

@@ -46,6 +46,31 @@ public class MyIdolsModel {
         return fanSessions;
     }
 
+    public boolean compareBookingToTimeNow(String date, String startTime, String duration) {
+        Calendar cal = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        if (!sdf.format(cal.getTime()).equals(date)) {
+            return false;
+        }
+        String[] startList = startTime.split(":");
+        String[] durationToAdd = duration.split(":");
+
+        Calendar timeOfBooking = Calendar.getInstance();
+
+        Calendar endOfBooking = Calendar.getInstance();
+
+
+        timeOfBooking.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), Integer.parseInt(startList[0]), Integer.parseInt(startList[1]), Integer.parseInt(startList[2]));
+
+        endOfBooking.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                Integer.parseInt(startList[0]) + Integer.parseInt(durationToAdd[0]),
+                Integer.parseInt(startList[1]) + Integer.parseInt(durationToAdd[1]),
+                Integer.parseInt(startList[2]) + Integer.parseInt(durationToAdd[2]));
+
+        return (cal.compareTo(timeOfBooking) >= 0) && (cal.compareTo(endOfBooking) < 0);
+    }
+
     public List<List<String>> getAllFanSessions() throws SQLException {
         ResultSet fanSessionsSet = DataPB.getAllSessions(this.user.getUserID());
         List<List<String>> fanSessions = new ArrayList<>();
