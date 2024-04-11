@@ -51,7 +51,7 @@ public class FanbaseController {
         view.getTablePanel().populateTable(sessions);
 
         // focus listeners
-        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (MM/DD/YYYY)"));
+        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (YYYY-MM-DD)"));
         view.getTxtSearchbar().addActionListener(new SearchListener());
 
     }
@@ -165,6 +165,11 @@ public class FanbaseController {
     class ReturnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            String[][] sessions = model.getSessionsOnDate(model.getDateToday());
+            view.getTablePanel().populateTable(sessions);
+            view.getTablePanel().setDate(model.getDateToday());
+            view.getBtnReturn().setEnabled(false);
+            view.getTxtSearchbar().setText("Search date (YYYY-MM-DD)");
         }
     }
     class SearchListener implements ActionListener {
@@ -174,6 +179,7 @@ public class FanbaseController {
             String[][] sessions = model.getSessionsOnDate(searchedDate);
             view.getTablePanel().populateTable(sessions);
             view.getTablePanel().setDate(searchedDate);
+            view.getBtnReturn().setEnabled(true);
         }
     }
 }
