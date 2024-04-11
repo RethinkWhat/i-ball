@@ -13,6 +13,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyIdolsController {
@@ -30,13 +33,30 @@ public class MyIdolsController {
         // action listeners
         view.getBtnSearch().addActionListener(new SearchListener());
         view.setJoinListener(new JoinListener(view,model));
+        view.setReturnListener(new ReturnListener());
 
         // mouse listeners
         view.getBtnJoin().addMouseListener(new Resources.CursorChanger(view.getBtnJoin()));
         view.getBtnSearch().addMouseListener(new Resources.CursorChanger(view.getBtnSearch()));
 
         // focus listeners
-        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (DD/MM/YYYY)"));
+        view.getTxtSearchbar().addFocusListener(new Resources.TextFieldFocus(view.getTxtSearchbar(), "Search date (YYYY-MM-DD)"));
+    }
+
+    class ReturnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.getLblDate().setText(model.getDateToday());
+            List<List<String>> sessions;
+            try {
+                sessions = model.searchFanSessions(model.getDateToday());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            view.getTblFanbaseModel().addRow(sessions.toArray());
+            view.getBtnReturn().setEnabled(false);
+            view.getTxtSearchbar().setText("Search date (YYYY-MM-DD)");
+        }
     }
 
 
@@ -56,8 +76,10 @@ public class MyIdolsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String searchKey = view.getTxtSearchbar().getText();
+            LocalDate date = LocalDate.parse(searchKey);
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
-                view.getLblDate().setText(model.convertDate(searchKey));
+                view.getLblDate().setText(date.format(dateFormat));
                 // Clear existing table rows
                 view.getTblFanbaseModel().setRowCount(0);
 
@@ -66,6 +88,7 @@ public class MyIdolsController {
                 for (List<String> currSession : sessionList) {
                     view.getTblFanbaseModel().addRow(currSession.toArray());
                 }
+                view.getBtnReturn().setEnabled(true);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
