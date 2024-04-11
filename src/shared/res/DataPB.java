@@ -120,6 +120,8 @@ public class DataPB {
     }
 
     public static ArrayList<Session> getIdolSessions(int idolID, String dateToFind) {
+
+        //dateToFind.split()
         DataPB.setCon();
         ArrayList<Session> sessionsList = new ArrayList<>();
 

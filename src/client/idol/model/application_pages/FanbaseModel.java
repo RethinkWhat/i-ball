@@ -38,7 +38,7 @@ public class FanbaseModel {
     public boolean compareBookingToTimeNow(String date, String startTime, String duration) {
         Calendar cal = Calendar.getInstance();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (!sdf.format(cal.getTime()).equals(date)) {
             return false;
         }
