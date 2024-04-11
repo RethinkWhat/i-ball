@@ -2,7 +2,9 @@ package client.idol.controller.application_pages;
 
 import client.idol.model.application_pages.CalendarModel;
 import client.idol.view.application_pages.CalendarView;
+import shared.res.CustomizedMessageDialog;
 import shared.res.Session;
+import shared.res.Stylesheet;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -106,15 +108,30 @@ public class CalendarController {
         public void actionPerformed(ActionEvent e) {
             view.getTablePanel().getTblFanbaseModel().setRowCount(0);
             model.getIdolSession(date);
+            if (model.getSessions().isEmpty()) {
+                Stylesheet style = new Stylesheet();
+                CustomizedMessageDialog dialog = new CustomizedMessageDialog(
+                        "No Bookings",
+                        new ImageIcon("res/drawables/failed.png"),
+                        "NO BOOKINGS",
+                        "There are no bookings for this date.",
+                        "Close",
+                        style.red,
+                        style.white,
+                        style.black,
+                        style.red,
+                        false
+                );
+            } else {
+                for (Session session : model.getSessions()) {
+                    view.getTablePanel().getTblFanbaseModel().addRow(new Object[]{
+                            session.getStartTime(), session.getDuration(), session.getFanName(),
+                            session.getSessionType(), session.getAmount()});
+                }
 
-            for (Session session : model.getSessions()) {
-                view.getTablePanel().getTblFanbaseModel().addRow(new Object[]{
-                        session.getStartTime(), session.getDuration(), session.getFanName(),
-                        session.getSessionType(), session.getAmount()});
+                view.getTablePanel().setDate(date);
+                view.getCardLayout().show(view.getPnlCards(), "table");
             }
-
-            view.getTablePanel().setDate(date);
-            view.getCardLayout().show(view.getPnlCards(), "table");
         }
     }
 

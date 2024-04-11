@@ -187,10 +187,4 @@ public class CustomizedMessageDialog extends JDialog {
         lblBig.setForeground(titleMessageColor);
     }
 
-    // TO DO: Delete after testing
-    public static void main(String[] args) {
-        Stylesheet style = new Stylesheet();
-        CustomizedMessageDialog dialog = new CustomizedMessageDialog("Custom Title", new ImageIcon("res/drawables/endcall-red-solid.png"),
-                "Custom Message Title", "Custom error message", "Close", style.purple, style.white, style.black, style.red, false);
-    }
 }

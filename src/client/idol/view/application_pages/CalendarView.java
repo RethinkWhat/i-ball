@@ -397,11 +397,21 @@ public class CalendarView extends JPanel {
                 if (date != null) {
                     JButton btnDate = new JButton(Integer.toString(date.getDayOfMonth()));
                     btnDate.setFont(dateFont);
-                    btnDate.setBackground(style.white);
-                    btnDate.setOpaque(false);
                     btnDate.setBorder(BorderFactory.createLineBorder(style.black, 1));
                     btnDate.setForeground(style.black);
                     btnDate.setHorizontalAlignment(JLabel.CENTER);
+
+                    // Check if the date is today
+                    if (date.equals(LocalDate.now())) {
+                        btnDate.setBackground(style.purple);
+                        btnDate.setForeground(style.white);
+                        btnDate.setBorder(BorderFactory.createLineBorder(style.white,2));
+                        btnDate.setOpaque(true);
+                    } else {
+                        btnDate.setBackground(style.white);
+                        btnDate.setOpaque(false);
+                    }
+
                     buttons.add(btnDate);
                     container.add(btnDate);
                     j++;
@@ -423,6 +433,7 @@ public class CalendarView extends JPanel {
         container.revalidate();
         container.repaint();
     }
+
 
     public JLabel getLblMonthYear() {
         return lblMonthYear;
