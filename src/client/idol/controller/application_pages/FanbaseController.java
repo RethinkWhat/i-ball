@@ -9,6 +9,7 @@ import shared.res.Resources;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -123,7 +124,7 @@ public class FanbaseController {
                     int choice = JOptionPane.showConfirmDialog(view, "Are you sure you want to end call?", "End Call", JOptionPane.YES_NO_OPTION);
                     if (choice == JOptionPane.YES_OPTION) {
                         virtualMeetupFrame.dispose();
-                        int sessionID = DataPB.getSessionID(model.getIdol().getIdolID(), 0, model.getDateToday(),
+                        int sessionID = DataPB.getSessionID(model.getIdol().getIdolID(), DataPB.getFanID(fan), model.getDateToday(),
                                 String.valueOf(view.getTablePanel().getTblFanbaseModel().getValueAt(selectedRow, 0)));
                         DataPB.setSessionToComplete(sessionID);
                     } else if (choice == JOptionPane.NO_OPTION) {
