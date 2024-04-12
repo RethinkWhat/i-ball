@@ -485,4 +485,23 @@ public class DataPB {
             e.printStackTrace();
         }
     }
+
+    public static int getSessionStatus(int sessionID) {
+        try {
+            DataPB.setCon();
+
+            String query = "SELECT sessionStatus FROM session WHERE sessionID=?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1,sessionID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
