@@ -57,17 +57,4 @@ public class FanApplicationModel {
         this.fan = fan;
     }
 
-    /**
-     * FOR TESTING PURPOSES ONLY
-     * @param args
-     */
-    public static void main(String[] args) throws Exception {
-        FanApplicationModel model = new FanApplicationModel(new Fan(1,"a","b","c","d","e"));
-
-        List<Idol> allIdols = model.getAllIdols();
-
-        for (Idol idol : allIdols){
-            System.out.println(idol.toString());
-        }
-    }
 }

@@ -20,6 +20,8 @@ public class Fan {
     // Location of profile picture of user
     private String ppAddress;
 
+    private String name;
+
     /**
      * Default constructor
      * @param fanID
@@ -29,9 +31,10 @@ public class Fan {
      * @param GCashNumber
      * @param ppAddress
      */
-    public Fan(int fanID, String username, String email, String password, String GCashNumber, String ppAddress) {
+    public Fan(int fanID, String username, String name, String email, String password, String GCashNumber, String ppAddress) {
         this.fanID = fanID;
         this.username = username;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.GCashNumber = GCashNumber;
@@ -132,5 +135,13 @@ public class Fan {
      */
     public void setPpAddress(String ppAddress) {
         this.ppAddress = ppAddress;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
