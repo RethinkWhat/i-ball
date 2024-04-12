@@ -64,7 +64,7 @@ public class Session {
         this.duration = duration;
         this.sessionType = sessionType;
         this.amount = amount;
-        this.status = status == 0;
+        this.status = status == 1;
     }
 
     /**
