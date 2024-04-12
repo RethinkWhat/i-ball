@@ -612,6 +612,10 @@ public class AccountSettingsView extends JPanel {
             this.cmbStartTime.setModel(new DefaultComboBoxModel<>(cmbStartTime));
         }
 
+        public void setCmbStartTimeListener(ActionListener listener) {
+            this.cmbStartTime.addActionListener(listener);
+        }
+
         public void setCmbEndTime(String[] cmbEndTime) {
             this.cmbEndTime.setModel(new DefaultComboBoxModel<>(cmbEndTime));
         }

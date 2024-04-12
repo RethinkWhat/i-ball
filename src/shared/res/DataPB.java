@@ -31,11 +31,11 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/iball";
+            String url = "jdbc:mysql://localhost:8889/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "";
+            String password = "root";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -315,6 +315,18 @@ public class DataPB {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void deleteStartEndTime(int idolID, String day) {
+        try {
+            String query = "DELETE FROM idol_availability WHERE idolID=? AND day=?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1,idolID);
+            statement.setString(2,day);
+            statement.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

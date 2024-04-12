@@ -41,7 +41,11 @@ public class AccountSettingsModel {
         return DataPB.getAvailability(idol.getIdolID(),date);
     }
 
-    public void updateStartEndTime(String date, String startTime, String endTime){
-        DataPB.updateStartEndTime(idol.getIdolID(), date,startTime,endTime);
+    public void updateStartEndTime(String day, String startTime, String endTime){
+        DataPB.updateStartEndTime(idol.getIdolID(), day,startTime,endTime);
+    }
+
+    public void deleteStartEndTime(String day) {
+        DataPB.deleteStartEndTime(idol.getIdolID(), day);
     }
 }
