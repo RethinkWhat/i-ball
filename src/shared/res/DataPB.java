@@ -64,7 +64,7 @@ public class DataPB {
         //TODO : Access schema and check whether user exists
         DataPB.setCon();
 
-        String query = "SELECT userID, username, GCashNumber, profilePictureAddress FROM User WHERE username=? and password=?";
+        String query = "SELECT fanID, username, GCashNumber, profilePictureAddress FROM Fan WHERE username=? and password=?";
 
         PreparedStatement stmt = con.prepareStatement(query);
 
@@ -73,11 +73,11 @@ public class DataPB {
         ResultSet account = stmt.executeQuery();
 
         if (account.next()) {
-            int userID = account.getInt("userID");
+            int fanID = account.getInt("fanID");
             String email = account.getString("username");
             String gCashNumber = account.getString("GCashNumber");
             String ppAddress = account.getString("profilePictureAddress");
-            return new User(userID, username, email, password, gCashNumber, ppAddress);
+            return new User(fanID, username, email, password, gCashNumber, ppAddress);
         } else {
             query = "SELECT idolID, idolName, GCashNumber, idolType, idolStatus, voiceCallRate, " +
                     "videoCallRate, fbAccount, xAccount, igAccount, bio, quote, profilePictureAddress  FROM Idol WHERE username=? and password=?";
@@ -127,7 +127,7 @@ public class DataPB {
 
         try {
             String query = "SELECT " +
-                    "sessionID, date, startTime, duration, sessionType, amount, userID, sessionStatus " +
+                    "sessionID, date, startTime, duration, sessionType, amount, fanID, sessionStatus " +
                     "FROM Session WHERE idolID=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setInt(1, idolID);
@@ -140,9 +140,9 @@ public class DataPB {
                     Time duration = sessions.getTime(4);
                     String sessionType = sessions.getString(5);
                     Double amount = sessions.getDouble(6);
-                    int userID = sessions.getInt(7);
+                    int fanID = sessions.getInt(7);
                     int status = sessions.getInt(8);
-                    String username = getUser(userID).getUsername();
+                    String username = getUser(fanID).getUsername();
                     Session session = new Session(sessionID, idolID, date, startTime, duration, sessionType, amount, username);
                     session.setStatus(status);
                     sessionsList.add(session);
@@ -160,17 +160,17 @@ public class DataPB {
      * @return
      * @throws SQLException
      */
-    public static ResultSet searchFanSessions(int userID, String date) throws SQLException{
+    public static ResultSet searchFanSessions(int fanID, String date) throws SQLException{
         DataPB.setCon();
 
         String query =  "SELECT startTime, idolName, sessionType, duration " +
                 "FROM session JOIN idol USING(idolID) " +
-                "WHERE userID = ? AND date LIKE ?";
+                "WHERE fanID = ? AND date LIKE ?";
 
         PreparedStatement stmt = con.prepareStatement(query);
         String searchKey = date + "%";
 
-        stmt.setString(1, String.valueOf(userID));
+        stmt.setString(1, String.valueOf(fanID));
         stmt.setString(2, searchKey);
 
         ResultSet resultSet = stmt.executeQuery();
@@ -178,15 +178,15 @@ public class DataPB {
         return resultSet;
     }
 
-    public static ResultSet getAllSessions(int userID) throws SQLException {
+    public static ResultSet getAllSessions(int fanID) throws SQLException {
         DataPB.setCon();
 
         String query = "SELECT startTime, idolName, sessionType, duration " +
                 "FROM session JOIN idol USING(idolID) " +
-                "WHERE userID = ?";
+                "WHERE fanID = ?";
 
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setInt(1, userID);
+        stmt.setInt(1, fanID);
 
         ResultSet resultSet = stmt.executeQuery();
 
@@ -194,14 +194,14 @@ public class DataPB {
     }
 
 
-    public static User getUser(int userID) {
+    public static User getUser(int fanID) {
         DataPB.setCon();
         User userObj = null;
         try {
             String query = "SELECT username, email, password, GCashNumber, profilePictureAddress " +
-                    "FROM User WHERE userID=?";
+                    "FROM Fan WHERE fanID=?";
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1,userID);
+            stmt.setInt(1,fanID);
             ResultSet user = stmt.executeQuery();
 
             if (user.next()) {
@@ -210,7 +210,7 @@ public class DataPB {
                 String password = user.getString("password");
                 String gCash = user.getString("GCashNumber");
                 String pp = user.getString("profilePictureAddress");
-                userObj = new User(userID,username,email,password,gCash,pp);
+                userObj = new User(fanID,username,email,password,gCash,pp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -223,7 +223,7 @@ public class DataPB {
         User userObj = null;
         try {
             String query = "SELECT profilePictureAddress " +
-                    "FROM User WHERE username=?";
+                    "FROM Fan WHERE username=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1,username);
             ResultSet user = stmt.executeQuery();
@@ -430,7 +430,7 @@ public class DataPB {
         DataPB.setCon();
 
         String insertion = "INSERT INTO session "
-                + "(idolID, date, startTime, duration, sessionType, amount, userID, sessionStatus)"
+                + "(idolID, date, startTime, duration, sessionType, amount, fanID, sessionStatus)"
                 + " values (?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = con.prepareStatement(insertion);
