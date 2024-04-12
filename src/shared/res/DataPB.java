@@ -445,4 +445,44 @@ public class DataPB {
 
         statement.executeUpdate();
     }
+
+    public static int getSessionID(int idolID, int fanID, String date, String startTime) {
+        try {
+            DataPB.setCon();
+            // 2024-04-15
+            String query = "Select sessionID FROM session WHERE idolID=? AND userID=? AND date=? AND startTime=?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1,idolID);
+            stmt.setInt(2,fanID);
+            stmt.setString(3,date);
+            stmt.setString(4,startTime);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * Call the getSessionID method above first before calling this method
+     * @param sessionID
+     */
+    public static void setSessionToComplete(int sessionID) {
+        try {
+            String query = "UPDATE session set sessionStatus=? WHERE sessionID=?";
+
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1,1);
+            stmt.setInt(2,sessionID);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
