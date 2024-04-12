@@ -118,14 +118,19 @@ public class MyIdolsController {
                 String startTime = (String) view.getTblFanbase().getValueAt(selectedRow, 0);
                 String duration = (String) view.getTblFanbase().getValueAt(selectedRow, 3);
 
-                if (model.compareBookingToTimeNow(view.getLblDate().getText(),startTime,duration)) {
-                    System.out.println(model.getDateToday());
-                    System.out.println(view.getLblDate().getText());
-                    openVirtualMeetupView(idol, duration, model);
+                int sessionID = DataPB.getSessionID(1, model.getUser().getFanID(), model.getDateToday(),
+                        String.valueOf(view.getTblFanbaseModel().getValueAt(selectedRow, 0)));
+                if (DataPB.getSessionStatus(sessionID) == 0) {
+                    if (model.compareBookingToTimeNow(view.getLblDate().getText(),startTime,duration)) {
+                        System.out.println(model.getDateToday());
+                        System.out.println(view.getLblDate().getText());
+                        openVirtualMeetupView(idol, duration, model);
+                    } else {
+                        JOptionPane.showMessageDialog(view, "Please check the session time and try again.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(view, "Please check the session time and try again.");
+                    JOptionPane.showMessageDialog(view, "Session has already ended. Choose a different session.");
                 }
-
             } else {
                 JOptionPane.showMessageDialog(view, "Please select a session to join.");
             }
