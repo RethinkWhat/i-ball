@@ -78,14 +78,19 @@ public class FanbaseController {
                 String startTime = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 0);
                 String duration = (String) view.getTablePanel().getTblFanbase().getValueAt(selectedRow, 3);
 
-                if (model.compareBookingToTimeNow(view.getTablePanel().getDate(),startTime,duration)) {
-                    System.out.println(model.getDateToday());
-                    System.out.println(view.getTablePanel().getDate());
-                    openVirtualMeetupView(fan, duration, model);
+                int sessionID = DataPB.getSessionID(model.getIdol().getIdolID(), DataPB.getFanID(fan), model.getDateToday(),
+                        String.valueOf(view.getTablePanel().getTblFanbaseModel().getValueAt(selectedRow, 0)));
+                if (DataPB.getSessionStatus(sessionID) != 0) {
+                    if (model.compareBookingToTimeNow(view.getTablePanel().getDate(),startTime,duration)) {
+                        System.out.println(model.getDateToday());
+                        System.out.println(view.getTablePanel().getDate());
+                        openVirtualMeetupView(fan, duration, model);
+                    } else {
+                        JOptionPane.showMessageDialog(view, "Please check the session time and try again.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(view, "Please check the session time and try again.");
+                    JOptionPane.showMessageDialog(view, "Session has ended. Please select a different session.");
                 }
-
             } else {
                 JOptionPane.showMessageDialog(view, "Please select a session to join.");
             }
