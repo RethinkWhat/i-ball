@@ -120,7 +120,7 @@ public class MyIdolsController {
 
                 int sessionID = DataPB.getSessionID(DataPB.getIdolID(idol), model.getUser().getFanID(), model.getDateToday(),
                         String.valueOf(view.getTblFanbaseModel().getValueAt(selectedRow, 0)));
-                if (DataPB.getSessionStatus(sessionID) == 0) {
+                if (!(DataPB.getSessionStatus(sessionID) == 1)) {
                     if (model.compareBookingToTimeNow(view.getLblDate().getText(),startTime,duration)) {
                         System.out.println(model.getDateToday());
                         System.out.println(view.getLblDate().getText());

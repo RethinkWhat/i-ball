@@ -31,11 +31,11 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:3306/deans5";
+            String url = "jdbc:mysql://localhost:3306/iball";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
-            String password = "root";
+            String password = "";
 
             con = DriverManager.getConnection(url, user, password);
         }catch (Exception e){
@@ -450,7 +450,7 @@ public class DataPB {
         try {
             DataPB.setCon();
             // 2024-04-15
-            String query = "Select sessionID FROM session WHERE idolID=? AND userID=? AND date=? AND startTime=?";
+            String query = "Select sessionID FROM session WHERE idolID=? AND fanID=? AND date=? AND startTime=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setInt(1,idolID);
             stmt.setInt(2,fanID);

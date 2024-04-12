@@ -94,7 +94,7 @@ public class MyIdolsModel {
      * @return
      */
     public String getDateToday() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         return sdf.format(cal.getTime());
     }
