@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The AccountSettingsController processes the user requests. Based on the user request, the AccounSettingsController
@@ -20,8 +22,8 @@ public class AccountSettingsController {
     AccountSettingsView view;
     AccountSettingsModel model;
 
-    String[] startTime = new String[]{"07:00:00", "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00"};
-    String[] endTimeTime = new String[]{"8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00", "18:00:00"};
+    String[] startTime = new String[]{"07:00:00", "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00", "Not Available"};
+    String[] endTimeTime = new String[]{ "8:00:00", "9:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00","16:00:00","17:00:00", "18:00:00","Not Available"};
 
     public AccountSettingsController(AccountSettingsView view, AccountSettingsModel model) {
         this.view = view;
@@ -42,6 +44,7 @@ public class AccountSettingsController {
         view.getPnlEdit().getPnlDetails().setBtnEditGCashListener(new EditInformation(view.getPnlEdit().getPnlDetails().getTxtGCash(),"gCashNumber"));
 
         view.getPnlEdit().getPnlAvailability().setCmbDateListener(new DateListener());
+        view.getPnlEdit().getPnlAvailability().setCmbStartTimeListener(new StartListener());
 
         view.getPnlEdit().getPnlAvailability().setBtnEditDayListener(new EditListener());
         view.getPnlEdit().getPnlAvailability().setBtnConfirmListener(new ConfirmListener());
@@ -53,6 +56,27 @@ public class AccountSettingsController {
                 new Resources.TextFieldFocus(view.getPnlEdit().getPnlAvailability().getTxtVoiceRate(), String.valueOf(model.getIdol().getVoiceCallRate())));
 
         populateTime();
+    }
+
+    class StartListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int x =0 ;
+            for (; x < endTimeTime.length; x++ ) {
+                if (endTimeTime[x].equals(view.getPnlEdit().getPnlAvailability().getStartTimeChosen())) {
+                    break;
+                }
+            }
+            x+=1;
+            int max = endTimeTime.length - x;
+
+            String[] endTime = new String[max];
+            for (int j =0; j < max;j++) {
+                endTime[j] = endTimeTime[x];
+                x++;
+            }
+            view.getPnlEdit().getPnlAvailability().setCmbEndTime(endTime);
+        }
     }
 
     class DeleteAccount implements ActionListener {
@@ -163,10 +187,15 @@ public class AccountSettingsController {
             if (model.getIdol().getVideoCallRate() != Double.parseDouble(view.getPnlEdit().getPnlAvailability().getTxtVideoRate().getText())) {
                 model.editInfo("videoCallRate", view.getPnlEdit().getPnlAvailability().getTxtVideoRate().getText());
             }
-            model.updateStartEndTime(
-                    view.getPnlEdit().getPnlAvailability().getDateChosen(),
-                    view.getPnlEdit().getPnlAvailability().getStartTimeChosen(),
-                    view.getPnlEdit().getPnlAvailability().getEndTimeChosen());
+
+            if (view.getPnlEdit().getPnlAvailability().getStartTimeChosen().equals("Not Available") ||view.getPnlEdit().getPnlAvailability().getEndTimeChosen().equals("Not Available")) {
+                model.deleteStartEndTime(view.getPnlEdit().getPnlAvailability().getDateChosen());
+            } else {
+                model.updateStartEndTime(
+                        view.getPnlEdit().getPnlAvailability().getDateChosen(),
+                        view.getPnlEdit().getPnlAvailability().getStartTimeChosen(),
+                        view.getPnlEdit().getPnlAvailability().getEndTimeChosen());
+            }
 
             populateTime();
 
