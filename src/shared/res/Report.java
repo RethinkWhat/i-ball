@@ -4,7 +4,7 @@ public class Report {
     private int reportID;
     private int sessionID;
     private int idolID;
-    private int userID;
+    private int fanID;
     private String abuseType;
     private String description;
 
@@ -12,16 +12,16 @@ public class Report {
      * @param reportID
      * @param sessionID
      * @param idolID
-     * @param userID
+     * @param fanID
      * @param abuseType
      * @param description
      * */
 
-    public Report(int reportID, int sessionID, int idolID, int userID, String abuseType, String description){
+    public Report(int reportID, int sessionID, int idolID, int fanID, String abuseType, String description){
         this.reportID = reportID;
         this.sessionID = sessionID;
         this.idolID = idolID;
-        this.userID = userID;
+        this.fanID = fanID;
         this.abuseType = abuseType;
         this.description = description;
     }
@@ -82,8 +82,8 @@ public class Report {
      * @return userID
      * */
 
-    public int getUserID() {
-        return userID;
+    public int getFanID() {
+        return fanID;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Report {
      * */
 
     public void setUserID(int userID) {
-        this.userID = userID;
+        this.fanID = fanID;
     }
 
     /**

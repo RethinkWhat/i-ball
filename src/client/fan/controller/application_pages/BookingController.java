@@ -186,7 +186,7 @@ public class BookingController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            int userID = 0;
+            int fanID = 0;
             int idolId = 0;
             String sessionType = null;
             String date = null;
@@ -195,7 +195,7 @@ public class BookingController {
             double amount = 0.0;
 
             try {
-                userID = model.getUser().getUserID();
+                fanID = model.getUser().getFanID();
                 idolId = model.getIdol().getIdolID();
                 sessionType = null;
                 date = Objects.requireNonNull(view.getCmbDate().getSelectedItem()).toString();
@@ -210,7 +210,7 @@ public class BookingController {
                 }
 
                 if (!(duration == 0) && (!view.getRadVidCall().isSelected() || !view.getRadVoiceCall().isSelected())) {
-                    model.addBooking(idolId, sessionType, date, startTime, duration, amount, userID, 0);
+                    model.addBooking(idolId, sessionType, date, startTime, duration, amount, fanID, 0);
                     new CustomizedMessageDialog("Booking",
                             style.iconSuccess,
                             "Booking Confirmed",

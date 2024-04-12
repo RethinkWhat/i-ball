@@ -3,15 +3,13 @@ package client.fan.model.application_pages;
 import shared.res.DataPB;
 import shared.res.Idol;
 import shared.res.Session;
-import shared.res.User;
+import shared.res.Fan;
 
-import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -25,7 +23,7 @@ public class BookingModel {
     /**
      * The current user.
      */
-    private User user;
+    private Fan fan;
     /**
      * Holds the idol details.
      */
@@ -48,9 +46,9 @@ public class BookingModel {
      *
      * @param idol The specified idol.
      */
-    public BookingModel(Idol idol, User user) {
+    public BookingModel(Idol idol, Fan fan) {
         this.idol = idol;
-        this.user = user;
+        this.fan = fan;
 
         idolDetails = new ArrayList<>();
         idolDetails.add(idol.getProfilePictureAddress());
@@ -295,8 +293,8 @@ public class BookingModel {
      * Retrieves the current user.
      * @return The current user.
      */
-    public User getUser() {
-        return user;
+    public Fan getUser() {
+        return fan;
     }
 
     public List<String> getAvailableDatesToBook() {
