@@ -31,7 +31,7 @@ public class DataPB {
     public static void setCon() {
         try {
             // Developer should add the Schema name right after the 3306/
-            String url = "jdbc:mysql://localhost:8889/deans5";
+            String url = "jdbc:mysql://localhost:3306/deans5";
 
             // User and Password should be changed dynamically by the developer
             String user = "root";
@@ -484,5 +484,64 @@ public class DataPB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns the ID of a Fan directly from the database.
+     * Returns -1 if fan name is not found.
+     * @param fanName
+     * @return
+     */
+    public static int getFanID(String fanName){
+        DataPB.setCon();
+
+        int fanID = -1;
+
+        try {
+            String query = "SELECT fanID FROM fan WHERE fanUser = ?";
+
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, fanName);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()){
+                fanID = rs.getInt("fanID");
+            }
+
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+
+        return fanID;
+    }
+
+    /**
+     * Returns the ID of an idol directly from the database.
+     * Returns -1 if the idol cannot be found.
+     * @param idolName
+     * @return
+     */
+    public static int getIdolID(String idolName){
+        DataPB.setCon();
+
+        int idolID = -1;
+
+        try {
+            String query = "SELECT idolID FROM idol WHERE idolName = ?";
+
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, idolName);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()){
+                idolID = rs.getInt("idolID");
+            }
+        }catch (SQLException sqle){
+            sqle.printStackTrace();
+        }
+
+        return idolID;
     }
 }
