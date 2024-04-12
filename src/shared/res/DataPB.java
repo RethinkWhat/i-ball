@@ -77,7 +77,7 @@ public class DataPB {
             String email = account.getString("username");
             String gCashNumber = account.getString("GCashNumber");
             String ppAddress = account.getString("profilePictureAddress");
-            return new User(fanID, username, email, password, gCashNumber, ppAddress);
+            return new Fan(fanID, username, email, password, gCashNumber, ppAddress);
         } else {
             query = "SELECT idolID, idolName, GCashNumber, idolType, idolStatus, voiceCallRate, " +
                     "videoCallRate, fbAccount, xAccount, igAccount, bio, quote, profilePictureAddress  FROM Idol WHERE username=? and password=?";
@@ -194,9 +194,9 @@ public class DataPB {
     }
 
 
-    public static User getUser(int fanID) {
+    public static Fan getUser(int fanID) {
         DataPB.setCon();
-        User userObj = null;
+        Fan fanObj = null;
         try {
             String query = "SELECT username, email, password, GCashNumber, profilePictureAddress " +
                     "FROM Fan WHERE fanID=?";
@@ -210,17 +210,17 @@ public class DataPB {
                 String password = user.getString("password");
                 String gCash = user.getString("GCashNumber");
                 String pp = user.getString("profilePictureAddress");
-                userObj = new User(fanID,username,email,password,gCash,pp);
+                fanObj = new Fan(fanID,username,email,password,gCash,pp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return userObj;
+        return fanObj;
     }
 
     public static String getUserPFP(String username) {
         DataPB.setCon();
-        User userObj = null;
+        Fan fanObj = null;
         try {
             String query = "SELECT profilePictureAddress " +
                     "FROM Fan WHERE username=?";
@@ -239,7 +239,7 @@ public class DataPB {
 
     public static String getIdolPFP(String username) {
         DataPB.setCon();
-        User userObj = null;
+        Fan fanObj = null;
         try {
             String query = "SELECT profilePictureAddress " +
                     "FROM idol WHERE idolName=?";

@@ -10,7 +10,7 @@ import client.idol.model.IdolApplicationModel;
 import client.idol.view.IdolApplicationView;
 import shared.res.Idol;
 import shared.res.Resources;
-import shared.res.User;
+import shared.res.Fan;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,9 +71,9 @@ public class LoginController {
         public void actionPerformed(ActionEvent e) {
             // todo: validate implementation
             Object loginAttempt = model.validateUser(view.getUsername(), view.getPassword());
-            if (loginAttempt instanceof User) {
+            if (loginAttempt instanceof Fan) {
                 try {
-                    new FanApplicationController(new FanApplicationView(), new FanApplicationModel((User) loginAttempt));
+                    new FanApplicationController(new FanApplicationView(), new FanApplicationModel((Fan) loginAttempt));
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

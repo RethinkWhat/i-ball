@@ -1,9 +1,9 @@
 package shared.res;
 
-public class User {
+public class Fan {
 
     // Primary key of user
-    private int userID;
+    private int fanID;
 
     // Username of user
     private String username;
@@ -22,15 +22,15 @@ public class User {
 
     /**
      * Default constructor
-     * @param userID
+     * @param fanID
      * @param username
      * @param email
      * @param password
      * @param GCashNumber
      * @param ppAddress
      */
-    public User(int userID, String username, String email, String password, String GCashNumber, String ppAddress) {
-        this.userID = userID;
+    public Fan(int fanID, String username, String email, String password, String GCashNumber, String ppAddress) {
+        this.fanID = fanID;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -42,16 +42,16 @@ public class User {
      * Method to get userID
      * @return userID
      */
-    public int getUserID() {
-        return userID;
+    public int getFanID() {
+        return fanID;
     }
 
     /**
      * Method to set userID
-     * @param userID
+     * @param fanID
      */
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setFanID(int fanID) {
+        this.fanID = fanID;
     }
 
     /**

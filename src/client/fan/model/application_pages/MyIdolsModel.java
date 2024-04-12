@@ -1,7 +1,7 @@
 package client.fan.model.application_pages;
 
 import shared.res.DataPB;
-import shared.res.User;
+import shared.res.Fan;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,21 +14,21 @@ import java.util.List;
 
 public class MyIdolsModel {
 
-    private User user;
+    private Fan fan;
 
-    public MyIdolsModel(User user){
-        this.user = user;
+    public MyIdolsModel(Fan fan){
+        this.fan = fan;
     }
-    public User getUser() {
-        return user;
+    public Fan getUser() {
+        return fan;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Fan fan) {
+        this.fan = fan;
     }
 
     public List<List<String>> searchFanSessions(String date) throws SQLException {
-        ResultSet fanSessionsSet = DataPB.searchFanSessions(this.user.getUserID(),date);
+        ResultSet fanSessionsSet = DataPB.searchFanSessions(this.fan.getFanID(),date);
         List<List<String>> fanSessions = new ArrayList<>();
 
         while (fanSessionsSet.next()){
@@ -72,7 +72,7 @@ public class MyIdolsModel {
     }
 
     public List<List<String>> getAllFanSessions() throws SQLException {
-        ResultSet fanSessionsSet = DataPB.getAllSessions(this.user.getUserID());
+        ResultSet fanSessionsSet = DataPB.getAllSessions(this.fan.getFanID());
         List<List<String>> fanSessions = new ArrayList<>();
 
         while (fanSessionsSet.next()) {

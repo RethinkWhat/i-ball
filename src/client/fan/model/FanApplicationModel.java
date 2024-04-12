@@ -1,11 +1,10 @@
 package client.fan.model;
 
 import shared.res.DataPB;
+import shared.res.Fan;
 import shared.res.Idol;
-import shared.res.User;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +14,11 @@ import java.util.List;
  */
 public class FanApplicationModel {
 
-    private User user;
+    private Fan fan;
 
-    public FanApplicationModel(User user) {
-        this.user = user;
-        System.out.println(user.getPpAddress());
+    public FanApplicationModel(Fan fan) {
+        this.fan = fan;
+        System.out.println(fan.getPpAddress());
     }
 
     public List<Idol> getAllIdols() throws Exception {
@@ -50,12 +49,12 @@ public class FanApplicationModel {
         return idolList;
     }
 
-    public User getUser() {
-        return user;
+    public Fan getUser() {
+        return fan;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Fan fan) {
+        this.fan = fan;
     }
 
     /**
@@ -63,7 +62,7 @@ public class FanApplicationModel {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        FanApplicationModel model = new FanApplicationModel(new User(1,"a","b","c","d","e"));
+        FanApplicationModel model = new FanApplicationModel(new Fan(1,"a","b","c","d","e"));
 
         List<Idol> allIdols = model.getAllIdols();
 
