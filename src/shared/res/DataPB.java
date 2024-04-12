@@ -64,7 +64,7 @@ public class DataPB {
         //TODO : Access schema and check whether user exists
         DataPB.setCon();
 
-        String query = "SELECT fanID, username, GCashNumber, profilePictureAddress FROM Fan WHERE username=? and password=?";
+        String query = "SELECT fanID, username, fanUser,GCashNumber, profilePictureAddress FROM Fan WHERE username=? and password=?";
 
         PreparedStatement stmt = con.prepareStatement(query);
 
@@ -75,9 +75,10 @@ public class DataPB {
         if (account.next()) {
             int fanID = account.getInt("fanID");
             String email = account.getString("username");
+            String name = account.getString("fanUser");
             String gCashNumber = account.getString("GCashNumber");
             String ppAddress = account.getString("profilePictureAddress");
-            return new Fan(fanID, username, email, password, gCashNumber, ppAddress);
+            return new Fan(fanID, username, name,email, password, gCashNumber, ppAddress);
         } else {
             query = "SELECT idolID, idolName, GCashNumber, idolType, idolStatus, voiceCallRate, " +
                     "videoCallRate, fbAccount, xAccount, igAccount, bio, quote, profilePictureAddress  FROM Idol WHERE username=? and password=?";
@@ -206,11 +207,12 @@ public class DataPB {
 
             if (user.next()) {
                 String username = user.getString("username");
+                String name = user.getString("fanUser");
                 String email = user.getString("email");
                 String password = user.getString("password");
                 String gCash = user.getString("GCashNumber");
                 String pp = user.getString("profilePictureAddress");
-                fanObj = new Fan(fanID,username,email,password,gCash,pp);
+                fanObj = new Fan(fanID,username, name, email,password,gCash,pp);
             }
         } catch (SQLException e) {
             e.printStackTrace();

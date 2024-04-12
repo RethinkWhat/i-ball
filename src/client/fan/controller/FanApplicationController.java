@@ -43,7 +43,7 @@ public class FanApplicationController {
         this.model = model;
 
         // Update user label and profile picture
-        view.getLblUser().setText(model.getUser().getUsername());
+        view.getLblUser().setText(model.getUser().getName());
         ImageIcon pfp = new ImageIcon(model.getUser().getPpAddress());
         Image pfpImage = pfp.getImage();
         Image resized = pfpImage.getScaledInstance(113, 64, Image.SCALE_SMOOTH);
