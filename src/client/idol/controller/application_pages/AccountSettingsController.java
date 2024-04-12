@@ -67,15 +67,17 @@ public class AccountSettingsController {
                     break;
                 }
             }
-            x+=1;
-            int max = endTimeTime.length - x;
+            if (!(view.getPnlEdit().getPnlAvailability().getStartTimeChosen().equals("07:00:00"))) {
+                x += 1;
+                int max = endTimeTime.length - x;
 
-            String[] endTime = new String[max];
-            for (int j =0; j < max;j++) {
-                endTime[j] = endTimeTime[x];
-                x++;
+                String[] endTime = new String[max];
+                for (int j = 0; j < max; j++) {
+                    endTime[j] = endTimeTime[x];
+                    x++;
+                }
+                view.getPnlEdit().getPnlAvailability().setCmbEndTime(endTime);
             }
-            view.getPnlEdit().getPnlAvailability().setCmbEndTime(endTime);
         }
     }
 

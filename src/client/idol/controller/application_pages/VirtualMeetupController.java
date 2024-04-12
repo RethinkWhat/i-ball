@@ -38,8 +38,6 @@ public class VirtualMeetupController {
         Image pfpImage = pfp.getImage();
         Image resized = pfpImage.getScaledInstance(113,64,Image.SCALE_SMOOTH);
         view.getLblFanPfp().setIcon(new ImageIcon(resized));
-        System.out.println("reached");
-
 
         // focus listeners
     }
